@@ -7,6 +7,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Mail;
+use Illuminate\Support\Str;
+use App\Mail\verifyUser;
+use DB;
+use Auth;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -64,10 +70,39 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+       return  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'remember_token'=>Str::random(40),
         ]);
+    }
+    protected function registered(Request $request, $user)
+    {
+      
+      
+       $email = $user->email;
+       Mail::to($email)->send(new verifyUser($user));
+        Auth::logout();
+       $request->session()->flush();
+        return redirect('register')->with('status','Login link send in you mail');
+
+    }
+
+    public function verifyUser(Request $request)
+    {
+        $verifyUser = User::where('remember_token', $request->token)->first();
+        $verifyUser->remember_token  = Null;
+        $verifyUser->save();
+         if (Auth::loginUsingId($verifyUser->id)) {
+              return redirect('user');
+            }
+          else
+          {
+            return redirect()->back();
+          }  
+        
+
+
     }
 }

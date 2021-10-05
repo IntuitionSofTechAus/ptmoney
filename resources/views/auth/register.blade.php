@@ -4,6 +4,7 @@
 ])
 
 @section('content')
+
     <div class="content">
         <div class="container">
             <div class="row">
@@ -45,6 +46,11 @@
                 <div class="col-lg-4 col-md-6 mr-auto">
                     <div class="card card-signup text-center">
                         <div class="card-header ">
+                            @if(Session::has('status'))
+                            <div class="alert alert-success">
+                            {{ Session::get('status')}}
+                            </div>
+                            @endif
                             <h4 class="card-title">{{ __('Register') }}</h4>
                             <div class="social">
                                 <button class="btn btn-icon btn-round btn-twitter">

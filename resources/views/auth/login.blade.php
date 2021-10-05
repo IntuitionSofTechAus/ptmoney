@@ -15,6 +15,11 @@
                                 <h3 class="header text-center">{{ __('Login') }}</h3>
                             </div>
                         </div>
+                          @if(Session::has('status'))
+                            <div class="alert alert-success">
+                            {{ Session::get('status')}}
+                            </div>
+                            @endif
                         <div class="card-body ">
 
                             <div class="input-group">

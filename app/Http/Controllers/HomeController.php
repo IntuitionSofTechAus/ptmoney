@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+Use Auth;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -19,8 +21,24 @@ class HomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
+        $user=Auth::user();
+        if($user->remember_token != Null)
+        {
+          Auth::logout();
+          $request->session()->flush();
+          return redirect('login')->with('status','Email not verified');
+        }
+        if($user->role == 1)
+        {
+            return redirect('admin');
+        }
+        else
+        {
+            return redirect('user');
+        }
+
         return view('pages.dashboard');
     }
 }

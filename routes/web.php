@@ -17,13 +17,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test-mail',function(){
+	$to = "test@mailinator.com";
+	$subject = "test mail";
+	$test = ['test'];
+	Mail::send('emails.test', ['test'=>$test], function($message) use ($to, $subject){
+		$message->from('planiteach@gmail.com', "PlanITeach");
+		$message->subject($subject);
+		$message->to($to);                
+	});
+});
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
-Route::get('/user/verify/{token}', 'App\Http\Controllers\Auth\RegisterController@verifyUser');
+Route::get('/user/verify/{token}/{id}', 'App\Http\Controllers\Auth\RegisterController@verifyUser')->name('user.verify');
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);

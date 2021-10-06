@@ -78,31 +78,36 @@ class RegisterController extends Controller
         ]);
     }
     protected function registered(Request $request, $user)
-    {
-      
-      
+    { 
        $email = $user->email;
-       Mail::to($email)->send(new verifyUser($user));
-        Auth::logout();
-       $request->session()->flush();
-        return redirect('register')->with('status','Login link send in you mail');
 
+       // Mail::to($email)->send(new verifyUser($user));
+        Mail::send('emails.verify_email', ['user'=>$user], function($message) use ($email){
+            $message->from('info@ptmoney.com.au', "PTMoney");
+            $message->subject('Verify Email - Activate your account');
+            $message->to($email);                
+        });
+        // echo "<pre>";print_r($user);die;
+        Auth::logout();
+        $request->session()->flush();
+        return redirect('register')->with('status','Registered Successfully !! Verification link sent to your mail, Please check.');
     }
 
-    public function verifyUser(Request $request)
+    public function verifyUser($token,$id)
     {
-        $verifyUser = User::where('remember_token', $request->token)->first();
-        $verifyUser->remember_token  = Null;
-        $verifyUser->save();
-         if (Auth::loginUsingId($verifyUser->id)) {
-              return redirect('user');
-            }
-          else
-          {
-            return redirect()->back();
-          }  
-        
-
-
+        // echo '<pre>';print_r($id);die;
+        $verifyUser = User::where('id', $token)->first();
+        if(!empty($verifyUser)){
+            $verifyUser->remember_token  = Null;
+            $verifyUser->is_verified  = 1;
+            $verifyUser->save();
+            if (Auth::loginUsingId($verifyUser->id)) {
+                return redirect('user');
+            }else{
+                return redirect()->back();
+            } 
+        }else{
+            return redirect('register')->with('status','Invalid Token !');
+        } 
     }
 }

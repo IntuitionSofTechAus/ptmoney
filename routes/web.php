@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,10 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/',[PageController::class,'home']);
+Route::get('terms-and-condition', function () {
+    return view('member.terms_and_condition');
 });
-
 Route::get('/test-mail',function(){
 	$to = "test@mailinator.com";
 	$subject = "test mail";
@@ -37,11 +39,12 @@ Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 Route::get('/user/verify/{token}/{id}', 'App\Http\Controllers\Auth\RegisterController@verifyUser')->name('user.verify');
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
-	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
-	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
-	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
+	Route::get('profile', [ProfileController::class,'edit'])->name('profile.edit');
+	Route::put('profile', [ProfileController::class,'update'])->name('profile.update');
+	Route::put('profile/password',[ProfileController::class,'password'])->name('profile.password');
+	Route::get('aplicatoion-form',[MemberController::class,'index'])->name('aplication-form');
+	Route::post('member/store',[MemberController::class,'store'])->name('member.store');
 });
-
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
 });

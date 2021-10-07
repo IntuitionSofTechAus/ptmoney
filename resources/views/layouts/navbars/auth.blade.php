@@ -5,8 +5,8 @@
                 <img src="{{ asset('paper') }}/img/logo-small.png">
             </div>
         </a>
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-            {{ __('Creative Tim') }}
+        <a href="http://www.creative-tim.com" class="simple-texts logo-normal">
+            {{ Auth::user()->name }}
         </a>
     </div>
     <div class="sidebar-wrapper">
@@ -55,7 +55,7 @@
                 </a>
             </li>
              <li class="{{ $elementActive == 'payment' ? 'active' : '' }}">
-                <a href="{{ route('transaction.create', 'transaction') }}">
+                <a href="#">
                     <i class="nc-icon nc-bank"></i>
                     <p>{{ __('Add New Transaction') }}</p>
                 </a>
@@ -72,7 +72,7 @@
                 <a data-toggle="collapse" aria-expanded="true" href="#laravelExamples">
                     <i class="nc-icon"><img src="{{ asset('paper/img/laravel.svg') }}"></i>
                     <p>
-                            {{ __('Laravel examples') }}
+                            {{ __('Profile') }}
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -84,51 +84,22 @@
                                 <span class="sidebar-normal">{{ __(' User Profile ') }}</span>
                             </a>
                         </li>
-                        <li class="{{ $elementActive == 'user' ? 'active' : '' }}">
+                      <!--   <li class="{{ $elementActive == 'user' ? 'active' : '' }}">
                             <a href="{{ route('page.index', 'user') }}">
                                 <span class="sidebar-mini-icon">{{ __('U') }}</span>
                                 <span class="sidebar-normal">{{ __(' User Management ') }}</span>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </li>
             <li class="{{ $elementActive == 'icons' ? 'active' : '' }}">
-                <a href="{{ route('page.index', 'icons') }}">
+                <a href="{{ route('aplication-form') }}">
                     <i class="nc-icon nc-diamond"></i>
-                    <p>{{ __('Icons') }}</p>
+                    <p>{{ __('Application-form') }}</p>
                 </a>
             </li>
-            <li class="{{ $elementActive == 'map' ? 'active' : '' }}">
-                <a href="{{ route('page.index', 'map') }}">
-                    <i class="nc-icon nc-pin-3"></i>
-                    <p>{{ __('Maps') }}</p>
-                </a>
-            </li>
-            <li class="{{ $elementActive == 'notifications' ? 'active' : '' }}">
-                <a href="{{ route('page.index', 'notifications') }}">
-                    <i class="nc-icon nc-bell-55"></i>
-                    <p>{{ __('Notifications') }}</p>
-                </a>
-            </li>
-            <li class="{{ $elementActive == 'tables' ? 'active' : '' }}">
-                <a href="{{ route('page.index', 'tables') }}">
-                    <i class="nc-icon nc-tile-56"></i>
-                    <p>{{ __('Table List') }}</p>
-                </a>
-            </li>
-            <li class="{{ $elementActive == 'typography' ? 'active' : '' }}">
-                <a href="{{ route('page.index', 'typography') }}">
-                    <i class="nc-icon nc-caps-small"></i>
-                    <p>{{ __('Typography') }}</p>
-                </a>
-            </li>
-            <li class="active-pro {{ $elementActive == 'upgrade' ? 'active' : '' }}">
-                <a href="{{ route('page.index', 'upgrade') }}" class="bg-danger">
-                    <i class="nc-icon nc-spaceship text-white"></i>
-                    <p class="text-white">{{ __('Upgrade to PRO') }}</p>
-                </a>
-            </li>
+            
         </ul>
     </div>
 </div>

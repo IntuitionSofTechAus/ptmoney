@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+Use Auth;
 
 class PageController extends Controller
 {
@@ -29,5 +30,21 @@ class PageController extends Controller
         }
 
         return abort(404);
+    }
+    public function home()
+    {
+        if(Auth::user())
+        {
+            $user = Auth::user();
+            if($user->role == 1)
+            {
+              return redirect('admin');
+            }
+            else
+            {
+              return redirect('user');
+            }
+        }
+       return view('welcome');
     }
 }

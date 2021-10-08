@@ -17,7 +17,7 @@ Route::get('/admin','App\Http\Controllers\AdminController@index')->name('admin.d
 
 Auth::routes();
 
-Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function(){
+Route::group(['prefix' =>'admin', 'middleware' => 'auth'], function(){
  Route::get('/payment','App\Http\Controllers\AdminController@paymentList')->name('payment.list');
  Route::get('/procesing','App\Http\Controllers\AdminController@procesingList')->name('procesing.list');   
  Route::get('/transferring','App\Http\Controllers\AdminController@transferring')->name('transferring');  

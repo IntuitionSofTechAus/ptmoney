@@ -13,57 +13,56 @@
         <ul class="nav">
           @if (\Auth::user()->role == 1)
            <li class="{{ $elementActive == 'dashboard' ? 'active' : '' }}">
-                <a href="{{ route('admin.dashboard', 'dashboard') }}">
+                <a href="{{ route('admin.dashboard') }}">
                     <i class="nc-icon nc-bank"></i>
                     <p>{{ __('Dashboard') }}</p>
                 </a>
             </li>
-           <li class="{{ $elementActive == 'payment' ? 'active' : '' }}">
-                <a href="{{ route('payment.list', 'payment') }}">
+         <!--   <li class="{{ $elementActive == 'payment' ? 'active' : '' }}">
+                <a href="{{ route('payment.list') }}">
                     <i class="nc-icon nc-bank"></i>
                     <p>{{ __('Payment List') }}</p>
                 </a>
             </li>
             <li class="{{ $elementActive == 'payment' ? 'active' : '' }}">
-                <a href="{{ route('procesing.list', 'processing') }}">
+                <a href="{{ route('procesing.list') }}">
                     <i class="nc-icon nc-bank"></i>
                     <p>{{ __('Processing List') }}</p>
                 </a>
             </li>
             <li class="{{ $elementActive == 'payment' ? 'active' : '' }}">
-                <a href="{{ route('transferring', 'transferring') }}">
+                <a href="{{ route('transferring') }}">
                     <i class="nc-icon nc-bank"></i>
                     <p>{{ __('Transferring List') }}</p>
                 </a>
             </li>
             <li class="{{ $elementActive == 'payment' ? 'active' : '' }}">
-                <a href="{{ route('completed.list', 'completedlist') }}">
+                <a href="{{ route('completed.list') }}">
                     <i class="nc-icon nc-bank"></i>
                     <p>{{ __('Completed List') }}</p>
                 </a>
             </li>
              <li class="{{ $elementActive == 'payment' ? 'active' : '' }}">
-                <a href="{{ route('exchange.rate', 'exchange') }}">
+                <a href="{{ route('exchange.rate') }}">
                     <i class="nc-icon nc-bank"></i>
                     <p>{{ __('Set Exchange Rate') }}</p>
                 </a>
-            </li>
+            </li> -->
              <li class="{{ $elementActive == 'payment' ? 'active' : '' }}">
-                <a href="{{ route('member.list', 'member') }}">
+                <a href="{{ route('member.list') }}">
                     <i class="nc-icon nc-bank"></i>
                     <p>{{ __('Member List') }}</p>
                 </a>
             </li>
-             <li class="{{ $elementActive == 'payment' ? 'active' : '' }}">
+             <!-- <li class="{{ $elementActive == 'payment' ? 'active' : '' }}">
                 <a href="#">
                     <i class="nc-icon nc-bank"></i>
                     <p>{{ __('Add New Transaction') }}</p>
                 </a>
-            </li>
-
-          @endif
+            </li> -->
+        @else
             <li class="{{ $elementActive == 'dashboard' ? 'active' : '' }}">
-                <a href="{{ route('page.index', 'dashboard') }}">
+                <a href="{{ url('user') }}">
                     <i class="nc-icon nc-bank"></i>
                     <p>{{ __('Dashboard') }}</p>
                 </a>
@@ -99,7 +98,7 @@
                     <p>{{ __('Application-form') }}</p>
                 </a>
             </li>
-            
+            @endif
         </ul>
     </div>
 </div>

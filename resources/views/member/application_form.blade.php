@@ -168,7 +168,7 @@ canvas#signature {
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <p>                                                                         (AUSTRAC Defines ‘Politically Exposed Persons’ As Individuals Who Are , Or Have Been Entrusted With Prominent Functions In A Foreign Country. For Example: Heads Of State Or Of Government, Senior Politicians, Senior Government, Judicial Or Military Officials, Senior Executives Of State Owned Corporations Or Important Political Party Officials.)
+                            <p class="description">                                                                         (AUSTRAC Defines ‘Politically Exposed Persons’ As Individuals Who Are , Or Have Been Entrusted With Prominent Functions In A Foreign Country. For Example: Heads Of State Or Of Government, Senior Politicians, Senior Government, Judicial Or Military Officials, Senior Executives Of State Owned Corporations Or Important Political Party Officials.)
                             </p>
                         </div>
                         <div class="col-md-12 row">
@@ -320,11 +320,11 @@ canvas#signature {
                         <hr>
                         <div class="col-md-12">
                             <strong>Condition of Money Transfer</strong><br><br>
-                            <p>
+                            <p class="description">
                                 Pt Money Transfer Is An Austrac Registered Company, Any Information Given May Be Access By Austrac Or Its Registered Agent If Requested. All Transaction(S) Made By You Will Be Kept On Record And Will Be Made Available If Requested Under The Australian Laws. By Making A Payment Using The Service From PT Money Transfer, You Confirm That You Have Read And Understood Our Terms And Conditions And Agree To Be Bound By Them And To Comply With All Applicable Laws And Regulations.
                             </p><br>
                             <strong>Important information</strong><br><br>
-                            <p>
+                            <p class="description">
                                 Please Check Your Account Balance As Soon As Possible, Pt Money Transfer Will Only Keep Transfer Record For 60days From The Date Of Your Transfer. All Incorrect Transactions Must Be Notified Within 7days From The Transaction Date. Pt Money Transfer Will Not Be Liable For Any Incorrect Transaction That Had Not Been Reported Within 7days From The Date Of Transaction.
                                 By Signing This Form You Represent And Warrant To Us That The Details That You Have Provided (Including The Details About The Recipient) Are True And Correct In All Aspect.
                             </p><br><br>
@@ -383,7 +383,7 @@ canvas#signature {
                         <hr>
                         <div>
                             <h3>Upload Documents:</h3>
-                            <p>
+                            <p class="description">
                                 You must provide  <span style="color: #ff0000; text-decoration: underline;">Two documents</span> from the following list with your completed form to confirm your identity. 
                             </p>
                             <ul style="margin-bottom: 40px;">

@@ -39,13 +39,15 @@ canvas#signature {
                         <form action="{{route('exchange.rate')}}" method="post" >
                             @csrf
                             <h3>Exchange Rate:</h3><br>
-                            <div class="col-md-12 row" >
+                            <div class="row" >
                                 <div class="col-md-3">
                                     <div class="form-group">
                                      <label>Exchange Rate<sup class="required">*</sup></label><br>
-                                        <input type="text" name="exchange_rate" value="{{$rate->exchange_rate}}">
+                                        <input type="text" name="exchange_rate"  class="form-control" @if(!empty($rate)) value="{{$rate->exchange_rate}}" @endif>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-3">
                                     <input type="submit" name="approved" value="Update" class="btn btn-success"> 
                                 </div>

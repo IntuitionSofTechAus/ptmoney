@@ -42,6 +42,12 @@ The above copyright notice and this permission notice shall be included in all c
     <link href="{{ asset('paper') }}/demo/demo.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{asset('paper') }}/css/signature/jquery.signature.css">
      <link type="text/css" href="{{asset('paper') }}/css/signature/jquery-ui.css" rel="stylesheet"> 
+     <style type="text/css">
+         .card label {
+            color: black;
+            font-size: 14px;
+        }
+     </style>
 </head>
 
 <body class="{{ $class }}">

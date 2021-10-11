@@ -12,15 +12,13 @@ canvas#signature {
 }
 .required{ color:red; }
 </style>
-
-  
-    <style>
-        .kbw-signature { width: 100%; height: 200px;}
-        #sig canvas{
-            width: 100% !important;
-            height: auto;
-        }
-    </style>
+<style>
+    .kbw-signature { width: 100%; height: 200px;}
+    #sig canvas{
+        width: 100% !important;
+        height: auto;
+    }
+</style>
 @section('content')
     <div class="content">
         <div class="row">
@@ -40,7 +38,7 @@ canvas#signature {
                         <form action="{{route('beneficiary.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <h3>Sender Detail:</h3><br>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Membership Number*<sup class="required">*</sup></label>
@@ -56,7 +54,7 @@ canvas#signature {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Full Name<sup class="required">*</sup></label>
@@ -72,7 +70,7 @@ canvas#signature {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Date Of Birth<sup class="required">*</sup></label>
@@ -90,7 +88,7 @@ canvas#signature {
                         </div>
                         <hr>
                          <h3>Receiver Detail:</h3>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Full Name<sup class="required">*</sup></label>
@@ -105,7 +103,7 @@ canvas#signature {
                                 </div>
                              </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Residential Address*<sup class="required">*</sup></label>
@@ -120,45 +118,47 @@ canvas#signature {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-lg-3">
                             </div>
-                            <div class="col-md-9 row">
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                       <label>Suburb<sup class="required">*</sup></label> 
-                                        <input type="text" name="receiver_suburb" value="{{ old('receiver_suburb') }}"  class="form-control" >
-                                          @error('receiver_suburb')
-                                          <span class="reds">{{ $message }}</span>   
-                                          @enderror
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                           <label>Suburb<sup class="required">*</sup></label> 
+                                            <input type="text" name="receiver_suburb" value="{{ old('receiver_suburb') }}"  class="form-control" >
+                                              @error('receiver_suburb')
+                                              <span class="reds">{{ $message }}</span>   
+                                              @enderror
 
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group"> 
-                                          <label>State<sup class="required">*</sup></label>
-                                          <select name="receiver_state" class="form-control">
-                                        @foreach($states as $state) 
-                                        <option value="{{$state->id}}"@if(old('receiver_state')==$state->id){{'selected'}} @endif>{{$state->name}}</option>
-                                        @endforeach
-                                    </select>
-                                            @error('receiver_state')
-                                               <span class="reds">{{ $message }}</span>   
+                                    <div class="col-lg-4">
+                                        <div class="form-group"> 
+                                              <label>State<sup class="required">*</sup></label>
+                                              <select name="receiver_state" class="form-control">
+                                            @foreach($states as $state) 
+                                            <option value="{{$state->id}}"@if(old('receiver_state')==$state->id){{'selected'}} @endif>{{$state->name}}</option>
+                                            @endforeach
+                                        </select>
+                                                @error('receiver_state')
+                                                   <span class="reds">{{ $message }}</span>   
+                                                @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group"> 
+                                          <label>Postcode<sup class="required">*</sup></label>
+                                          <input type="number" name="receiver_postcode" value="{{ old('receiver_postcode') }}"  class="form-control" >
+                                            @error('receiver_postcode')
+                                                <span class="reds">{{ $message }}</span>   
                                             @enderror
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group"> 
-                                      <label>Postcode<sup class="required">*</sup></label>
-                                      <input type="number" name="receiver_postcode" value="{{ old('receiver_postcode') }}"  class="form-control" >
-                                        @error('receiver_postcode')
-                                            <span class="reds">{{ $message }}</span>   
-                                        @enderror
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Bank Name*<sup class="required">*</sup></label>
@@ -173,7 +173,7 @@ canvas#signature {
                                 </div>
                              </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Account Number*<sup class="required">*</sup></label>
@@ -189,7 +189,7 @@ canvas#signature {
                                 </div>
                              </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Branch<sup class="required">*</sup></label>
@@ -205,7 +205,7 @@ canvas#signature {
                                 </div>
                              </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Contact Number*<sup class="required">*</sup></label>
@@ -233,7 +233,7 @@ canvas#signature {
                                 By Signing This Form You Represent And Warrant To Us That The Details That You Have Provided (Including The Details About The Recipient) Are True And Correct In All Aspect.
                             </p><br><br>
                         </div>
-                        <div class="col-md-12 row">
+                        <div class="row">
                             <div class="col-md-1">
                                 <label class="" for="">Sign:<sup class="required">*</sup></label>
                             </div>
@@ -246,31 +246,35 @@ canvas#signature {
                                 <button id="clear" class="btn btn-default">Clear</button>
                                 <textarea id="signature64" name="signed" style="display: none"></textarea>
                             </div>
-                            <div class="col-md-6 row">
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label>Name*<sup class="required">*</sup></label>
+                            <div class="col-md-6 ">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label>Name*<sup class="required">*</sup></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                        <input type="text" name="name" value="{{ old('name') }}"  class="form-control">
+                                          @error('name')
+                                            <span class="reds">{{ $message }}</span>   
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                    <input type="text" name="name" value="{{ old('name') }}"  class="form-control">
-                                      @error('name')
-                                        <span class="reds">{{ $message }}</span>   
-                                        @enderror
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label>Date*<sup class="required">*</sup></label>
+                                        </div>
                                     </div>
-                                </div><br>                            
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label>Date*<sup class="required">*</sup></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                    <input type="date" name="date" max="{{date('Y-m-d')}}" value="{{ old('date') }}"  class="form-control">
-                                      @error('date')
-                                       <span class="reds">{{ $message }}</span>   
-                                      @enderror
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                        <input type="date" name="date" max="{{date('Y-m-d')}}" value="{{ old('date') }}"  class="form-control">
+                                          @error('date')
+                                           <span class="reds">{{ $message }}</span>   
+                                          @enderror
+                                        </div>
                                     </div>
                                 </div>
                             </div>  

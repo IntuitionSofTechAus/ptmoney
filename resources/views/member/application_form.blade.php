@@ -11,16 +11,12 @@ canvas#signature {
   border: 2px solid black;
 }
 .required{ color:red; }
+.kbw-signature { width: 100%; height: 200px;}
+#sig canvas{
+    width: 100% !important;
+    height: auto;
+}
 </style>
-
-  
-    <style>
-        .kbw-signature { width: 100%; height: 200px;}
-        #sig canvas{
-            width: 100% !important;
-            height: auto;
-        }
-    </style>
 @section('content')
     <div class="content">
         <div class="row">
@@ -31,16 +27,14 @@ canvas#signature {
                     <div class="card-body">
                     @if (\Session::has('success'))
                     <div class="alert alert-success">
-                    <ul>
-                    <li>{!! \Session::get('success') !!}</li>
-                    </ul>
+                    <p>{!! \Session::get('success') !!}</p>
                     </div>
                     @endif
                      @if($member_count == 0) 
                         <form action="{{route('member.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <h3>Sender Detail:</h3><br>
-                        <div class="col-md-12 row" >
+                        <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Full Name<sup class="required">*</sup></label>
@@ -49,44 +43,45 @@ canvas#signature {
                             <div class="col-md-9">
                                 <div class="form-group">
                                 <input type="text"  name="sender_full_name" value="{{ old('sender_full_name') }}"  class="form-control" >
-                                @error('sender_full_name')                                  
-                                        <span class="reds">{{ $message }}</span>           
+                                @error('sender_full_name')  
+                                    <span class="reds">{{ $message }}</span>           
                                 @enderror
-
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                                 <div class="col-md-3">
                                     <div class="form-group">
                                             <label>Date Of Birth<sup class="required">*</sup></label>
                                         </div>
                                 </div>
-                                <div class="col-md-9 row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                             <input type="date"  max="{{date('Y-m-d')}}" name="dob" value="{{ old('dob') }}"  class="form-control" >
-                                        @error('dob')
-                                           <span class="reds">{{ $message }}</span>   
-                                        @enderror
+                                <div class="col-md-9">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                 <input type="date"  max="{{date('Y-m-d')}}" name="dob" value="{{ old('dob') }}"  class="form-control" >
+                                            @error('dob')
+                                               <span class="reds">{{ $message }}</span>   
+                                            @enderror
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                          <center><label >Telephone<sup class="required">*</sup></label></center>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                              <center><label >Telephone<sup class="required">*</sup></label></center>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group"> 
-                                         <input type="number"  name="telephone" value="{{ old('telephone') }}"  class="form-control" >
-                                        @error('telephone')
-                                            <span class="reds">{{ $message }}</span>   
-                                        @enderror
+                                        <div class="col-md-4">
+                                            <div class="form-group"> 
+                                             <input type="number"  name="telephone" value="{{ old('telephone') }}"  class="form-control" >
+                                            @error('telephone')
+                                                <span class="reds">{{ $message }}</span>   
+                                            @enderror
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Residential Address*<sup class="required">*</sup></label>
@@ -101,44 +96,46 @@ canvas#signature {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-md-3">
                             </div>
-                            <div class="col-md-9 row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                       <label>Suburb<sup class="required">*</sup></label> 
-                                        <input type="text" name="sender_suburb" value="{{ old('sender_suburb') }}"  class="form-control" >
-                                        @error('sender_suburb')
-                                           <span class="reds">{{ $message }}</span>   
-                                        @enderror
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                           <label>Suburb<sup class="required">*</sup></label> 
+                                            <input type="text" name="sender_suburb" value="{{ old('sender_suburb') }}"  class="form-control" >
+                                            @error('sender_suburb')
+                                               <span class="reds">{{ $message }}</span>   
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group"> 
-                                        <label>State<sup class="required">*</sup></label>
-                                    <select name="sender_state" class="form-control">
-                                        @foreach($states as $state) 
-                                        <option value="{{$state->id}}"@if(old('sender_state')==$state->id){{'selected'}} @endif>{{$state->name}}</option>
-                                        @endforeach
-                                    </select>
-                                       @error('sender_state')
-                                         <span class="reds">{{ $message }}</span>   
-                                       @enderror
+                                    <div class="col-md-4">
+                                        <div class="form-group"> 
+                                            <label>State<sup class="required">*</sup></label>
+                                        <select name="sender_state" class="form-control">
+                                            @foreach($states as $state) 
+                                            <option value="{{$state->id}}"@if(old('sender_state')==$state->id){{'selected'}} @endif>{{$state->name}}</option>
+                                            @endforeach
+                                        </select>
+                                           @error('sender_state')
+                                             <span class="reds">{{ $message }}</span>   
+                                           @enderror
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group"> 
-                                      <label>Postcode<sup class="required">*</sup></label>
-                                      <input type="number" name="sender_postcode" value="{{ old('sender_postcode') }}"  class="form-control" >
-                                      @error('sender_postcode')
-                                        <span class="reds">{{ $message }}</span>   
-                                      @enderror
+                                    <div class="col-md-4">
+                                        <div class="form-group"> 
+                                          <label>Postcode<sup class="required">*</sup></label>
+                                          <input type="number" name="sender_postcode" value="{{ old('sender_postcode') }}"  class="form-control" >
+                                          @error('sender_postcode')
+                                            <span class="reds">{{ $message }}</span>   
+                                          @enderror
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Occupation*<sup class="required">*</sup></label>
@@ -153,7 +150,7 @@ canvas#signature {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Are You A Politically Exposed Person?*<sup class="required">*</sup></label>
@@ -173,10 +170,10 @@ canvas#signature {
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <p class="description">                                                                         (AUSTRAC Defines ‘Politically Exposed Persons’ As Individuals Who Are , Or Have Been Entrusted With Prominent Functions In A Foreign Country. For Example: Heads Of State Or Of Government, Senior Politicians, Senior Government, Judicial Or Military Officials, Senior Executives Of State Owned Corporations Or Important Political Party Officials.)
+                            <p>                                                                         (AUSTRAC Defines ‘Politically Exposed Persons’ As Individuals Who Are , Or Have Been Entrusted With Prominent Functions In A Foreign Country. For Example: Heads Of State Or Of Government, Senior Politicians, Senior Government, Judicial Or Military Officials, Senior Executives Of State Owned Corporations Or Important Political Party Officials.)
                             </p>
                         </div>
-                        <div class="col-md-12 row">
+                        <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Do You Have A Presence In Any Sanctioned Jurisdiction?*<sup class="required">*</sup></label>
@@ -196,7 +193,7 @@ canvas#signature {
                         </div>
                         <hr>
                          <h3>Receiver Detail:</h3>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Full Name<sup class="required">*</sup></label>
@@ -211,7 +208,7 @@ canvas#signature {
                                 </div>
                              </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Residential Address*<sup class="required">*</sup></label>
@@ -226,45 +223,47 @@ canvas#signature {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-lg-3">
                             </div>
-                            <div class="col-md-9 row">
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                       <label>Suburb<sup class="required">*</sup></label> 
-                                        <input type="text" name="receiver_suburb" value="{{ old('receiver_suburb') }}"  class="form-control" >
-                                          @error('receiver_suburb')
-                                          <span class="reds">{{ $message }}</span>   
-                                          @enderror
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                           <label>Suburb<sup class="required">*</sup></label> 
+                                            <input type="text" name="receiver_suburb" value="{{ old('receiver_suburb') }}"  class="form-control" >
+                                              @error('receiver_suburb')
+                                              <span class="reds">{{ $message }}</span>   
+                                              @enderror
 
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group"> 
-                                          <label>State<sup class="required">*</sup></label>
-                                          <select name="receiver_state" class="form-control">
-                                        @foreach($states as $state) 
-                                        <option value="{{$state->id}}"@if(old('receiver_state')==$state->id){{'selected'}} @endif>{{$state->name}}</option>
-                                        @endforeach
-                                    </select>
-                                            @error('receiver_state')
-                                               <span class="reds">{{ $message }}</span>   
+                                    <div class="col-lg-4">
+                                        <div class="form-group"> 
+                                              <label>State<sup class="required">*</sup></label>
+                                              <select name="receiver_state" class="form-control">
+                                            @foreach($states as $state) 
+                                            <option value="{{$state->id}}"@if(old('receiver_state')==$state->id){{'selected'}} @endif>{{$state->name}}</option>
+                                            @endforeach
+                                        </select>
+                                                @error('receiver_state')
+                                                   <span class="reds">{{ $message }}</span>   
+                                                @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group"> 
+                                          <label>Postcode<sup class="required">*</sup></label>
+                                          <input type="number" name="receiver_postcode" value="{{ old('receiver_postcode') }}"  class="form-control" >
+                                            @error('receiver_postcode')
+                                                <span class="reds">{{ $message }}</span>   
                                             @enderror
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group"> 
-                                      <label>Postcode<sup class="required">*</sup></label>
-                                      <input type="number" name="receiver_postcode" value="{{ old('receiver_postcode') }}"  class="form-control" >
-                                        @error('receiver_postcode')
-                                            <span class="reds">{{ $message }}</span>   
-                                        @enderror
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Bank Name*<sup class="required">*</sup></label>
@@ -279,7 +278,7 @@ canvas#signature {
                                 </div>
                              </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Account Number*<sup class="required">*</sup></label>
@@ -295,7 +294,7 @@ canvas#signature {
                                 </div>
                              </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Branch<sup class="required">*</sup></label>
@@ -311,7 +310,7 @@ canvas#signature {
                                 </div>
                              </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Contact Number*<sup class="required">*</sup></label>
@@ -329,16 +328,16 @@ canvas#signature {
                         <hr>
                         <div class="col-md-12">
                             <strong>Condition of Money Transfer</strong><br><br>
-                            <p class="description">
+                            <p>
                                 Pt Money Transfer Is An Austrac Registered Company, Any Information Given May Be Access By Austrac Or Its Registered Agent If Requested. All Transaction(S) Made By You Will Be Kept On Record And Will Be Made Available If Requested Under The Australian Laws. By Making A Payment Using The Service From PT Money Transfer, You Confirm That You Have Read And Understood Our Terms And Conditions And Agree To Be Bound By Them And To Comply With All Applicable Laws And Regulations.
                             </p><br>
                             <strong>Important information</strong><br><br>
-                            <p class="description">
+                            <p>
                                 Please Check Your Account Balance As Soon As Possible, Pt Money Transfer Will Only Keep Transfer Record For 60days From The Date Of Your Transfer. All Incorrect Transactions Must Be Notified Within 7days From The Transaction Date. Pt Money Transfer Will Not Be Liable For Any Incorrect Transaction That Had Not Been Reported Within 7days From The Date Of Transaction.
                                 By Signing This Form You Represent And Warrant To Us That The Details That You Have Provided (Including The Details About The Recipient) Are True And Correct In All Aspect.
                             </p><br><br>
                         </div>
-                        <div class="col-md-12 row">
+                        <div class="row">
                             <div class="col-md-1">
                                 <label class="" for="">Sign:<sup class="required">*</sup></label>
                             </div>
@@ -351,31 +350,35 @@ canvas#signature {
                                 <button id="clear" class="btn btn-default">Clear</button>
                                 <textarea id="signature64" name="signed" style="display: none"></textarea>
                             </div>
-                            <div class="col-md-6 row">
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label>Name*<sup class="required">*</sup></label>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label>Name*<sup class="required">*</sup></label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                    <input type="text" name="name" value="{{ old('name') }}"  class="form-control">
-                                      @error('name')
-                                        <span class="reds">{{ $message }}</span>   
-                                        @enderror
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                        <input type="text" name="name" value="{{ old('name') }}"  class="form-control">
+                                          @error('name')
+                                            <span class="reds">{{ $message }}</span>   
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div><br>                            
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label>Date*<sup class="required">*</sup></label>
+                                </div>                            
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label>Date*<sup class="required">*</sup></label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                    <input type="date" name="date" max="{{date('Y-m-d')}}" value="{{ old('date') }}"  class="form-control">
-                                      @error('date')
-                                       <span class="reds">{{ $message }}</span>   
-                                      @enderror
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                        <input type="date" name="date" max="{{date('Y-m-d')}}" value="{{ old('date') }}"  class="form-control">
+                                          @error('date')
+                                           <span class="reds">{{ $message }}</span>   
+                                          @enderror
+                                        </div>
                                     </div>
                                 </div>
                             </div>  
@@ -392,7 +395,7 @@ canvas#signature {
                         <hr>
                         <div>
                             <h3>Upload Documents:</h3>
-                            <p class="description">
+                            <p>
                                 You must provide  <span style="color: #ff0000; text-decoration: underline;">Two documents</span> from the following list with your completed form to confirm your identity. 
                             </p>
                             <ul style="margin-bottom: 40px;">
@@ -402,7 +405,7 @@ canvas#signature {
                                 <li>Proof of Age Card (Government Issued)</li>
                             </ul>
                         </div>
-                            <div class="col-md-12 row" >
+                            <div class="row" >
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label>Document 1:<sup class="required">*</sup></label>
@@ -468,17 +471,16 @@ canvas#signature {
             </div>
         </div>
     </div>
-    @endsection
-    @section('javascript')
-    <script type="text/javascript" src="{{asset('paper')}}/js/signature/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="{{asset('paper')}}/js/signature/jquery.signature.js"></script>
-    <script type="text/javascript">
+@endsection
+@section('javascript')
+<script type="text/javascript" src="{{asset('paper')}}/js/signature/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{{asset('paper')}}/js/signature/jquery.signature.js"></script>
+<script type="text/javascript">
     var sig = $('#sig').signature({syncField: '#signature64', syncFormat: 'PNG'});
     $('#clear').click(function(e) {
         e.preventDefault();
         sig.signature('clear');
         $("#signature64").val('');
     });
-
 </script>
 @endsection

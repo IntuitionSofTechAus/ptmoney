@@ -62,7 +62,7 @@ class AdminController extends Controller
           $rate =  ExchangeRate::find(1);
           return view('admin.exchange_rate',compact('rate'));
         }
-        $rate =  ExchangeRate::find(1);
+        $rate =  ExchangeRate::findOrNew(1);
         $rate->exchange_rate = $request->exchange_rate;
         $rate->save();
         return back();

@@ -13,4 +13,10 @@ class Member extends Model
     public function user(){
     return $this->belongsTo(User::class);
   }
+  public function stateReceiver(){
+    return $this->belongsTo(State::class,'receiver_state');
+  }
+  public function stateSender(){
+    return $this->belongsTo(State::class,'sender_state');
+  }
 }

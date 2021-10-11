@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
@@ -13,17 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/admin','App\Http\Controllers\AdminController@index')->name('admin.dashboard');
-
+Route::get('/admin',[AdminController::class,'index'])->name('admin.dashboard');
 Auth::routes();
-
 Route::group(['prefix' =>'admin', 'middleware' => 'auth'], function(){
- Route::get('/payment','App\Http\Controllers\AdminController@paymentList')->name('payment.list');
- Route::get('/procesing','App\Http\Controllers\AdminController@procesingList')->name('procesing.list');   
- Route::get('/transferring','App\Http\Controllers\AdminController@transferring')->name('transferring');  
- Route::get('/completed','App\Http\Controllers\AdminController@completedList')->name('completed.list');
- Route::get('/exchange','App\Http\Controllers\AdminController@setExchange')->name('exchange.rate');   
- Route::get('/member','App\Http\Controllers\AdminController@memberList')->name('member.list');  
- Route::get('/transaction','App\Http\Controllers\AdminController@addTransaction')->name('transaction.add');          
+ Route::get('/payment',[AdminController::class,'paymentList'])->name('payment.list');
+ Route::get('/procesing',[AdminController::class,'procesingList'])->name('procesing.list');   
+ Route::get('/transferring',[AdminController::class,'transferring'])->name('transferring');  
+ Route::get('/completed',[AdminController::class,'completedList'])->name('completed.list');
+ Route::get('/member',[AdminController::class,'memberList'])->name('member.list');
+ Route::get('/showmember/{id?}',[AdminController::class,'showMember'])->name('showmember'); 
+ Route::get('/transaction',[AdminController::class,'addTransaction'])->name('transaction.add');
+ Route::any('/exchange-rate',[AdminController::class,'exchangeRate'])->name('exchange.rate');
+ Route::post('/approval',[AdminController::class,'approval'])->name('approval');   
+ Route::get('/beneficiary',[AdminController::class,'beneficiaryList'])->name('beneficiary.list');
 });
 

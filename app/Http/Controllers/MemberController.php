@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
+use App\Models\State;
 use App\Models\Member;
+use App\Models\Beneficiary;
 
 class MemberController extends Controller
 {
@@ -14,11 +16,11 @@ class MemberController extends Controller
     public function index()
     {   
         $member_count = Member::where('user_id',Auth::user()->id)->count();
-        return view('member.application_form',compact('member_count')); 
+        $states       = State::all();
+        return view('member.application_form',compact('member_count','states')); 
     }
 
     //Store member detail
-
     public function store(Request $request)
     {
          $this->validate($request, [
@@ -71,4 +73,45 @@ class MemberController extends Controller
         Member::create($data);
         return redirect()->back()->with('success','Form created successful wait for admin review');
     }
+    //Add new Benificary form 
+    public function beneficiary()
+    {   
+        $beneficiary_count = Beneficiary::where('user_id',Auth::user()->id)->count();
+        $states       = State::all();
+        return view('benificary.application_form',compact('states','beneficiary_count')); 
+    }
+      public function beneficiaryStore(Request $request)
+    {
+         $this->validate($request, [
+           'membership_number'   =>'required|numeric|digits_between:1,10',
+           'sender_full_name'    => 'required|min:3',
+           'dob'                 => 'required',
+           'receiver_full_name'  => 'required|min:3',
+           'receiver_address'    => 'required|min:3',
+           'receiver_suburb'     => 'required',
+           'receiver_state'      => 'required',
+           'receiver_postcode'   => 'required',
+           'bank_name'           => 'required',
+           'accont_number'       => 'required|numeric',
+           'branch'              => 'required',
+           'signed'              => 'required',
+           'name'                => 'required',
+           'date'                => 'required',
+           'contact_number'      => 'required|numeric|min:10',
+       ]);
+        $folderPath = public_path('upload/beneficiary');        
+        $image_parts = explode(";base64,", $request->signed);              
+        $image_type_aux = explode("image/", $image_parts[0]);           
+        $image_type = $image_type_aux[1];           
+        $image_base64 = base64_decode($image_parts[1]);
+        $image= uniqid() . '.'.$image_type;           
+        $file = $folderPath . $image;
+        file_put_contents($file, $image_base64);
+        $data = $request->all();
+        $data['signed']  = $image;
+        $data['user_id'] = Auth::user()->id;
+        Beneficiary::create($data);
+        return redirect()->back()->with('success','Form created successful wait for admin review');
+    }
+
 }

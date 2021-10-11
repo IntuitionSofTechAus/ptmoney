@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Http\Requests\UserRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -19,8 +20,9 @@ class UserController extends Controller
         return view('pages.dashboard');
         //return view('users.index', ['users' => $model->paginate(15)]);
     }
-    public function dashBoard()
+    public function update(Request $request)
     {
-
+        auth()->user()->update($request->all());
+        return back()->withStatus(__('Profile successfully updated.'));
     }
 }

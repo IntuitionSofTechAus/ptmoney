@@ -41,17 +41,23 @@
                     <i class="nc-icon nc-bank"></i>
                     <p>{{ __('Completed List') }}</p>
                 </a>
-            </li>
-             <li class="{{ $elementActive == 'payment' ? 'active' : '' }}">
-                <a href="{{ route('exchange.rate') }}">
-                    <i class="nc-icon nc-bank"></i>
-                    <p>{{ __('Set Exchange Rate') }}</p>
-                </a>
             </li> -->
-             <li class="{{ $elementActive == 'payment' ? 'active' : '' }}">
+            <li class="{{ request()->segment(2) == 'member' ? 'active' : '' }}">
                 <a href="{{ route('member.list') }}">
                     <i class="nc-icon nc-bank"></i>
                     <p>{{ __('Member List') }}</p>
+                </a>
+            </li>
+            <li class="{{ request()->segment(2) == 'beneficiary' ? 'active' : '' }}">
+                <a href="{{ route('beneficiary.list') }}">
+                    <i class="nc-icon nc-bank"></i>
+                    <p>{{ __('Beneficiary List') }}</p>
+                </a>
+            </li>
+            <li class="{{ request()->segment(2) == 'exchange-rate' ? 'active' : '' }}">
+                <a href="{{ route('exchange.rate') }}">
+                    <i class="nc-icon nc-bank"></i>
+                    <p>{{ __('Exchange Rate') }}</p>
                 </a>
             </li>
              <!-- <li class="{{ $elementActive == 'payment' ? 'active' : '' }}">
@@ -92,10 +98,16 @@
                     </ul>
                 </div>
             </li>
-            <li class="{{ $elementActive == 'icons' ? 'active' : '' }}">
+            <li class="{{ request()->segment(2) == 'aplication-form' ? 'active' : '' }}">
                 <a href="{{ route('aplication-form') }}">
                     <i class="nc-icon nc-diamond"></i>
                     <p>{{ __('Application-form') }}</p>
+                </a>
+            </li>
+             <li class="{{ request()->segment(2) == 'beneficiary-form' ? 'active' : '' }}">
+                <a href="{{ route('beneficiary.add') }}">
+                    <i class="nc-icon nc-diamond"></i>
+                    <p>{{ __('Beneficiary-form') }}</p>
                 </a>
             </li>
             @endif

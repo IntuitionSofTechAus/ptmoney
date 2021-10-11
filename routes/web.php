@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,13 +38,15 @@ Auth::routes();
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 Route::get('/user/verify/{token}/{id}', 'App\Http\Controllers\Auth\RegisterController@verifyUser')->name('user.verify');
-Route::group(['middleware' => 'auth'], function () {
-	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
+Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']])->middleware('auth');
+Route::group(['prefix' =>'user', 'middleware' => 'auth'], function(){
 	Route::get('profile', [ProfileController::class,'edit'])->name('profile.edit');
 	Route::put('profile', [ProfileController::class,'update'])->name('profile.update');
 	Route::put('profile/password',[ProfileController::class,'password'])->name('profile.password');
-	Route::get('aplicatoion-form',[MemberController::class,'index'])->name('aplication-form');
+	Route::get('aplication-form',[MemberController::class,'index'])->name('aplication-form');
 	Route::post('member/store',[MemberController::class,'store'])->name('member.store');
+	Route::get('beneficiary-form',[MemberController::class,'beneficiary'])->name('beneficiary.add');
+Route::post('beneficiary/store',[MemberController::class,'beneficiaryStore'])->name('beneficiary.store');
 });
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);

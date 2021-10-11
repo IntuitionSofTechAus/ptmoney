@@ -65,7 +65,7 @@
                                 <p class="card-description">{{ __('or be classical') }}</p>
                             </div>
                         </div>
-                        <div class="card-body ">
+                        <div class="card-body">
                             <form class="form" method="POST" action="{{ route('register') }}">
                                 @csrf
                                 <div class="input-group{{ $errors->has('name') ? ' has-danger' : '' }}">

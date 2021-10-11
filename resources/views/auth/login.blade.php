@@ -15,13 +15,12 @@
                                 <h3 class="header text-center">{{ __('Login') }}</h3>
                             </div>
                         </div>
-                          @if(Session::has('status'))
+                        @if(Session::has('status'))
                             <div class="alert alert-success">
-                            {{ Session::get('status')}}
+                                {{ Session::get('status')}}
                             </div>
-                            @endif
-                        <div class="card-body ">
-
+                        @endif
+                        <div class="card-body">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
@@ -29,14 +28,12 @@
                                     </span>
                                 </div>
                                 <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email') }}" required autofocus>
-                                
-                                @if ($errors->has('email'))
+                                @if($errors->has('email'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                                 @endif
                             </div>
-
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
@@ -51,7 +48,6 @@
                                     </span>
                                 @endif
                             </div>
-
                             <div class="form-group">
                                 <div class="form-check">
                                      <label class="form-check-label">

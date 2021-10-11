@@ -9,7 +9,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                       <h5>Member-List</h5>                          
+                        <h4 class="card-title"> Member List</h4>
                     </div>
                     <div class="card-body">
                    @if (\Session::has('success'))

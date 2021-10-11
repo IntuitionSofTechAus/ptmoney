@@ -1,7 +1,7 @@
 <footer class="footer footer-black  footer-white ">
     <div class="container-fluid">
         <div class="row">
-            <nav class="footer-nav">
+            <!-- <nav class="footer-nav">
                 <ul>
                     <li>
                         <a href="https://www.creative-tim.com" target="_blank">{{ __('Creative Tim') }}</a>
@@ -16,7 +16,7 @@
                         <a href="https://www.creative-tim.com/license" target="_blank">{{ __('Licenses') }}</a>
                     </li>
                 </ul>
-            </nav>
+            </nav> -->
             <div class="credits ml-auto">
                 <span class="copyright">
                     ©

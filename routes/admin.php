@@ -13,7 +13,7 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-Route::get('/admin',[AdminController::class,'index'])->name('admin.dashboard');
+Route::get('/admin',[AdminController::class,'index'])->name('admin.dashboard')->middleware('auth');
 Auth::routes();
 Route::group(['prefix' =>'admin', 'middleware' => 'auth'], function(){
  Route::get('/payment',[AdminController::class,'paymentList'])->name('payment.list');
@@ -25,6 +25,6 @@ Route::group(['prefix' =>'admin', 'middleware' => 'auth'], function(){
  Route::get('/transaction',[AdminController::class,'addTransaction'])->name('transaction.add');
  Route::any('/exchange-rate',[AdminController::class,'exchangeRate'])->name('exchange.rate');
  Route::post('/approval',[AdminController::class,'approval'])->name('approval');   
- Route::get('/beneficiary',[AdminController::class,'beneficiaryList'])->name('beneficiary.list');
+ Route::get('/users-list',[AdminController::class,'usersList'])->name('users.list');
 });
-
+ 

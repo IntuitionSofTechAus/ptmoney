@@ -45,8 +45,11 @@ Route::group(['prefix' =>'user', 'middleware' => 'auth'], function(){
 	Route::put('profile/password',[ProfileController::class,'password'])->name('profile.password');
 	Route::get('aplication-form',[MemberController::class,'index'])->name('aplication-form');
 	Route::post('member/store',[MemberController::class,'store'])->name('member.store');
+	Route::post('member/againstore',[MemberController::class,'againstore'])->name('member.againstore');	
+	Route::get('/beneficiary',[MemberController::class,'beneficiaryList'])->name('beneficiary.list');
 	Route::get('beneficiary-form',[MemberController::class,'beneficiary'])->name('beneficiary.add');
 Route::post('beneficiary/store',[MemberController::class,'beneficiaryStore'])->name('beneficiary.store');
+Route::get('/showbeneficiary/{id?}',[MemberController::class,'showBeneficiary'])->name('showbeneficiary');
 });
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);

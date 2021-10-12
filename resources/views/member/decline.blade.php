@@ -1,38 +1,7 @@
-@extends('layouts.app', [
-    'class' => '',
-    'elementActive' => 'typography'
-])
-<style type="text/css">
-label{
-       margin-top: 10px;
-}
-.reds{color: red;}
-canvas#signature {
-  border: 2px solid black;
-}
-.required{ color:red; }
-.kbw-signature { width: 100%; height: 200px;}
-#sig canvas{
-    width: 100% !important;
-    height: auto;
-}
-</style>
-@section('content')
-    <div class="content">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                    </div>
-                    <div class="card-body">
-                    @if (\Session::has('success'))
-                    <div class="alert alert-success">
-                    <p>{!! \Session::get('success') !!}</p>
-                    </div>
-                    @endif
-                     @if($member_count == 0) 
-                        <form action="{{route('member.store')}}" method="post" enctype="multipart/form-data">
+          <form action="{{route('member.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="id" value="{{$member->id}}">
+                        <input type="hidden" name="approval" value="0">
                         <h3>Sender Detail:</h3><br>
                         <div class="row">
                             <div class="col-md-3">
@@ -42,7 +11,7 @@ canvas#signature {
                             </div>
                             <div class="col-md-9">
                                 <div class="form-group">
-                                <input type="text"  name="sender_full_name" value="{{ old('sender_full_name') }}"  class="form-control" >
+                                <input type="text"  name="sender_full_name" value="{{$member->sender_full_name }}"  class="form-control" >
                                 @error('sender_full_name')  
                                     <span class="reds">{{ $message }}</span>           
                                 @enderror
@@ -59,7 +28,7 @@ canvas#signature {
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                 <input type="date"  max="{{date('Y-m-d')}}" name="dob" value="{{ old('dob') }}"  class="form-control" >
+                                                 <input type="date"  max="{{date('Y-m-d')}}" name="dob" value="{{ $member->dob }}"  class="form-control" >
                                             @error('dob')
                                                <span class="reds">{{ $message }}</span>   
                                             @enderror
@@ -72,7 +41,7 @@ canvas#signature {
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group"> 
-                                             <input type="number"  name="telephone" value="{{ old('telephone') }}"  class="form-control" >
+                                             <input type="number"  name="telephone" value="{{ $member->telephone}}"  class="form-control" >
                                             @error('telephone')
                                                 <span class="reds">{{ $message }}</span>   
                                             @enderror
@@ -89,7 +58,7 @@ canvas#signature {
                             </div>
                             <div class="col-md-9">
                                 <div class="form-group">
-                                <input type="text" name="sender_address" value="{{ old('sender_address') }}"  class="form-control" >
+                                <input type="text" name="sender_address" value="{{$member->sender_address}}"  class="form-control" >
                                 @error('sender_address')
                                   <span class="reds">{{ $message }}</span>   
                                 @enderror
@@ -104,7 +73,7 @@ canvas#signature {
                                     <div class="col-md-4">
                                         <div class="form-group">
                                            <label>Suburb<sup class="required">*</sup></label> 
-                                            <input type="text" name="sender_suburb" value="{{ old('sender_suburb') }}"  class="form-control" >
+                                            <input type="text" name="sender_suburb" value="{{ $member->sender_suburb }}"  class="form-control" >
                                             @error('sender_suburb')
                                                <span class="reds">{{ $message }}</span>   
                                             @enderror
@@ -115,7 +84,7 @@ canvas#signature {
                                             <label>State<sup class="required">*</sup></label>
                                         <select name="sender_state" class="form-control">
                                             @foreach($states as $state) 
-                                            <option value="{{$state->id}}"@if(old('sender_state')==$state->id){{'selected'}} @endif>{{$state->name}}</option>
+                                            <option value="{{$state->id}}"@if($member->sender_state==$state->id){{'selected'}} @endif>{{$state->name}}</option>
                                             @endforeach
                                         </select>
                                            @error('sender_state')
@@ -126,7 +95,7 @@ canvas#signature {
                                     <div class="col-md-4">
                                         <div class="form-group"> 
                                           <label>Postcode<sup class="required">*</sup></label>
-                                          <input type="number" name="sender_postcode" value="{{ old('sender_postcode') }}"  class="form-control" >
+                                          <input type="number" name="sender_postcode" value="{{$member->sender_postcode}}"  class="form-control" >
                                           @error('sender_postcode')
                                             <span class="reds">{{ $message }}</span>   
                                           @enderror
@@ -143,7 +112,7 @@ canvas#signature {
                             </div>
                             <div class="col-md-9">
                                 <div class="form-group">
-                                <input type="text" name="occupation" value="{{ old('occupation') }}"  class="form-control" >
+                                <input type="text" name="occupation" value="{{ $member->occupation}}"  class="form-control" >
                                 @error('occupation')
                                     <span class="reds">{{ $message }}</span>   
                                 @enderror
@@ -158,10 +127,10 @@ canvas#signature {
                             </div>
                             <div class="col-md-9">
                                 <div class="form-group">
-                                  <input type="radio" id="html" name="political" value="Yes" @if(old('political')=='Yes'){{'checked'}} @endif >
+                                  <input type="radio" id="html" name="political" value="Yes" @if($member->political=='Yes'){{'checked'}} @endif >
                                         &nbsp;&nbsp;&nbsp;
                                         <label for="yes">Yes</label>&nbsp;&nbsp;&nbsp;
-                                        <input type="radio" id="css" name="political" value="No" @if(old('political')=='No'){{'checked'}} @endif>&nbsp;&nbsp;&nbsp;
+                                        <input type="radio" id="css" name="political" value="No" @if($member->political=='No'){{'checked'}} @endif>&nbsp;&nbsp;&nbsp;
                                         <label for="no">No</label> 
                                         @error('political')
                                     <span class="reds">{{ $message }}</span>   
@@ -181,10 +150,10 @@ canvas#signature {
                             </div>
                             <div class="col-md-9">
                                 <div class="form-group">
-                                  <input type="radio" id="html" name="presence" value="Yes" @if(old('presence')=='Yes'){{'checked'}} @endif>
+                                  <input type="radio" id="html" name="presence" value="Yes" @if($member->presence =='Yes'){{'checked'}} @endif>
                                         &nbsp;&nbsp;&nbsp;
                                         <label for="yes">Yes</label>&nbsp;&nbsp;&nbsp;
-                                        <input type="radio" id="css" name="presence" value="No"  @if(old('presence')=='No'){{'checked'}} @endif>&nbsp;&nbsp;&nbsp;
+                                        <input type="radio" id="css" name="presence" value="No"  @if($member->presence == 'No'){{'checked'}} @endif>&nbsp;&nbsp;&nbsp;
                                         <label for="no">No</label>     @error('presence')
                                     <span class="reds">{{ $message }}</span>   
                                 @enderror
@@ -201,7 +170,7 @@ canvas#signature {
                             </div>
                              <div class="col-md-9">
                                 <div class="form-group">
-                                <input type="text" name="receiver_full_name" value="{{old('receiver_full_name')}}" class="form-control" >
+                                <input type="text" name="receiver_full_name" value="{{$member->receiver_full_name}}" class="form-control" >
                                 @error('receiver_full_name')
                                   <span class="reds">{{ $message }}</span>   
                                 @enderror
@@ -216,7 +185,7 @@ canvas#signature {
                             </div>
                             <div class="col-md-9">
                                 <div class="form-group">
-                                <input type="text" name="receiver_address" value="{{ old('receiver_address') }}"  class="form-control" >
+                                <input type="text" name="receiver_address" value="{{ $member->receiver_address}}"  class="form-control" >
                                 @error('receiver_address')
                                    <span class="reds">{{ $message }}</span>   
                                 @enderror
@@ -231,7 +200,7 @@ canvas#signature {
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                            <label>Suburb<sup class="required">*</sup></label> 
-                                            <input type="text" name="receiver_suburb" value="{{ old('receiver_suburb') }}"  class="form-control" >
+                                            <input type="text" name="receiver_suburb" value="{{ $member->receiver_suburb  }}"  class="form-control" >
                                               @error('receiver_suburb')
                                               <span class="reds">{{ $message }}</span>   
                                               @enderror
@@ -241,16 +210,16 @@ canvas#signature {
                                     <div class="col-lg-4">
                                         <div class="form-group"> 
                                               <label>State<sup class="required">*</sup></label>
-                                            <input type="text" name="receiver_state" class="form-control" value="{{ old('receiver_state') }}">
-                                            @error('receiver_state')
-                                               <span class="reds">{{ $message }}</span>   
-                                            @enderror
+                                              <input type="text" name="receiver_state" class="form-control" value="{{$member->receiver_state}}">
+                                                @error('receiver_state')
+                                                   <span class="reds">{{ $message }}</span>   
+                                                @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group"> 
                                           <label>Postcode<sup class="required">*</sup></label>
-                                          <input type="number" name="receiver_postcode" value="{{ old('receiver_postcode') }}"  class="form-control" >
+                                          <input type="number" name="receiver_postcode" value="{{ $member->receiver_postcode }}"  class="form-control" >
                                             @error('receiver_postcode')
                                                 <span class="reds">{{ $message }}</span>   
                                             @enderror
@@ -259,7 +228,7 @@ canvas#signature {
                                 </div>
                             </div>
                         </div>
-                        <div class="row" >
+                         <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Province*<sup class="required">*</sup></label>
@@ -269,7 +238,7 @@ canvas#signature {
                                 <div class="form-group">
                                     <select name="province" class="form-control">
                                         @foreach($provinces as $province) 
-                                        <option value="{{$province->id}}"@if(old('province')==$province->id){{'selected'}} @endif>{{$province->name}}</option>
+                                        <option value="{{$province->id}}"@if($member->province==$province->id){{'selected'}} @endif>{{$province->name}}</option>
                                         @endforeach
                                     </select>
                                 @error('province')
@@ -286,7 +255,7 @@ canvas#signature {
                             </div>
                              <div class="col-md-9">
                                 <div class="form-group">
-                                <input type="text" name="bank_name" value="{{ old('bank_name') }}"  class="form-control">
+                                <input type="text" name="bank_name" value="{{ $member->bank_name }}"  class="form-control">
                                   @error('bank_name')
                                    <span class="reds">{{ $message }}</span>   
                                   @enderror
@@ -302,7 +271,7 @@ canvas#signature {
                             </div>
                              <div class="col-md-9">
                                 <div class="form-group">
-                                <input type="number" name="accont_number" value="{{ old('accont_number') }}"  class="form-control" >
+                                <input type="number" name="accont_number" value="{{ $member->accont_number}}"  class="form-control" >
                                 @error('accont_number')
                                    <span class="reds">{{ $message }}</span>   
                                 @enderror
@@ -318,7 +287,7 @@ canvas#signature {
                             </div>
                              <div class="col-md-9">
                                 <div class="form-group">
-                                <input type="text" name="branch" value="{{ old('branch') }}"  class="form-control">
+                                <input type="text" name="branch" value="{{ $member->branch }}"  class="form-control">
                                 @error('branch')
                                    <span class="reds">{{ $message }}</span>   
                                 @enderror
@@ -333,7 +302,7 @@ canvas#signature {
                             </div>
                              <div class="col-md-9">
                                 <div class="form-group">
-                                <input type="number" name="contact_number" value="{{ old('contact_number') }}"  class="form-control">
+                                <input type="number" name="contact_number" value="{{ $member->contact_number }}"  class="form-control">
                                  @error('contact_number')
                                     <span class="reds">{{ $message }}</span>   
                                 @enderror
@@ -374,10 +343,10 @@ canvas#signature {
                                     </div>
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                        <input type="text" name="name" value="{{ old('name') }}"  class="form-control">
+                                        <input type="text" name="name" value="{{ $member->name }}"  class="form-control">
                                           @error('name')
                                             <span class="reds">{{ $message }}</span>   
-                                            @enderror
+                                          @enderror
                                         </div>
                                     </div>
                                 </div>                            
@@ -389,7 +358,7 @@ canvas#signature {
                                     </div>
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                        <input type="date" name="date" max="{{date('Y-m-d')}}" value="{{ old('date') }}"  class="form-control">
+                                        <input type="date" name="date" max="{{date('Y-m-d')}}" value="{{ $member->date }}"  class="form-control">
                                           @error('date')
                                            <span class="reds">{{ $message }}</span>   
                                           @enderror
@@ -401,7 +370,7 @@ canvas#signature {
                         <hr>
                         <div class="col-md-12">
                             <div class="form-group">  
-                             <input type="checkbox" name="acceptance" value="1" @if(old('acceptance')==1){{'checked'}} @endif>&nbsp;&nbsp;&nbsp;&nbsp;<label>I Accept The Above <a href="{{url('terms-and-condition')}}" target="_blank">Terms & Conditions</a></label>
+                             <input type="checkbox" name="acceptance" value="1" @if($member->acceptance == 1){{'checked'}} @endif>&nbsp;&nbsp;&nbsp;&nbsp;<label>I Accept The Above <a href="{{url('terms-and-condition')}}" target="_blank">Terms & Conditions</a></label>
                                @error('acceptance')
                                    <span class="reds">{{ $message }}</span>   
                                 @enderror
@@ -431,20 +400,20 @@ canvas#signature {
                                     <select name="document1" class="form-control">
                                         <option value="Australia_Drivers_License">Australia Drivers License
                                         </option>
-                                        <option value="Australia_Photo_ID" @if(old('document1')=='Australia_Photo_ID'){{'selected'}} @endif>Australia Photo ID</option>
-                                        <option value="Passport"@if(old('document1')=='Passport'){{'selected'}} @endif>Passport</option>
-                                        <option value="Thai_National_ID"@if(old('document1')=='Thai_National_ID'){{'selected'}}@endif>Thai National ID</option>
-                                        <option value="Others"@if(old('document1')=='Others'){{'selected'}} @endif>Others</option>
+                                        <option value="Australia_Photo_ID" @if($member->document1 == 'Australia_Photo_ID'){{'selected'}} @endif>Australia Photo ID</option>
+                                        <option value="Passport"@if($member->document1 =='Passport'){{'selected'}} @endif>Passport</option>
+                                        <option value="Thai_National_ID" @if($member->document1 == 'Thai_National_ID'){{'selected'}}@endif>Thai National ID</option>
+                                        <option value="Others"@if($member->document1 == 'Others'){{'selected'}} @endif> Others</option>
                                     </select>
                                     @error('document1')
                                       <span class="reds">{{ $message }}</span>   
                                     @enderror
                                     <br>                               
                                     </div>
-                                      <input type="file" name="docfile1" size="40" class="" accept=".jpg,.jpeg,.png,.gif,.pdf"><br>
-                                        @error('docfile1')
-                                       <span class="reds">{{ $message }}</span>   
-                                    @enderror
+                                    <img width="100" src="{{asset($member->docfile1)}}" ><br><br>
+                                    <input type="hidden" name="docfile1" value="{{$member->docfile1}}">
+                                    <input type="file" name="docfile1" size="40" class="" accept=".jpg,.jpeg,.png,.gif,.pdf">
+                                    
                                 </div>
                                  <div class="col-lg-3">
                                     <div class="form-group">
@@ -456,20 +425,20 @@ canvas#signature {
                                     <select name="document2" class="form-control">
                                        <option value="Australia_Drivers_License">Australia Drivers License
                                         </option>
-                                        <option value="Australia_Photo_ID" @if(old('document2')=='Australia_Photo_ID'){{'selected'}} @endif>Australia Photo ID</option>
-                                        <option value="Passport"@if(old('document2')=='Passport'){{'selected'}} @endif>Passport</option>
-                                        <option value="Thai_National_ID"@if(old('document2')=='Thai_National_ID'){{'selected'}}@endif>Thai National ID</option>
-                                        <option value="Others"@if(old('document2')=='Others'){{'selected'}} @endif>Others</option>
+                                        <option value="Australia_Photo_ID" @if($member->document2 == 'Australia_Photo_ID'){{'selected'}} @endif>Australia Photo ID</option>
+                                        <option value="Passport"@if($member->document2 =='Passport'){{'selected'}} @endif>Passport</option>
+                                        <option value="Thai_National_ID" @if($member->document2 == 'Thai_National_ID'){{'selected'}}@endif>Thai National ID</option>
+                                        <option value="Others"@if($member->document2 == 'Others'){{'selected'}} @endif> Others</option>
                                     </select>
                                       @error('document2')
                                        <span class="reds">{{ $message }}</span>   
                                       @enderror
                                     <br>                              
                                     </div>
-                                    <input type="file" name="docfile2" size="40" class="" accept=".jpg,.jpeg,.png,.gif,.pdf"><br>
-                                    @error('docfile2')
-                                       <span class="reds">{{ $message }}</span>   
-                                    @enderror
+                                    <img width="100" src="{{asset($member->docfile2)}}" ><br><br>
+                                    <input type="hidden" name="docfile2" value="{{$member->docfile2}}">
+                                    <input type="file" name="docfile2" size="40" class="" accept=".jpg,.jpeg,.png,.gif,.pdf">
+                                   
                                 </div>
                             </div>
                           
@@ -478,28 +447,3 @@ canvas#signature {
                              <input type="submit" name="submit" value="SUBMIT" class="btn btn-primary" style="float: right;">
                         </div>   
                         <form>
-                       @elseif($member->approval==1)
-                        @include('admin.showmember')
-                       @elseif($member->approval==2)
-                        @include('member.decline')
-                       @else 
-                       <h3>Your form is submited Wait for admin Review</h3>
-                       @endif     
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection
-@section('javascript')
-<script type="text/javascript" src="{{asset('paper')}}/js/signature/jquery-ui.min.js"></script>
-<script type="text/javascript" src="{{asset('paper')}}/js/signature/jquery.signature.js"></script>
-<script type="text/javascript">
-    var sig = $('#sig').signature({syncField: '#signature64', syncFormat: 'PNG'});
-    $('#clear').click(function(e) {
-        e.preventDefault();
-        sig.signature('clear');
-        $("#signature64").val('');
-    });
-</script>
-@endsection

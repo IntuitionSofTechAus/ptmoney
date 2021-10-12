@@ -1,11 +1,11 @@
 <div class="sidebar" data-color="white" data-active-color="danger">
     <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-mini">
+        <a href="#" class="simple-text logo-mini">
             <div class="logo-image-small">
                 <img src="{{ asset('paper') }}/img/logo-small.png">
             </div>
         </a>
-        <a href="http://www.creative-tim.com" class="simple-texts logo-normal">
+        <a href="#" class="simple-texts logo-normal">
             {{ Auth::user()->name }}
         </a>
     </div>
@@ -48,10 +48,10 @@
                     <p>{{ __('Member List') }}</p>
                 </a>
             </li>
-            <li class="{{ request()->segment(2) == 'beneficiary' ? 'active' : '' }}">
-                <a href="{{ route('beneficiary.list') }}">
+             <li class="{{ request()->segment(2) == 'users-list' ? 'active' : '' }}">
+                <a href="{{ route('users.list') }}">
                     <i class="nc-icon nc-bank"></i>
-                    <p>{{ __('Beneficiary List') }}</p>
+                    <p>{{ __('Users List') }}</p>
                 </a>
             </li>
             <li class="{{ request()->segment(2) == 'exchange-rate' ? 'active' : '' }}">
@@ -104,10 +104,10 @@
                     <p>{{ __('Application-form') }}</p>
                 </a>
             </li>
-             <li class="{{ request()->segment(2) == 'beneficiary-form' ? 'active' : '' }}">
-                <a href="{{ route('beneficiary.add') }}">
-                    <i class="nc-icon nc-diamond"></i>
-                    <p>{{ __('Beneficiary-form') }}</p>
+            <li class="{{ request()->segment(2) == 'beneficiary' ? 'active' : '' }}">
+                <a href="{{ route('beneficiary.list') }}">
+                    <i class="nc-icon nc-bank"></i>
+                    <p>{{ __('Beneficiary List') }}</p>
                 </a>
             </li>
             @endif

@@ -8,6 +8,7 @@ use Auth;
 use App\Models\State;
 use App\Models\Member;
 use App\Models\Beneficiary;
+use App\Models\Province;
 
 class MemberController extends Controller
 {
@@ -16,8 +17,10 @@ class MemberController extends Controller
     public function index()
     {   
         $member_count = Member::where('user_id',Auth::user()->id)->count();
+        $member       = Member::where('user_id',Auth::user()->id)->first();
         $states       = State::all();
-        return view('member.application_form',compact('member_count','states')); 
+        $provinces    = Province::all();
+        return view('member.application_form',compact('member_count','member','states','provinces')); 
     }
 
     //Store member detail
@@ -51,6 +54,7 @@ class MemberController extends Controller
            'document2'           => 'required',
            'docfile2'            => 'required',
            'contact_number'      => 'required|numeric|min:10',
+           'province'            => 'required',
        ]);
 
         $folderPath = public_path('upload/');        
@@ -70,7 +74,7 @@ class MemberController extends Controller
          if($request->hasFile('docfile2')){
             $data['docfile2'] = $request->file('docfile2')->store('upload/docfile2');
         }
-        Member::create($data);
+        Member::updateOrCreate(['id'=> $request->id],$data);
         return redirect()->back()->with('success','Form created successful wait for admin review');
     }
     //Add new Benificary form 
@@ -78,7 +82,8 @@ class MemberController extends Controller
     {   
         $beneficiary_count = Beneficiary::where('user_id',Auth::user()->id)->count();
         $states       = State::all();
-        return view('benificary.application_form',compact('states','beneficiary_count')); 
+        $provinces    = Province::all();
+        return view('benificary.application_form',compact('states','beneficiary_count','provinces')); 
     }
       public function beneficiaryStore(Request $request)
     {
@@ -99,7 +104,7 @@ class MemberController extends Controller
            'date'                => 'required',
            'contact_number'      => 'required|numeric|min:10',
        ]);
-        $folderPath = public_path('upload/beneficiary');        
+        $folderPath = public_path('upload/beneficiary/');        
         $image_parts = explode(";base64,", $request->signed);              
         $image_type_aux = explode("image/", $image_parts[0]);           
         $image_type = $image_type_aux[1];           
@@ -111,7 +116,20 @@ class MemberController extends Controller
         $data['signed']  = $image;
         $data['user_id'] = Auth::user()->id;
         Beneficiary::create($data);
-        return redirect()->back()->with('success','Form created successful wait for admin review');
+        return redirect()->route('beneficiary.list')->with('success','Form created successful');
+    }
+
+    //  Beneficiary List
+    public function beneficiaryList(Request $request)
+    {
+        $beneficiary = Beneficiary::orderBy('created_at','desc')->where('user_id',Auth::user()->id)->paginate('15');
+        return view('benificary.beneficiarylist',compact('beneficiary'));
+    }
+
+    public function showBeneficiary(Request $request)
+    {
+        $beneficiary = Beneficiary::find($request->id);
+        return view('benificary.show_beneficiary',compact('beneficiary'));
     }
 
 }

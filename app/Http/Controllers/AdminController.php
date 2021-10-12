@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Member;
 use App\Models\ExchangeRate;
 use App\Models\Beneficiary;
+use App\Models\User;
 use DB;
 
 class AdminController extends Controller
@@ -20,12 +21,14 @@ class AdminController extends Controller
         $members = Member::orderBy('created_at','desc')->paginate('15');
         return view('admin.memberlist',compact('members'));
     }
-//  beneficiary List
-    public function beneficiaryList(Request $request)
+
+//  Users List
+    public function usersList(Request $request)
     {
-        $beneficiary = Beneficiary::orderBy('created_at','desc')->paginate('15');
-        return view('admin.beneficiarylist',compact('beneficiary'));
+        $users = User::orderBy('created_at','desc')->where('role',2)->paginate('15');
+        return view('admin.userlist',compact('users'));
     }
+
 // Show member detail
     public function showMember(Request $request)
     {

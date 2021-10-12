@@ -40,7 +40,7 @@ canvas#signature {
                         <form action="{{route('approval')}}" method="post" >
                             @csrf
                         <h3>Sender Detail:</h3><br>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Full Name<sup class="required">*</sup></label>
@@ -62,7 +62,7 @@ canvas#signature {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                                 <div class="col-md-3">
                                     <div class="form-group">
                                     <label >Telephone<sup class="required">*</sup></label></center>
@@ -84,7 +84,7 @@ canvas#signature {
                                     </div>
                                 </div>
                         </div>
-                             <div class="col-md-12 row" >
+                             <div class="row" >
                                 <div class="col-md-3">
                                     <div class="form-group">
                                           <label>Suburb<sup class="required">*</sup></label> 
@@ -106,7 +106,7 @@ canvas#signature {
                                     </div>
                                 </div>
                             </div>
-                              <div class="col-md-12 row" >
+                              <div class="row" >
                                 <div class="col-md-3">
                                     <div class="form-group">
                                          <label>Postcode<sup class="required">*</sup></label>
@@ -128,7 +128,7 @@ canvas#signature {
                                 </div>
                             </div>
                             </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Are You A Politically Exposed Person?*<sup class="required">*</sup></label>
@@ -152,7 +152,7 @@ canvas#signature {
                         </div>
                         <hr>
                          <h3>Receiver Detail:</h3>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Full Name<sup class="required">*</sup></label>
@@ -174,7 +174,7 @@ canvas#signature {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-md-3">
                                 <div class="form-group">
                                  <label>Suburb<sup class="required">*</sup></label> 
@@ -192,11 +192,11 @@ canvas#signature {
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <P>{{$member->stateReceiver->name ?? ''}}</P>                    
+                                    <P>{{$member->receiver_state ?? ''}}</P>                    
                                 </div>
                             </div>
                         </div>  
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-md-3">
                                 <div class="form-group">
                                      <label>Postcode<sup class="required">*</sup></label>
@@ -218,7 +218,7 @@ canvas#signature {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Account Number*<sup class="required">*</sup></label>
@@ -241,20 +241,30 @@ canvas#signature {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 row" >
+                        <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Contact Number*<sup class="required">*</sup></label>
                                 </div>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                  <P>{{$member->contact_number}}</P>
                                 </div>
                             </div>
+                             <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>Proviece<sup class="required">*</sup></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                               <P>{{$member->provinces->name ?? ''}}</P>
+                                </div>
+                            </div>
                         </div>
                         <hr>
-                        <div class="col-md-12 row">
+                        <div class="row">
                             <div class="col-md-3">
                                 <label class="mt-4" for="">Sign:<sup class="required">*</sup></label>
                             </div>  
@@ -277,7 +287,7 @@ canvas#signature {
                         <div>
                             <h3>Uploaded Documents:</h3>
                         </div>
-                            <div class="col-md-12 row" >
+                            <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Document 1:<sup class="required">*</sup></label>
@@ -300,7 +310,7 @@ canvas#signature {
                                     </div>                                  
                                 </div>
                             </div>
-                            <div class="col-md-12 row" >
+                            <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Docfile 1:<sup class="required">*</sup></label>
@@ -326,12 +336,13 @@ canvas#signature {
                                     </div>                                  
                                 </div>
                             </div>
-                          
+                        @if($member->approval == 0)  
                         <div class="col-md-12">
                             <div class="form-group">  
                             <input type="hidden" name="id" value="{{$member->id}}">    
                             <input type="submit" name="approved" value="Approved" class="btn btn-success" style="float: center;"> 
                              <input type="submit" name="decline" value="Decline" class="btn btn-danger" style="float: center;">
+                        @endif
                         </div>   
                         <form>
                        @else 

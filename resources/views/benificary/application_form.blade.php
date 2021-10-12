@@ -34,7 +34,6 @@ canvas#signature {
                     </ul>
                     </div>
                     @endif
-                     @if($beneficiary_count == 0) 
                         <form action="{{route('beneficiary.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <h3>Sender Detail:</h3><br>
@@ -136,14 +135,10 @@ canvas#signature {
                                     <div class="col-lg-4">
                                         <div class="form-group"> 
                                               <label>State<sup class="required">*</sup></label>
-                                              <select name="receiver_state" class="form-control">
-                                            @foreach($states as $state) 
-                                            <option value="{{$state->id}}"@if(old('receiver_state')==$state->id){{'selected'}} @endif>{{$state->name}}</option>
-                                            @endforeach
-                                        </select>
-                                                @error('receiver_state')
-                                                   <span class="reds">{{ $message }}</span>   
-                                                @enderror
+                                            <input type="text" name="receiver_state" class="form-control" value="{{ old('receiver_state') }}">
+                                            @error('receiver_state')
+                                               <span class="reds">{{ $message }}</span>   
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
@@ -155,6 +150,25 @@ canvas#signature {
                                             @enderror
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" >
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>Province*<sup class="required">*</sup></label>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <select name="province" class="form-control">
+                                        @foreach($provinces as $province) 
+                                        <option value="{{$province->id}}"@if(old('province')==$province->id){{'selected'}} @endif>{{$province->name}}</option>
+                                        @endforeach
+                                    </select>
+                                @error('province')
+                                   <span class="reds">{{ $message }}</span>   
+                                @enderror
                                 </div>
                             </div>
                         </div>
@@ -283,10 +297,7 @@ canvas#signature {
                             <div class="form-group">  
                              <input type="submit" name="submit" value="SUBMIT" class="btn btn-primary" style="float: right;">
                         </div>   
-                        <form> 
-                      @else 
-                       <h3>Your form is submited Wait for admin Review</h3>
-                       @endif  
+                        <form>  
                     </div>
                 </div>
             </div>

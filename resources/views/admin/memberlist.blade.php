@@ -33,11 +33,12 @@
                                 </thead>
                                 <tbody>
                                  @foreach($members as $key=> $member)
+                                 @php $myDateTime = DateTime::createFromFormat('Y-m-d',$member->date); @endphp
                                  <tr>
                                      <td>{{ ($key+1) + ($members->currentPage() - 1)*$members->perPage() }}</td>
                                      <td>{{__($member->name)}}</td>
-                                     <td>{{__($member->date)}}</td>
-                                     <td>{{$member->user->name}}</td>
+                                     <td>{{  $myDateTime->format('d M Y')}}</td>
+                                     <td>{{ $member->user->name}}</td>
                                      <td>{{__($member->sender_full_name)}}</td>
                                      <td>{{__($member->receiver_full_name)}}</td>
                                      <td>

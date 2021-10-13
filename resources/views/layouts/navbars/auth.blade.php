@@ -2,7 +2,13 @@
     <div class="logo">
         <a href="#" class="simple-text logo-mini">
             <div class="logo-image-small">
-                <img src="{{ asset('paper') }}/img/logo-small.png">
+                @php $profile =  Auth::user()->profile; @endphp
+                  @if($profile && File::exists(public_path($profile)))
+                 <img src="{{ asset($profile) }}">
+               <p>{{ asset('paper/img/user/'.$profile) }}</p>
+                 @else
+                 <img src="{{ asset('paper') }}/img/user.png">
+                 @endif
             </div>
         </a>
         <a href="#" class="simple-texts logo-normal">
@@ -98,18 +104,22 @@
                     </ul>
                 </div>
             </li>
-            <li class="{{ request()->segment(2) == 'aplication-form' ? 'active' : '' }}">
-                <a href="{{ route('aplication-form') }}">
-                    <i class="nc-icon nc-diamond"></i>
-                    <p>{{ __('Application-form') }}</p>
-                </a>
-            </li>
+             @if(App\Models\Member::where('user_id',Auth::user()->id)->count() > 0 )
+            @if(App\Models\Member::where('user_id',Auth::user()->id)->first()->approval == 1)
             <li class="{{ request()->segment(2) == 'beneficiary' ? 'active' : '' }}">
                 <a href="{{ route('beneficiary.list') }}">
                     <i class="nc-icon nc-bank"></i>
                     <p>{{ __('Beneficiary List') }}</p>
                 </a>
             </li>
+            @endif
+            @endif
+            <li class="{{ request()->segment(2) == 'aplication-form' ? 'active' : '' }}">
+                <a href="{{ route('aplication-form') }}">
+                    <i class="nc-icon nc-diamond"></i>
+                    <p>{{ __('Application-form') }}</p>
+                </a>
+            </li>           
             @endif
         </ul>
     </div>

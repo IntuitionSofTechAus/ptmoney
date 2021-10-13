@@ -6,7 +6,7 @@
 @section('content')
     <div class="content">
         <div class="container">
-            <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+            <div class="col-lg-6 col-md-6 ml-auto mr-auto">
                 <form class="form" method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="card card-login">

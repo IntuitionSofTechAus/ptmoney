@@ -2,6 +2,14 @@
     'class' => '',
     'elementActive' => 'profile'
 ])
+@section('styles')
+<style type="text/css">
+input[type=file] {
+    opacity: 1 !important;
+    position: inherit !important;
+}
+</style>
+@endsection
 
 @section('content')
     <div class="content">
@@ -23,11 +31,15 @@
                     </div>
                     <div class="card-body">
                         <div class="author">
-                            <a href="#">
-                                <img class="avatar border-gray" src="{{ asset('paper/img/mike.jpg') }}" alt="...">
-
-                                <h5 class="title">{{ __(auth()->user()->name)}}</h5>
-                            </a>
+                                <div class="img">
+                                @php $profile =  Auth::user()->profile; @endphp
+                                  @if($profile && File::exists(public_path($profile)))
+                                 <img class="avatar border-gray"  src="{{asset($profile) }}">
+                                 @else
+                                <img class="avatar border-gray" src="{{ asset('paper/img/user.png') }}" alt="..." >   
+                                 @endif                                                  
+                                </div>                            
+                             <h5 class="title">{{ __(auth()->user()->name)}}</h5>
                             <p class="description">
                             @ {{ __(auth()->user()->name)}}
                             </p>
@@ -63,11 +75,24 @@
                                 <label class="col-md-3 col-form-label">{{ __('Email') }}</label>
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                        <input type="email" name="email" class="form-control" placeholder="Email" value="{{ auth()->user()->email }}" required>
+                                        <input type="email" readonly name="email" class="form-control" placeholder="Email" value="{{ auth()->user()->email }}" required>
                                     </div>
                                     @if ($errors->has('email'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
                                             <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-3 col-form-label">{{ __('Profile') }}</label>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <input type="file" name="profile" class="form-control">
+                                    </div>
+                                    @if ($errors->has('profile'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('profile') }}</strong>
                                         </span>
                                     @endif
                                 </div>

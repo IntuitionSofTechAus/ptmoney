@@ -41,6 +41,7 @@ Route::get('/user/verify/{token}/{id}', 'App\Http\Controllers\Auth\RegisterContr
 Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']])->middleware('auth');
 Route::group(['prefix' =>'user', 'middleware' => 'auth'], function(){
 	Route::get('profile', [ProfileController::class,'edit'])->name('profile.edit');
+	Route::post('uploadprofile', [ProfileController::class,'profile'])->name('uploadprofile');	
 	Route::put('profile', [ProfileController::class,'update'])->name('profile.update');
 	Route::put('profile/password',[ProfileController::class,'password'])->name('profile.password');
 	Route::get('aplication-form',[MemberController::class,'index'])->name('aplication-form');

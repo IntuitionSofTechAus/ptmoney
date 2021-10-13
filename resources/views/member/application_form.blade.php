@@ -467,7 +467,7 @@ canvas#signature {
                        @elseif($member->approval==2)
                         @include('member.decline')
                        @else 
-                       <h3>Your form is submited Wait for admin Review</h3>
+                       <h3>Form Submitted Successfully , Waiting for Admin Approval</h3>
                        @endif     
                     </div>
                 </div>

@@ -52,18 +52,6 @@
                             </div>
                             @endif
                             <h4 class="card-title">{{ __('Register') }}</h4>
-                            <div class="social">
-                                <button class="btn btn-icon btn-round btn-twitter">
-                                    <i class="fa fa-twitter"></i>
-                                </button>
-                                <button class="btn btn-icon btn-round btn-dribbble">
-                                    <i class="fa fa-dribbble"></i>
-                                </button>
-                                <button class="btn btn-icon btn-round btn-facebook">
-                                    <i class="fa fa-facebook-f"></i>
-                                </button>
-                                <p class="card-description">{{ __('or be classical') }}</p>
-                            </div>
                         </div>
                         <div class="card-body">
                             <form class="form" method="POST" action="{{ route('register') }}">
@@ -125,7 +113,7 @@
                                         <input class="form-check-input" name="agree_terms_and_conditions" type="checkbox">
                                         <span class="form-check-sign"></span>
                                             {{ __('I agree to the') }}
-                                        <a href="#something">{{ __('terms and conditions') }}</a>.
+                                        <a href="javascript:void(0)">{{ __('terms and conditions') }}</a>.
                                     </label>
                                     @if ($errors->has('agree_terms_and_conditions'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">

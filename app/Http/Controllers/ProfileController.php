@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\PasswordRequest;
 use Illuminate\Support\Facades\Hash;
+use DB;
 
 class ProfileController extends Controller
 {
@@ -26,12 +27,15 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
-        dd($request->all());
-        auth()->user()->update($request->all());
 
+      
+        auth()->user()->update($data);
         return back()->withStatus(__('Profile successfully updated.'));
     }
-
+    public function profile(Request $request)
+    {
+        dd($request->all());
+    }
     /**
      * Change the password
      *

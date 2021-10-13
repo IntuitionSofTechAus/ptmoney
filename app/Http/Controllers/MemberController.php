@@ -75,7 +75,8 @@ class MemberController extends Controller
         }
         $data['receiver_suburb']='';
         Member::updateOrCreate(['id'=> $request->id],$data);
-        return redirect()->back()->with('success','Form created successful wait for admin review');
+        return redirect()->back()->with('success','Form Submitted Successfully , Waiting for Admin Approval');
+        
     }
     //Add new Benificary form 
     public function beneficiary()
@@ -117,7 +118,7 @@ class MemberController extends Controller
         $data['user_id'] = Auth::user()->id;
         $data['receiver_suburb']='';
         Beneficiary::create($data);
-        return redirect()->route('beneficiary.list')->with('success','Form created successful');
+        return redirect()->route('beneficiary.list')->with('success','Form Submitted Successfully ');
     }
 
     //  Beneficiary List

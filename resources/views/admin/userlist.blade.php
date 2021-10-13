@@ -37,7 +37,7 @@
                                      <td>{{_($user->name)}}</td>
                                      <td>{{_($user->email)}}</td>
                                      <td>@if($user->is_verified ==1)<span class="text-success">Vefified</span>@else<span class="text-danger">Pending</span>@endif</td>
-                                     <td>{{($user->created_at)}}</td>
+                                     <td>{{date_format($user->created_at,"d M Y, H:i A")}}</td>
                                 </tr>
                                @endforeach   
                                 </tbody>

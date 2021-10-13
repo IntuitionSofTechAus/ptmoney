@@ -22,7 +22,11 @@ class UserController extends Controller
     }
     public function update(Request $request)
     {
-        auth()->user()->update($request->all());
+        $data=$request->all();
+        if($request->hasFile('profile')){
+           $data['profile'] = $request->file('profile')->store('paper/img/user');
+        } 
+        auth()->user()->update($data);
         return back()->withStatus(__('Profile successfully updated.'));
     }
 }

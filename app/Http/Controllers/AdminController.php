@@ -68,6 +68,6 @@ class AdminController extends Controller
         $rate =  ExchangeRate::findOrNew(1);
         $rate->exchange_rate = $request->exchange_rate;
         $rate->save();
-        return back();
+        return back()->with('status','ExchangeRate has been changes');
     }
 }

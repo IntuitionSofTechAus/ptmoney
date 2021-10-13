@@ -29,10 +29,10 @@ canvas#signature {
                     <div class="card-header">
                     </div>
                     <div class="card-body">
-                    @if (\Session::has('success'))
+                    @if (\Session::has('status'))
                     <div class="alert alert-success">
                     <ul>
-                    <li>{!! \Session::get('success') !!}</li>
+                    <li>{!! \Session::get('status') !!}</li>
                     </ul>
                     </div>
                     @endif

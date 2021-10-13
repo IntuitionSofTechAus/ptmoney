@@ -48,6 +48,7 @@ The above copyright notice and this permission notice shall be included in all c
             font-size: 14px;
         }
      </style>
+    @yield('styles')
 </head>
 
 <body class="{{ $class }}">

@@ -22,7 +22,7 @@
                     ©
                     <script>
                         document.write(new Date().getFullYear())
-                    </script>{{ __(', made with ') }}<i class="fa fa-heart heart"></i>{{ __(' by ') }}<a class="@if(Auth::guest()) text-white @endif" href="https://www.creative-tim.com" target="_blank">{{ __('Creative Tim') }}</a>{{ __(' and ') }}<a class="@if(Auth::guest()) text-white @endif" target="_blank" href="https://updivision.com">{{ __('UPDIVISION') }}</a>
+                    </script>{{ __(', made with ') }}<i class="fa fa-heart heart"></i>{{ __(' by ') }}<a class="@if(Auth::guest()) text-white @endif" href="javascript:void(0)" target="_blank">{{ __('Intuition SofTech Australia') }}</a>
                 </span>
             </div>
         </div>

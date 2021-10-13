@@ -126,7 +126,7 @@
                                     <tr>                                
                                         <th>Name</th>
                                         <th>Email</th>
-                                        <th>Verified Date</th>    
+                                        <th>Created Date</th>    
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -134,39 +134,7 @@
                                         <tr>
                                          <td>{{$user->name}}</td>
                                          <td>{{$user->email}}</td>
-                                         <td>{{$user->updated_at}}</td>
-                                        </tr>
-                                     @endforeach                               
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-footer ">
-                        </div>
-                    </div>
-                </div>
-            @else
-                <div class="col-md-6">
-                    <div class="card ">
-                        <div class="card-header ">
-                            <h5 class="card-title">Recent Beneficiary</h5>
-                        </div>
-                        <div class="card-body ">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead class=" text-primary">
-                                    <tr>                                
-                                        <th>membership-Number</th>
-                                        <th>Username</th>
-                                        <th>Created_at</th>    
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                     @foreach ((\App\Models\Beneficiary::orderBy('created_at','desc'))->where('user_id',Auth::user()->id)->limit(5)->get() as $key => $beneficary)
-                                        <tr>
-                                         <td>{{$beneficary->membership_number}}</td>
-                                         <td>{{$beneficary->user->name }}</td>
-                                         <td>{{$beneficary->created_at}}</td>
+                                         <td>{{date_format($user->created_at,"d M Y, H:i A")}}</td>
                                         </tr>
                                      @endforeach                               
                                     </tbody>

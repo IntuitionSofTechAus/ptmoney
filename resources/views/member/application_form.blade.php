@@ -230,12 +230,15 @@ canvas#signature {
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                           <label>Suburb<sup class="required">*</sup></label> 
-                                            <input type="text" name="receiver_suburb" value="{{ old('receiver_suburb') }}"  class="form-control" >
-                                              @error('receiver_suburb')
-                                              <span class="reds">{{ $message }}</span>   
-                                              @enderror
-
+                                         <label>Province*<sup class="required">*</sup></label>
+                                            <select name="province" class="form-control">
+                                                @foreach($provinces as $province) 
+                                                <option value="{{$province->id}}"@if(old('province')==$province->id){{'selected'}} @endif>{{$province->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('province')
+                                                <span class="reds">{{ $message }}</span>   
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
@@ -256,25 +259,6 @@ canvas#signature {
                                             @enderror
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" >
-                            <div class="col-lg-3">
-                                <div class="form-group">
-                                    <label>Province*<sup class="required">*</sup></label>
-                                </div>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                    <select name="province" class="form-control">
-                                        @foreach($provinces as $province) 
-                                        <option value="{{$province->id}}"@if(old('province')==$province->id){{'selected'}} @endif>{{$province->name}}</option>
-                                        @endforeach
-                                    </select>
-                                @error('province')
-                                   <span class="reds">{{ $message }}</span>   
-                                @enderror
                                 </div>
                             </div>
                         </div>

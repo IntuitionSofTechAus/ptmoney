@@ -41,7 +41,7 @@ canvas#signature {
                         <div class="row" >
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label>Full Name<sup class="required">*</sup></label>
+                                    <label>Full Name</label>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -51,7 +51,7 @@ canvas#signature {
                             </div>
                              <div class="col-md-3">
                                 <div class="form-group">
-                                        <label>Date Of Birth<sup class="required">*</sup></label>
+                                        <label>Date Of Birth</label>
                                 </div>
                             </div>
                             <div class="col-md-3">                                    
@@ -63,7 +63,7 @@ canvas#signature {
                         <div class="row" >
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                    <label>Membership Number<sup class="required">*</sup></label></center>
+                                    <label>Membership Number</label>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -78,7 +78,7 @@ canvas#signature {
                         <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label>Full Name<sup class="required">*</sup></label>
+                                    <label>Full Name</label>
                                 </div>
                             </div>
                              <div class="col-md-3">
@@ -88,7 +88,7 @@ canvas#signature {
                              </div>
                              <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label>Residential Address*<sup class="required">*</sup></label>
+                                    <label>Residential Address</label>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -98,19 +98,19 @@ canvas#signature {
                             </div>
                         </div>
                         <div class="row" >
-                            <div class="col-md-3">
+                            <div class="col-lg-3">
                                 <div class="form-group">
-                                 <label>Suburb<sup class="required">*</sup></label> 
+                                    <label>Proviece</label>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                   <P>{{$beneficiary->receiver_suburb}}</P>                        
+                               <P>{{$beneficiary->provinces->name ?? ''}}</P>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                   <label>State<sup class="required">*</sup></label>
+                                   <label>State</label>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -122,7 +122,7 @@ canvas#signature {
                         <div class="row" >
                             <div class="col-md-3">
                                 <div class="form-group">
-                                     <label>Postcode<sup class="required">*</sup></label>
+                                     <label>Postcode</label>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -132,7 +132,7 @@ canvas#signature {
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label>Bank Name*<sup class="required">*</sup></label>
+                                    <label>Bank Name</label>
                                 </div>
                             </div>
                              <div class="col-md-3">
@@ -144,7 +144,7 @@ canvas#signature {
                         <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label>Account Number*<sup class="required">*</sup></label>
+                                    <label>Account Number</label>
 
                                 </div>
                             </div>
@@ -155,7 +155,7 @@ canvas#signature {
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label>Branch<sup class="required">*</sup></label>
+                                    <label>Branch</label>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -167,7 +167,7 @@ canvas#signature {
                         <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label>Contact Number*<sup class="required">*</sup></label>
+                                    <label>Contact Number</label>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -175,21 +175,11 @@ canvas#signature {
                                  <P>{{$beneficiary->contact_number}}</P>
                                 </div>
                             </div>
-                             <div class="col-lg-3">
-                                <div class="form-group">
-                                    <label>Proviece<sup class="required">*</sup></label>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                               <P>{{$beneficiary->provinces->name ?? ''}}</P>
-                                </div>
-                            </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-md-3">
-                                <label class="mt-4" for="">Sign:<sup class="required">*</sup></label>
+                                <label class="mt-4" for="">Sign:</label>
                             </div>  
                             <div class="col-md-3">
                                 <div id="siga" >

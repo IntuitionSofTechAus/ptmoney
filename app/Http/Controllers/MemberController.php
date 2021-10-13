@@ -39,7 +39,6 @@ class MemberController extends Controller
            'presence'            => 'required',
            'receiver_full_name'  => 'required|min:3',
            'receiver_address'    => 'required|min:3',
-           'receiver_suburb'     => 'required',
            'receiver_state'      => 'required',
            'receiver_postcode'   => 'required',
            'bank_name'           => 'required',
@@ -74,6 +73,7 @@ class MemberController extends Controller
          if($request->hasFile('docfile2')){
             $data['docfile2'] = $request->file('docfile2')->store('upload/docfile2');
         }
+        $data['receiver_suburb']='';
         Member::updateOrCreate(['id'=> $request->id],$data);
         return redirect()->back()->with('success','Form created successful wait for admin review');
     }
@@ -93,7 +93,6 @@ class MemberController extends Controller
            'dob'                 => 'required',
            'receiver_full_name'  => 'required|min:3',
            'receiver_address'    => 'required|min:3',
-           'receiver_suburb'     => 'required',
            'receiver_state'      => 'required',
            'receiver_postcode'   => 'required',
            'bank_name'           => 'required',
@@ -103,6 +102,7 @@ class MemberController extends Controller
            'name'                => 'required',
            'date'                => 'required',
            'contact_number'      => 'required|numeric|min:10',
+           'province'            => 'required',
        ]);
         $folderPath = public_path('upload/beneficiary/');        
         $image_parts = explode(";base64,", $request->signed);              
@@ -115,6 +115,7 @@ class MemberController extends Controller
         $data = $request->all();
         $data['signed']  = $image;
         $data['user_id'] = Auth::user()->id;
+        $data['receiver_suburb']='';
         Beneficiary::create($data);
         return redirect()->route('beneficiary.list')->with('success','Form created successful');
     }

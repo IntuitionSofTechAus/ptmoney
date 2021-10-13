@@ -29,9 +29,7 @@ canvas#signature {
                     <div class="card-body">
                     @if (\Session::has('success'))
                     <div class="alert alert-success">
-                    <ul>
-                    <li>{!! \Session::get('success') !!}</li>
-                    </ul>
+                    {!! \Session::get('success') !!}
                     </div>
                     @endif
                         <form action="{{route('beneficiary.store')}}" method="post" enctype="multipart/form-data">
@@ -138,7 +136,7 @@ canvas#signature {
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group"> 
-                                              <label>State<sup class="required">*</sup></label>
+                                              <label>District<sup class="required">*</sup></label>
                                             <input type="text" name="receiver_state" class="form-control" value="{{ old('receiver_state') }}">
                                             @error('receiver_state')
                                                <span class="reds">{{ $message }}</span>   

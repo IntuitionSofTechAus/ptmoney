@@ -31,9 +31,8 @@ canvas#signature {
                     <div class="card-body">
                     @if (\Session::has('success'))
                     <div class="alert alert-success">
-                    <ul>
-                    <li>{!! \Session::get('success') !!}</li>
-                    </ul>
+                   {!! \Session::get('success') !!}
+                    
                     </div>
                     @endif
                      @if($member) 
@@ -58,7 +57,8 @@ canvas#signature {
                             </div>
                             <div class="col-md-3">                                    
                                 <div class="form-group">
-                                      <P>{{$member->dob}}</P>                            
+                                    @php $myDateTime = DateTime::createFromFormat('Y-m-d',$member->dob); @endphp
+                                      <P>{{$myDateTime->format('d M Y')}}</P>                      
                                 </div>
                             </div>
                         </div>
@@ -187,7 +187,7 @@ canvas#signature {
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                   <label>State</label>
+                                   <label>District</label>
                                 </div>
                             </div>
                             <div class="col-md-3">

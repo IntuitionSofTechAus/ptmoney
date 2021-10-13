@@ -22,9 +22,7 @@
                     <div class="card-body">
                    @if (\Session::has('success'))
                     <div class="alert alert-success">
-                    <ul>
-                    <li>{!! \Session::get('success') !!}</li>
-                    </ul>
+                   {!! \Session::get('success') !!}
                     </div>
                     @endif
                         <div class="table-responsive">

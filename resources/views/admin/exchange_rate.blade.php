@@ -31,9 +31,7 @@ canvas#signature {
                     <div class="card-body">
                     @if (\Session::has('status'))
                     <div class="alert alert-success">
-                    <ul>
-                    <li>{!! \Session::get('status') !!}</li>
-                    </ul>
+                    {!! \Session::get('status') !!}
                     </div>
                     @endif
                         <form action="{{route('exchange.rate')}}" method="post" >

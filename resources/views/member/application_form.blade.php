@@ -243,7 +243,7 @@ canvas#signature {
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group"> 
-                                              <label>State<sup class="required">*</sup></label>
+                                              <label>District<sup class="required">*</sup></label>
                                             <input type="text" name="receiver_state" class="form-control" value="{{ old('receiver_state') }}">
                                             @error('receiver_state')
                                                <span class="reds">{{ $message }}</span>   

@@ -50,19 +50,19 @@
             </li> -->
             <li class="{{ request()->segment(2) == 'member' ? 'active' : '' }}">
                 <a href="{{ route('member.list') }}">
-                    <i class="nc-icon nc-bank"></i>
+                    <i class="fa fa-list"></i>
                     <p>{{ __('Member List') }}</p>
                 </a>
             </li>
              <li class="{{ request()->segment(2) == 'users-list' ? 'active' : '' }}">
                 <a href="{{ route('users.list') }}">
-                    <i class="nc-icon nc-bank"></i>
+                    <i class="fa fa-users"></i>
                     <p>{{ __('Users List') }}</p>
                 </a>
             </li>
             <li class="{{ request()->segment(2) == 'exchange-rate' ? 'active' : '' }}">
                 <a href="{{ route('exchange.rate') }}">
-                    <i class="nc-icon nc-bank"></i>
+                    <i class="fa fa-money"></i>
                     <p>{{ __('Exchange Rate') }}</p>
                 </a>
             </li>
@@ -81,10 +81,10 @@
             </li>
             <li class="{{ $elementActive == 'user' || $elementActive == 'profile' ? 'active' : '' }}">
                 <a data-toggle="collapse" aria-expanded="true" href="#laravelExamples">
-                    <i class="nc-icon"><img src="{{ asset('paper/img/laravel.svg') }}"></i>
+                    <i class="fa fa-user"></i>
                     <p>
                             {{ __('Profile') }}
-                        <b class="caret"></b>
+                       
                     </p>
                 </a>
                 <div class="collapse show" id="laravelExamples">
@@ -108,7 +108,7 @@
             @if(App\Models\Member::where('user_id',Auth::user()->id)->first()->approval == 1)
             <li class="{{ request()->segment(2) == 'beneficiary' ? 'active' : '' }}">
                 <a href="{{ route('beneficiary.list') }}">
-                    <i class="nc-icon nc-bank"></i>
+                    <i class="fa fa-list"></i>
                     <p>{{ __('Beneficiary List') }}</p>
                 </a>
             </li>
@@ -116,7 +116,7 @@
             @endif
             <li class="{{ request()->segment(2) == 'aplication-form' ? 'active' : '' }}">
                 <a href="{{ route('aplication-form') }}">
-                    <i class="nc-icon nc-diamond"></i>
+                    <i class="fa fa-wpforms"></i>
                     <p>{{ __('Application-form') }}</p>
                 </a>
             </li>           

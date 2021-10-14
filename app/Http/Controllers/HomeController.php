@@ -24,7 +24,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $user=Auth::user();
-        if($user->remember_token != Null)
+        if($user->is_verified != 1)
         {
           Auth::logout();
           $request->session()->flush();

@@ -31,11 +31,18 @@
                                 </thead>
                                 <tbody>
                                  @foreach($members as $key=> $member)
-                                 @php $myDateTime = DateTime::createFromFormat('Y-m-d',$member->date); @endphp
+                                 @php $now = \Carbon\Carbon::now()->month; 
+                                 $exp1 = date('m',strtotime($member->doc_expiry1));
+                                 $exp2 = date('m',strtotime($member->doc_expiry2));
+                                 $exp1  = intval($exp1);
+                                 $exp2  = intval($exp2);
+                                
+                               @endphp
                                  <tr>
                                      <td>{{ ($key+1) + ($members->currentPage() - 1)*$members->perPage() }}</td>
-                                     <td>{{__($member->name)}}</td>
-                                     <td>{{  $myDateTime->format('d M Y')}}</td>
+                                     <td> <p class="@if($now == $exp1 || $now == $exp2){{ 'text-danger' }} @endif">{{__($member->name)}}</p></td>
+                                     <td>{{date('d M Y',strtotime($member->date))  
+                                      }}</td>
                                      <td>{{ $member->user->name}}</td>
                                      <td>{{__($member->sender_full_name)}}</td>
                                      <td>{{__($member->receiver_full_name)}}</td>

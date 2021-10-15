@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -37,4 +40,18 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if($user->is_verified != 1 && $user->role == 2)
+        {
+          Auth::logout();
+          $request->session()->flush();
+          return redirect('login')->with('status','Your Email Account is  Not Verified');
+        }
+        $user->last_login_at = Carbon::now();
+        $user->last_login_ip = $request->getClientIp();
+        $user->save();
+    }
+
 }

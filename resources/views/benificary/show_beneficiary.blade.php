@@ -35,44 +35,6 @@ canvas#signature {
                     </div>
                     @endif
                      @if($beneficiary) 
-                        <h3>Sender Detail:</h3><br>
-                        <div class="row" >
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Full Name</label>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                <P>{{$beneficiary->sender_full_name}}</P>
-                                </div>
-                            </div>
-                             <div class="col-md-3">
-                                <div class="form-group">
-                                        <label>Date Of Birth</label>
-                                </div>
-                            </div>
-                            <div class="col-md-3">                                    
-                                <div class="form-group">
-                                     @php $myDateTime = DateTime::createFromFormat('Y-m-d',$beneficiary->dob); @endphp
-                                      <P>{{$myDateTime->format('d M Y')}}</P>                          
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" >
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                    <label>Membership Number</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group"> 
-                                     <P>{{$beneficiary->membership_number}}</P>
-                                    </div>
-                                </div>
-                        </div>
-                             
-                        <hr>
                          <h3>Receiver Detail:</h3>
                         <div class="row" >
                             <div class="col-lg-3">

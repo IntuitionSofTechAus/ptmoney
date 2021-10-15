@@ -52,6 +52,8 @@ class MemberController extends Controller
            'docfile1'            => 'required',
            'document2'           => 'required',
            'docfile2'            => 'required',
+           'doc_expiry1'         => 'required',
+           'doc_expiry2'         => 'required',
            'contact_number'      => 'required|numeric|min:10',
            'province'            => 'required',
        ]);
@@ -67,6 +69,7 @@ class MemberController extends Controller
         $data = $request->all();
         $data['signed']  = $image;
         $data['user_id'] = Auth::user()->id;
+        $data['membership_number'] = substr($request->sender_full_name, 0, 3).rand(11111,99999);
         if($request->hasFile('docfile1')){
            $data['docfile1'] = $request->file('docfile1')->store('upload/docfile1');
         }
@@ -89,9 +92,6 @@ class MemberController extends Controller
       public function beneficiaryStore(Request $request)
     {
          $this->validate($request, [
-           'membership_number'   =>'required|numeric|digits_between:1,10',
-           'sender_full_name'    => 'required|min:3',
-           'dob'                 => 'required',
            'receiver_full_name'  => 'required|min:3',
            'receiver_address'    => 'required|min:3',
            'receiver_state'      => 'required',
@@ -116,6 +116,9 @@ class MemberController extends Controller
         $data = $request->all();
         $data['signed']  = $image;
         $data['user_id'] = Auth::user()->id;
+        $data['membership_number']=rand();
+        $data['sender_full_name']='';
+        $data['dob']=date('Y-m-d');
         $data['receiver_suburb']='';
         Beneficiary::create($data);
         return redirect()->route('beneficiary.list')->with('success','Form Submitted Successfully ');
@@ -124,9 +127,27 @@ class MemberController extends Controller
     //  Beneficiary List
     public function beneficiaryList(Request $request)
     {
+        $member  = Member::where('user_id',Auth::user()->id)->first();
+        $members_number=$this->split_name($member->sender_full_name);
         $beneficiary = Beneficiary::orderBy('created_at','desc')->where('user_id',Auth::user()->id)->paginate('15');
         return view('benificary.beneficiarylist',compact('beneficiary'));
     }
+    function split_name($name) {
+        $nameWithoutPrefix=$name;
+        $words = explode(" ", $nameWithoutPrefix);
+        $firtsName = reset($words); 
+        $lastName  = end($words);
+        $sort = $firtsName[0].$firtsName[1];
+        if(isset($lastName))
+        {
+           $sort = $sort.$lastName[0];
+        }
+        if(isset($lastName[1]))
+        {
+            $sort = $sort.$lastName[1];
+        }
+        return $sort.rand(1000,9999); 
+}
 
     public function showBeneficiary(Request $request)
     {

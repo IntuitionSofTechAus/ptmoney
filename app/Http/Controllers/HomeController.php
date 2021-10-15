@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 Use Auth;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -28,7 +29,7 @@ class HomeController extends Controller
         {
           Auth::logout();
           $request->session()->flush();
-          return redirect('login')->with('status','Email not verified');
+          return redirect('login')->with('status','Your Email Account is  Not Verified');
         }
         if($user->role == 1)
         {

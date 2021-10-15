@@ -43,6 +43,10 @@ input[type=file] {
                             <p class="description">
                             @ {{ __(auth()->user()->name)}}
                             </p>
+                             <p class="description">
+                               <strong> Last login at-</strong> 
+                            <span>{{date("d-M-Y H:i A",strtotime(auth()->user()->last_login_at))}}</span>
+                            </p>
                         </div>
                     </div>
                    

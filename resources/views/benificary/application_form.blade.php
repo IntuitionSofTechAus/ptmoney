@@ -34,56 +34,6 @@ canvas#signature {
                     @endif
                         <form action="{{route('beneficiary.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <h3>Sender Detail:</h3><br>
-                        <div class="row" >
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Membership Number*<sup class="required">*</sup></label>
-                                </div>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                <input type="number"  name="membership_number" value="{{ old('membership_number') }}" min="11" class="form-control" >
-                                @error('membership_number')                                  
-                                        <span class="reds">{{ $message }}</span>           
-                                @enderror
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" >
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Full Name<sup class="required">*</sup></label>
-                                </div>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                <input type="text"  name="sender_full_name" value="{{ old('sender_full_name') }}"  class="form-control" >
-                                @error('sender_full_name')                                  
-                                        <span class="reds">{{ $message }}</span>           
-                                @enderror
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" >
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Date Of Birth<sup class="required">*</sup></label>
-                                </div>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                 <input type="date"  max="{{date('Y-m-d')}}" name="dob" value="{{ old('dob') }}"  class="form-control" >
-                                @error('dob')                                  
-                                        <span class="reds">{{ $message }}</span>           
-                                @enderror
-
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
                          <h3>Receiver Detail:</h3>
                         <div class="row" >
                             <div class="col-lg-3">

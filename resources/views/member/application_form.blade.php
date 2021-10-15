@@ -408,22 +408,22 @@ canvas#signature {
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label>Document 1:<sup class="required">*</sup></label>
-                                    </div>
+                                    </div>                                   
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                    <select name="document1" class="form-control">
-                                        <option value="Australia_Drivers_License">Australia Drivers License
-                                        </option>
-                                        <option value="Australia_Photo_ID" @if(old('document1')=='Australia_Photo_ID'){{'selected'}} @endif>Australia Photo ID</option>
-                                        <option value="Passport"@if(old('document1')=='Passport'){{'selected'}} @endif>Passport</option>
-                                        <option value="Thai_National_ID"@if(old('document1')=='Thai_National_ID'){{'selected'}}@endif>Thai National ID</option>
-                                        <option value="Others"@if(old('document1')=='Others'){{'selected'}} @endif>Others</option>
-                                    </select>
-                                    @error('document1')
-                                      <span class="reds">{{ $message }}</span>   
-                                    @enderror
-                                    <br>                               
+                                        <select name="document1" class="form-control">
+                                            <option value="Australia_Drivers_License">Australia Drivers License
+                                            </option>
+                                            <option value="Australia_Photo_ID" @if(old('document1')=='Australia_Photo_ID'){{'selected'}} @endif>Australia Photo ID</option>
+                                            <option value="Passport"@if(old('document1')=='Passport'){{'selected'}} @endif>Passport</option>
+                                            <option value="Thai_National_ID"@if(old('document1')=='Thai_National_ID'){{'selected'}}@endif>Thai National ID</option>
+                                            <option value="Others"@if(old('document1')=='Others'){{'selected'}} @endif>Others</option>
+                                        </select>
+                                        @error('document1')
+                                          <span class="reds">{{ $message }}</span>   
+                                        @enderror
+                                        <br>                               
                                     </div>
                                       <input type="file" name="docfile1" size="40" class="" accept=".jpg,.jpeg,.png,.gif,.pdf"><br>
                                         @error('docfile1')
@@ -433,7 +433,7 @@ canvas#signature {
                                  <div class="col-lg-3">
                                     <div class="form-group">
                                         <label>Document 2:<sup class="required">*</sup></label>
-                                    </div>
+                                    </div>                                  
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -449,13 +449,42 @@ canvas#signature {
                                        <span class="reds">{{ $message }}</span>   
                                       @enderror
                                     <br>                              
-                                    </div>
+                                    </div>                                    
                                     <input type="file" name="docfile2" size="40" class="" accept=".jpg,.jpeg,.png,.gif,.pdf"><br>
                                     @error('docfile2')
                                        <span class="reds">{{ $message }}</span>   
                                     @enderror
                                 </div>
                             </div>
+                            <div class="row mt-4">
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label>Doc Expiry Date1<sup class="required">*</sup></label>
+                                    </div>                                   
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input type="date" name="doc_expiry1" placeholder="Select Expiry date" class="form-control"><br>
+                                        @error('doc_expiry1')
+                                           <span class="reds">{{ $message }}</span>   
+                                        @enderror           
+                                    </div>                                     
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label>Doc Expiry Date2:<sup class="required">*</sup></label>
+                                    </div>                                   
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input type="date" name="doc_expiry2" placeholder="Select Expiry date" class="form-control"><br>
+                                        @error('doc_expiry2')
+                                           <span class="reds">{{ $message }}</span>   
+                                        @enderror           
+                                    </div>                                     
+                                </div>  
+                            </div>
+
                           
                         <div class="col-md-12">
                             <div class="form-group">  

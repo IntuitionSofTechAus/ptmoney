@@ -23,7 +23,9 @@ class User extends Authenticatable
         'password',
         'remember_token',
         'is_verified',
-        'profile'
+        'profile',
+        'last_login_at',
+        'last_login_ip',
     ];
 
     /**

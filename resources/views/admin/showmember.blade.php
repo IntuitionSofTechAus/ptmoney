@@ -42,7 +42,19 @@ canvas#signature {
                         <div class="row" >
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label>Full Name<sup class="required">*</sup></label>
+                                    <label>Membership Number</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                <P>{{$member->membership_number}}</P>
+                                </div>
+                            </div>                            
+                        </div>
+                        <div class="row" >
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Full Name</label>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -57,8 +69,8 @@ canvas#signature {
                             </div>
                             <div class="col-md-3">                                    
                                 <div class="form-group">
-                                    @php $myDateTime = DateTime::createFromFormat('Y-m-d',$member->dob); @endphp
-                                      <P>{{$myDateTime->format('d M Y')}}</P>                      
+                                    <P>{{date('d M Y',strtotime($member->dob))
+                                       }}</P>                      
                                 </div>
                             </div>
                         </div>
@@ -327,6 +339,30 @@ canvas#signature {
                                     </div>                                  
                                 </div>
                             </div>
+                            @if($member->doc_expiry1)
+                            <div class="row mt-3">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Doc Expiry Date1</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">                                     
+                                        <p>{{date('d M Y',strtotime($member->doc_expiry1))}}</p>                                 
+                                    </div>                                  
+                                </div>
+                                 <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Doc Expiry Date 2</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                     <p>{{date('d M Y',strtotime($member->doc_expiry2))}}</p>           
+                                    </div>                                  
+                                </div>
+                            </div>
+                            @endif
                         @if($member->approval == 0)  
                         <div class="col-md-12">
                             <div class="form-group">  

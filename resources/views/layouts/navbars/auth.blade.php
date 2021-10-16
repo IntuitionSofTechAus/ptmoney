@@ -66,7 +66,13 @@
                     <p>{{ __('Exchange Rate') }}</p>
                 </a>
             </li>
-             <!-- <li class="{{ $elementActive == 'payment' ? 'active' : '' }}">
+
+            <li class="{{ request()->segment(2) == 'list-customer' ? 'active' : '' }}">
+                <a href="{{ route('customer.list') }}">
+                    <i class="fa fa-user"></i>
+                    <p>{{ __('Walk-In List') }}</p>
+                </a>
+            </li>             <!-- <li class="{{ $elementActive == 'payment' ? 'active' : '' }}">
                 <a href="#">
                     <i class="nc-icon nc-bank"></i>
                     <p>{{ __('Add New Transaction') }}</p>

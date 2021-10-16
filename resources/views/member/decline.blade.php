@@ -426,6 +426,35 @@
                                    
                                 </div>
                             </div>
+
+                            <div class="row mt-4">
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label>Doc Expiry Date1<sup class="required">*</sup></label>
+                                    </div>                                   
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input type="date" name="doc_expiry1" placeholder="Select Expiry date" class="form-control" value="{{$member->doc_expiry1}}"><br>
+                                        @error('doc_expiry1')
+                                           <span class="reds">{{ $message }}</span>   
+                                        @enderror           
+                                    </div>                                     
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label>Doc Expiry Date2:<sup class="required">*</sup></label>
+                                    </div>                                   
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input type="date" name="doc_expiry2" placeholder="Select Expiry date" class="form-control" value="{{$member->doc_expiry2}}"><br>
+                                        @error('doc_expiry2')
+                                           <span class="reds">{{ $message }}</span>   
+                                        @enderror           
+                                    </div>                                     
+                                </div>  
+                            </div>
                           
                         <div class="col-md-12">
                             <div class="form-group">  

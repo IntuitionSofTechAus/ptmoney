@@ -30,7 +30,7 @@ canvas#signature {
                     <p>{!! \Session::get('success') !!}</p>
                     </div>
                     @endif
-                     @if($member_count == 0) 
+                    @if($member_count == 0) 
                         <form action="{{route('member.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <h3>Sender Detail:</h3><br>
@@ -484,7 +484,6 @@ canvas#signature {
                                     </div>                                     
                                 </div>  
                             </div>
-
                           
                         <div class="col-md-12">
                             <div class="form-group">  

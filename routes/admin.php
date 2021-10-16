@@ -26,5 +26,10 @@ Route::group(['prefix' =>'admin', 'middleware' => 'auth'], function(){
  Route::any('/exchange-rate',[AdminController::class,'exchangeRate'])->name('exchange.rate');
  Route::post('/approval',[AdminController::class,'approval'])->name('approval');   
  Route::get('/users-list',[AdminController::class,'usersList'])->name('users.list');
+
+ Route::get('/list-customer',[AdminController::class,'listCustomer'])->name('customer.list');
+ Route::get('/new-customer',[AdminController::class,'newCustomer'])->name('customer.new');
+ Route::get('/show-customer/{id}',[AdminController::class,'showCustomer'])->name('showcustomer');
+ Route::post('add-customer',[AdminController::class,'store'])->name('customer.store');   
 });
  

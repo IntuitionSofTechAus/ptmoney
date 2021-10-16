@@ -61,7 +61,7 @@ canvas#signature {
                                             <div class="form-group">
                                                  <input type="date"  max="{{date('Y-m-d')}}" name="dob" value="{{ old('dob') }}"  class="form-control" >
                                             @error('dob')
-                                               <span class="reds">{{ $message }}</span>   
+                                               <span class="reds">{{ $message }}</span>
                                             @enderror
                                             </div>
                                         </div>

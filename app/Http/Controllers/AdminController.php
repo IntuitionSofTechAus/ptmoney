@@ -9,6 +9,7 @@ use App\Models\ExchangeRate;
 use App\Models\Beneficiary;
 use App\Models\User;
 use App\Models\State;
+use App\Models\Transaction;
 use App\Models\Province;
 use DB;
 
@@ -150,4 +151,30 @@ class AdminController extends Controller
         $is_customer = 1;
         return view('admin.showmember',compact('member','is_customer'));
     } 
+
+    public function newTransaction($id){
+        $member = Customer::find($id);
+        $rate = ExchangeRate::first();
+        return view('admin.transaction',compact('member','rate'));
+    }
+
+    public function transactionStore(Request $request){
+        $this->validate($request, [
+         'reference_id'    => 'required',
+         'reference_table' => 'required',
+         'amount'           => 'required|numeric',
+         'rate'      => 'required|numeric',
+         'fee'       => 'required|numeric',
+         'total_payable'        => 'required|numeric',
+         'receivable_amount'     => 'required|numeric',
+         'aganet_ref'          => 'required',
+         'purpose'           => 'required'
+        ]);
+        $data = $request->all();
+        $data['status'] = 'waiting';
+        $data['transaction_id'] = strtoupper(substr($request->sender_full_name, 0, 1)).rand(11111111,99999999);
+        
+        Transaction::create($data);
+        return redirect('admin/list-customer')->with('success','Transaction Added Successfully!!');
+    }
 }

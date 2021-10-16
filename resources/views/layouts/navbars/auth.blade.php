@@ -72,7 +72,15 @@
                     <i class="fa fa-user"></i>
                     <p>{{ __('Walk-In List') }}</p>
                 </a>
-            </li>             <!-- <li class="{{ $elementActive == 'payment' ? 'active' : '' }}">
+            </li> 
+
+            <li class="{{ request()->segment(2) == 'list-transaction' ? 'active' : '' }}">
+                <a href="{{ route('transaction.list') }}">
+                    <i class="fa fa-user"></i>
+                    <p>{{ __('Transaction List') }}</p>
+                </a>
+            </li> 
+            <!-- <li class="{{ $elementActive == 'payment' ? 'active' : '' }}">
                 <a href="#">
                     <i class="nc-icon nc-bank"></i>
                     <p>{{ __('Add New Transaction') }}</p>

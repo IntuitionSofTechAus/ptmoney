@@ -177,4 +177,9 @@ class AdminController extends Controller
         Transaction::create($data);
         return redirect('admin/list-customer')->with('success','Transaction Added Successfully!!');
     }
+
+    public function listTransaction(){
+        $transaction = Transaction::where('status','waiting')->orderBy('created_at','desc')->paginate('10');
+        return view('admin.list-transaction',compact('transaction'));
+    }
 }

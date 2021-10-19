@@ -53,7 +53,7 @@
                                                   }}</td>
                                                  <td>{{__($member->sender_full_name)}}</td>
                                                  <td>{{__($member->receiver_full_name)}}</td>
-                                                 <td><a href="{{route('showcustomer',$member->id)}}" class="btn btn-info"><i class="fa fa-info-circle" aria-hidden="true"></i></a> <a href="{{route('transaction.new',$member->id)}}" class="btn btn-danger"><i class="fa fa-exchange" aria-hidden="true"></i></a></td>
+                                                 <td><a href="{{route('showcustomer',$member->id)}}" class="btn btn-info"><i class="fa fa-info-circle" aria-hidden="true"></i></a> <a href="{{route('show.receivers',$member->id)}}" class="btn btn-danger"><i class="fa fa-users" aria-hidden="true"></i></a></td>
                                             </tr>
                                         @endforeach 
                                     @else

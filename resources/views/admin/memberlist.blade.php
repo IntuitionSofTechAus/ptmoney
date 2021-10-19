@@ -32,15 +32,15 @@
                                 <tbody>
                                  @foreach($members as $key=> $member)
                                  @php $now = \Carbon\Carbon::now()->month; 
-                                 $exp1 = date('m',strtotime($member->doc_expiry1));
-                                 $exp2 = date('m',strtotime($member->doc_expiry2));
+                                 $exp1 = date('Y-m',strtotime($member->doc_expiry1));
+                                 $exp2 = date('Y-m',strtotime($member->doc_expiry2));
                                  $exp1  = intval($exp1);
                                  $exp2  = intval($exp2);
                                 
                                @endphp
-                                 <tr>
+                                 <tr class="@if($now == $exp1 || $now == $exp2){{ 'alert-danger' }} @endif">
                                      <td>{{ ($key+1) + ($members->currentPage() - 1)*$members->perPage() }}</td>
-                                     <td> <p class="@if($now == $exp1 || $now == $exp2){{ 'text-danger' }} @endif">{{__($member->name)}}</p></td>
+                                     <td>{{__($member->name)}}</td>
                                      <td>{{date('d M Y',strtotime($member->date))  
                                       }}</td>
                                      <td>{{ $member->user->name}}</td>
@@ -48,7 +48,7 @@
                                      <td>{{__($member->receiver_full_name)}}</td>
                                      <td>
                                         <a class="btn btn-@if($member->approval==0){{'warning'}} @elseif($member->approval==1){{'success'}}@else{{'danger'}}@endif">@if($member->approval==0){{'Pending'}} @elseif($member->approval==1){{'Approved'}}@else{{'Rejected'}}@endif</a></td>
-                                      <td><a href="{{route('showmember',$member->id)}}" class="btn btn-info">Show Details</a></td>
+                                      <td><a href="{{route('showmember',$member->id)}}" class="btn btn-info"><i class="fa fa-info-circle" aria-hidden="true"></i></a> @if($member->approval==1)<a href="{{route('show.receivers',$member->id)}}" class="btn btn-danger"><i class="fa fa-users" aria-hidden="true"></i></a>@endif</td>
                                 </tr>
                                 @endforeach   
                                </tbody>

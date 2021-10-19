@@ -5,6 +5,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,6 +41,8 @@ Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 Route::get('/user/verify/{token}/{id}', 'App\Http\Controllers\Auth\RegisterController@verifyUser')->name('user.verify');
 Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']])->middleware('auth');
 Route::group(['prefix' =>'user', 'middleware' => 'auth'], function(){
+	Route::get('/new-transaction/{id}',[AdminController::class,'newTransaction'])->name('transaction.usernew');
+ 	Route::get('/view-transaction/{id}',[AdminController::class,'viewTransaction'])->name('transaction.userview');
 	Route::get('profile', [ProfileController::class,'edit'])->name('profile.edit');
 	Route::post('uploadprofile', [ProfileController::class,'profile'])->name('uploadprofile');	
 	Route::put('profile', [ProfileController::class,'update'])->name('profile.update');
@@ -55,4 +58,7 @@ Route::get('/showbeneficiary/{id?}',[MemberController::class,'showBeneficiary'])
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
 });
+
+
+
 

@@ -34,8 +34,12 @@ Route::group(['prefix' =>'admin', 'middleware' => 'auth'], function(){
  Route::get('/new-customer',[AdminController::class,'newCustomer'])->name('customer.new');
 
  Route::get('/new-transaction/{id}',[AdminController::class,'newTransaction'])->name('transaction.new');
- Route::get('/show-customer/{id}',[AdminController::class,'showCustomer'])->name('showcustomer');
+ Route::get('/view-transaction/{id}',[AdminController::class,'viewTransaction'])->name('transaction.view');
 
+ Route::get('/show-customer/{id}',[AdminController::class,'showCustomer'])->name('showcustomer');
+ Route::get('/receivers-list/{id}',[AdminController::class,'receiversList'])->name('show.receivers');
+
+ Route::get('beneficiary-form/{id}',[AdminController::class,'addbeneficiary'])->name('beneficiary.adminadd');
  Route::post('add-customer',[AdminController::class,'store'])->name('customer.store');
 
  Route::post('add-transaction',[AdminController::class,'transactionStore'])->name('transaction.store');   

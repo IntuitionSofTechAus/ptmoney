@@ -7,6 +7,8 @@ use DB;
 use Auth;
 use App\Models\State;
 use App\Models\Member;
+use App\Models\Sender;
+use App\Models\Receiver;
 use App\Models\Beneficiary;
 use App\Models\Province;
 
@@ -16,8 +18,8 @@ class MemberController extends Controller
     //Add new member form after login
     public function index()
     {   
-        $member_count = Member::where('user_id',Auth::user()->id)->count();
-        $member       = Member::where('user_id',Auth::user()->id)->first();
+        $member_count = Sender::where('user_id',Auth::user()->id)->count();
+        $member       = Sender::select('senders.*','receivers.id as receiver_id','receivers.receiver_full_name','receivers.receiver_address','receivers.receiver_suburb','receivers.receiver_state','receivers.receiver_postcode','receivers.bank_name','receivers.accont_number','receivers.branch','receivers.sender_id','receivers.province','receivers.contact_number')->join('receivers','senders.id','=','receivers.sender_id')->where('user_id',Auth::user()->id)->first();
         $states       = State::all();
         $provinces    = Province::all();
         return view('member.application_form',compact('member_count','member','states','provinces')); 
@@ -73,25 +75,39 @@ class MemberController extends Controller
         if($request->hasFile('docfile1')){
            $data['docfile1'] = $request->file('docfile1')->store('upload/docfile1');
         }
-         if($request->hasFile('docfile2')){
+        
+        if($request->hasFile('docfile2')){
             $data['docfile2'] = $request->file('docfile2')->store('upload/docfile2');
         }
+
         $data['receiver_suburb']='';
-        Member::updateOrCreate(['id'=> $request->id],$data);
+        $sender = Sender::updateOrCreate(['id'=> $request->id],$data);
+        $data['sender_id'] = $sender->id;
+
+        if(Auth::user()->role == 1){
+          $data['approval'] = 1;
+        }else{
+          $data['approval'] = 0;
+        }
+
+        Receiver::updateOrCreate(['id'=> $request->receiver_id],$data);
+
         return redirect()->back()->with('success','Form Submitted Successfully , Waiting for Admin Approval');
-        
     }
+
     //Add new Benificary form 
     public function beneficiary()
     {   
         $beneficiary_count = Beneficiary::where('user_id',Auth::user()->id)->count();
+        $sender = Sender::where('user_id',Auth::user()->id)->first();
         $states       = State::all();
         $provinces    = Province::all();
-        return view('benificary.application_form',compact('states','beneficiary_count','provinces')); 
+        return view('benificary.application_form',compact('states','beneficiary_count','provinces','sender')); 
     }
-      public function beneficiaryStore(Request $request)
+    
+    public function beneficiaryStore(Request $request)
     {
-         $this->validate($request, [
+        $this->validate($request, [
            'receiver_full_name'  => 'required|min:3',
            'receiver_address'    => 'required|min:3',
            'receiver_state'      => 'required',
@@ -115,44 +131,43 @@ class MemberController extends Controller
         file_put_contents($file, $image_base64);
         $data = $request->all();
         $data['signed']  = $image;
-        $data['user_id'] = Auth::user()->id;
-        $data['membership_number']=rand();
-        $data['sender_full_name']='';
-        $data['dob']=date('Y-m-d');
+        // $data['user_id'] = Auth::user()->id;
+        
         $data['receiver_suburb']='';
-        Beneficiary::create($data);
-        return redirect()->route('beneficiary.list')->with('success','Form Submitted Successfully ');
+        Receiver::create($data);
+
+        return redirect()->back()->with('success','Form Submitted Successfully ');
     }
 
     //  Beneficiary List
     public function beneficiaryList(Request $request)
     {
-        $member  = Member::where('user_id',Auth::user()->id)->first();
-        $members_number=$this->split_name($member->sender_full_name);
-        $beneficiary = Beneficiary::orderBy('created_at','desc')->where('user_id',Auth::user()->id)->paginate('15');
+        $member  = Sender::select('senders.*','receivers.id as receiver_id','receivers.receiver_full_name','receivers.receiver_address','receivers.receiver_suburb','receivers.receiver_state','receivers.receiver_postcode','receivers.bank_name','receivers.accont_number','receivers.branch','receivers.sender_id','receivers.province','receivers.contact_number')->join('receivers','senders.id','=','receivers.sender_id')->where('user_id',Auth::user()->id)->first();   
+
+        // $members_number=$this->split_name($member->sender_full_name);
+        $beneficiary = Sender::select('senders.id as sender_id','senders.user_id','receivers.*')->join('receivers','senders.id','=','receivers.sender_id')->where('user_id',Auth::user()->id)->paginate('15');
         return view('benificary.beneficiarylist',compact('beneficiary'));
     }
-    function split_name($name) {
-        $nameWithoutPrefix=$name;
-        $words = explode(" ", $nameWithoutPrefix);
-        $firtsName = reset($words); 
-        $lastName  = end($words);
-        $sort = $firtsName[0].$firtsName[1];
-        if(isset($lastName))
-        {
-           $sort = $sort.$lastName[0];
-        }
-        if(isset($lastName[1]))
-        {
-            $sort = $sort.$lastName[1];
-        }
-        return $sort.rand(1000,9999); 
-}
+//     function split_name($name) {
+//         $nameWithoutPrefix=$name;
+//         $words = explode(" ", $nameWithoutPrefix);
+//         $firtsName = reset($words); 
+//         $lastName  = end($words);
+//         $sort = $firtsName[0].$firtsName[1];
+//         if(isset($lastName))
+//         {
+//            $sort = $sort.$lastName[0];
+//         }
+//         if(isset($lastName[1]))
+//         {
+//             $sort = $sort.$lastName[1];
+//         }
+//         return $sort.rand(1000,9999); 
+// }
 
     public function showBeneficiary(Request $request)
     {
-        $beneficiary = Beneficiary::find($request->id);
+        $beneficiary = Sender::select('senders.id as sender_id','receivers.*')->join('receivers','senders.id','=','receivers.sender_id')->where('receivers.id',$request->id)->first();
         return view('benificary.show_beneficiary',compact('beneficiary'));
     }
-
 }

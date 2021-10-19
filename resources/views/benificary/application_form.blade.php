@@ -35,6 +35,9 @@ canvas#signature {
                         <form action="{{route('beneficiary.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                          <h3>Receiver Detail:</h3>
+                         @if(!empty($sender))
+                            <input type="hidden" name="sender_id" value="{{$sender->id}}">
+                        @endif
                         <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">

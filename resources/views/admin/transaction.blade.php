@@ -34,8 +34,8 @@ canvas#signature {
 	                    <form action="{{route('transaction.store')}}" method="post" enctype="multipart/form-data">
 	                        @csrf
 	                        <h5>Customer</h5>
-	                        <input type="hidden" name="reference_id" value="{{$member->id}}">
-	                        <input type="hidden" name="reference_table" value="customers">
+	                        <input type="hidden" name="sender_id" value="{{$member->id}}">
+	                        <input type="hidden" name="receiver_id" value="{{$member->receiver_id}}">
 	                        <div class="row">
 	                            <div class="col-md-3">
 	                                <div class="form-group">
@@ -124,7 +124,7 @@ canvas#signature {
 	                            </div>
 	                            <div class="col-md-3">
 	                                <div class="form-group">
-	                                <input type="text" name="amount" value="{{old('amount')}}" id="amount"  class="form-control">
+	                                <input type="text" name="amount" value="{{old('amount')}}" id="amount"  class="form-control" onchange="getTotalPayable()">
 	                                @error('amount')
 	                                   <span class="reds">{{ $message }}</span>   
 	                                @enderror
@@ -139,7 +139,7 @@ canvas#signature {
 	                            </div>
 	                            <div class="col-md-3">
 	                                <div class="form-group">
-	                                <input type="text" name="rate" value="{{ $rate->exchange_rate }}"  class="form-control" readonly>
+	                                <input type="text" name="rate" id="rate" value="{{ $rate->exchange_rate }}"  class="form-control" readonly>
 	                                @error('rate')
 	                                   <span class="reds">{{ $message }}</span>   
 	                                @enderror
@@ -184,7 +184,7 @@ canvas#signature {
 	                            </div>
 	                            <div class="col-md-3">
 	                                <div class="form-group">
-	                                <input type="text" name="receivable_amount" value="{{ old('receivable_amount') }}"  class="form-control" >
+	                                <input type="text" id="receivable_amount" name="receivable_amount" value="{{ old('receivable_amount') }}"  class="form-control" readonly>
 	                                @error('receivable_amount')
 	                                   <span class="reds">{{ $message }}</span>   
 	                                @enderror
@@ -246,7 +246,11 @@ canvas#signature {
     function getTotalPayable(){
     	var amount = $("#amount").val();
     	var fee = $("#fee").val();
-
+    	var range = $("#rate").val();
+    	if(amount != ''){
+    		var total = parseInt(amount) * parseInt(range);
+    		$("#receivable_amount").val(total);
+    	}
     	if(amount != '' && fee != ''){
     		var total = parseInt(amount) + parseInt(fee);
     		$("#total_payable").val(total);

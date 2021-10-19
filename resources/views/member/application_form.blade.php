@@ -52,8 +52,8 @@ canvas#signature {
                         <div class="row" >
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                            <label>Date Of Birth<sup class="required">*</sup></label>
-                                        </div>
+                                        <label>Date Of Birth<sup class="required">*</sup></label>
+                                    </div>
                                 </div>
                                 <div class="col-md-9">
                                     <div class="row">
@@ -74,7 +74,7 @@ canvas#signature {
                                             <div class="form-group"> 
                                              <input type="number"  name="telephone" value="{{ old('telephone') }}"  class="form-control" >
                                             @error('telephone')
-                                                <span class="reds">{{ $message }}</span>   
+                                                <span class="reds">{{ $message }}</span>
                                             @enderror
                                             </div>
                                         </div>
@@ -106,7 +106,7 @@ canvas#signature {
                                            <label>Suburb<sup class="required">*</sup></label> 
                                             <input type="text" name="sender_suburb" value="{{ old('sender_suburb') }}"  class="form-control" >
                                             @error('sender_suburb')
-                                               <span class="reds">{{ $message }}</span>   
+                                               <span class="reds">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
@@ -170,7 +170,7 @@ canvas#signature {
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <p>                                                                         (AUSTRAC Defines ‘Politically Exposed Persons’ As Individuals Who Are , Or Have Been Entrusted With Prominent Functions In A Foreign Country. For Example: Heads Of State Or Of Government, Senior Politicians, Senior Government, Judicial Or Military Officials, Senior Executives Of State Owned Corporations Or Important Political Party Officials.)
+                            <p>(AUSTRAC Defines ‘Politically Exposed Persons’ As Individuals Who Are , Or Have Been Entrusted With Prominent Functions In A Foreign Country. For Example: Heads Of State Or Of Government, Senior Politicians, Senior Government, Judicial Or Military Officials, Senior Executives Of State Owned Corporations Or Important Political Party Officials.)
                             </p>
                         </div>
                         <div class="row">
@@ -192,7 +192,7 @@ canvas#signature {
                             </div>
                         </div>
                         <hr>
-                         <h3>Receiver Detail:</h3>
+                        <h3>Receiver Detail:</h3>
                         <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">

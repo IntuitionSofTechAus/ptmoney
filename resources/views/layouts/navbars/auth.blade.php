@@ -118,8 +118,8 @@
                     </ul>
                 </div>
             </li>
-             @if(App\Models\Member::where('user_id',Auth::user()->id)->count() > 0 )
-            @if(App\Models\Member::where('user_id',Auth::user()->id)->first()->approval == 1)
+            @if(App\Models\Sender::where('user_id',Auth::user()->id)->count() > 0 )
+            @if(App\Models\Sender::where('user_id',Auth::user()->id)->first()->approval == 1)
             <li class="{{ request()->segment(2) == 'beneficiary' ? 'active' : '' }}">
                 <a href="{{ route('beneficiary.list') }}">
                     <i class="fa fa-list"></i>

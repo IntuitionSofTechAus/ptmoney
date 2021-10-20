@@ -10,23 +10,25 @@
                 <div class="card card-stats">
                     <div class="card-body ">
                         <div class="row">
-                            <div class="col-5 col-md-4">
+                            <div class="col-4 col-md-3">
                                 <div class="icon-big text-center icon-warning">
-                                    <i class="nc-icon nc-globe text-warning"></i>
+                                    <!-- <i class="nc-icon nc-globe text-warning"></i> -->
+                                    <i class="fa fa-dollar text-warning"></i>
                                 </div>
                             </div>
-                            <div class="col-7 col-md-8">
+                            <div class="col-8 col-md-9">
                                 <div class="numbers">
-                                    <p class="card-category">Today Exchange rate</p>
+                                    <p class="card-category">Exchange rate</p>
                                     <p class="card-title">{{ \App\Models\ExchangeRate::first()->exchange_rate ?? '' }}<p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer ">
-                        <hr>
-                        <div class="stats">
-                            <i class="fa fa-money"></i>
+                        <!-- <hr> -->
+                        <div class="stats" style="text-align: right;">
+                            <!-- <a href="#">View</a> -->
+                            <p></p>
                         </div>
                     </div>
                 </div>
@@ -38,7 +40,7 @@
                             <div class="row">
                                 <div class="col-5 col-md-4">
                                     <div class="icon-big text-center icon-warning">
-                                        <i class="nc-icon nc-money-coins text-success"></i>
+                                        <i class="fa fa-users text-success"></i>
                                     </div>
                                 </div>
                                 <div class="col-7 col-md-8">
@@ -51,11 +53,175 @@
                             </div>
                         </div>
                         <div class="card-footer ">
-                            <hr>
-                            <div class="stats">
-                                <i class="fa fa-user-o"></i>
+                        <!-- <hr> -->
+                        <div class="stats" style="text-align: right;">
+                            <!-- <a href="#">View</a> -->
+                            <p></p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-5 col-md-4">
+                                    <div class="icon-big text-center icon-warning">
+                                        <i class="fa fa-list text-danger"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 col-md-8">
+                                    <div class="numbers">
+                                        <p class="card-category">Members Count</p>
+                                        <p class="card-title">{{ \App\Models\Sender::where('user_id','!=',Auth::user()->id)->get()->count() ?? '' }}
+                                            <p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div class="card-footer ">
+                        <!-- <hr> -->
+                        <div class="stats" style="text-align: right;">
+                            <!-- <a href="#">View</a> -->
+                            <p></p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-5 col-md-4">
+                                    <div class="icon-big text-center icon-warning">
+                                        <i class="fa fa-user text-dark"></i>
+
+                                    </div>
+                                </div>
+                                <div class="col-7 col-md-8">
+                                    <div class="numbers">
+                                        <p class="card-category">Walkin Users</p>
+                                        <p class="card-title">{{\App\Models\Sender::where('user_id','=',Auth::user()->id)->get()->count() ?? ''}}
+                                            <p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer ">
+                        <!-- <hr> -->
+                        <div class="stats" style="text-align: right;">
+                            <!-- <a href="#">View</a> -->
+                            <p></p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-5 col-md-4">
+                                    <div class="icon-big text-center icon-warning">
+                                        <i class="fa fa-pause text-info"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 col-md-8">
+                                    <div class="numbers">
+                                        <p class="card-category">Waiting Transaction</p>
+                                        <p class="card-title">{{ \App\Models\Transaction::where('status','waiting')->get()->count() ?? '' }}
+                                            <p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer ">
+                        <!-- <hr> -->
+                        <div class="stats" style="text-align: right;">
+                            <!-- <a href="#">View</a> -->
+                            <p></p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-5 col-md-4">
+                                    <div class="icon-big text-center icon-warning">
+                                        <i class="fa fa-spinner text-danger"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 col-md-8">
+                                    <div class="numbers">
+                                        <p class="card-category">Processing Transaction</p>
+                                        <p class="card-title">{{ \App\Models\Transaction::where('status','processing')->get()->count() ?? '' }}
+                                            <p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer ">
+                        <!-- <hr> -->
+                        <div class="stats" style="text-align: right;">
+                            <!-- <a href="#">View</a> -->
+                            <p></p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-5 col-md-4">
+                                    <div class="icon-big text-center icon-warning">
+                                        <i class="fa fa-exchange text-primary"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 col-md-8">
+                                    <div class="numbers">
+                                        <p class="card-category">Transferring Transaction</p>
+                                        <p class="card-title">{{ \App\Models\Transaction::where('status','transfering')->get()->count() ?? '' }}
+                                            <p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer ">
+                        <!-- <hr> -->
+                        <div class="stats" style="text-align: right;">
+                            <!-- <a href="#">View</a> -->
+                            <p></p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-5 col-md-4">
+                                    <div class="icon-big text-center icon-warning">
+                                        <i class="fa fa-money text-muted"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 col-md-8">
+                                    <div class="numbers">
+                                        <p class="card-category">Completed Transaction</p>
+                                        <p class="card-title">{{ \App\Models\Transaction::where('status','completed')->get()->count() ?? '' }}
+                                            <p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer ">
+                        <!-- <hr> -->
+                        <div class="stats" style="text-align: right;">
+                            <!-- <a href="#">View</a> -->
+                            <p></p>
+                        </div>
+                    </div>
                     </div>
                 </div>
             @endif
@@ -141,11 +307,11 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="card-footer ">
-                        </div>
+                        
                     </div>
                 </div>
             @endif
+
                 <div class="col-md-6">
                     <div class="card ">
                         <div class="card-header ">

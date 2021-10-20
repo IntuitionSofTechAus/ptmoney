@@ -76,7 +76,7 @@
 
             <li class="{{ request()->segment(2) == 'list-transaction' ? 'active' : '' }}">
                 <a href="{{ route('transaction.list') }}">
-                    <i class="fa fa-user"></i>
+                    <i class="fa fa-exchange"></i>
                     <p>{{ __('Transaction List') }}</p>
                 </a>
             </li> 

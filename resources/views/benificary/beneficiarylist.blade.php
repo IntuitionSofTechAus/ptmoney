@@ -41,13 +41,15 @@
                                      <td>{{ ($key+1) + ($beneficiary->currentPage() - 1)*$beneficiary->perPage() }}</td>
                                      <td>{{__($member->name)}}</td>
                                      <td>{{date('d M Y',strtotime($member->date))}}</td>
-                                     <td>{{$member->user->name}}</td>                           
+                                     <td>{{$member->user->name}}</td>
                                      <td>{{__($member->receiver_full_name)}}</td>
-                                     <td><a href="{{route('showbeneficiary',$member->id)}}" class="btn btn-info btn-round"><i class="fa fa-info-circle" aria-hidden="true"></i></a> 
+                                     <td>
+                                        <a href="{{route('showbeneficiary',$member->id)}}" class="btn btn-info btn-round"><i class="fa fa-info-circle" aria-hidden="true"></i></a> 
                                         @if(\App\Models\Transaction::where('receiver_id',$member->id)->count() <= 0)
-                                        <a href="{{route('transaction.usernew',$member->id)}}" class="btn btn-danger btn-round"><i class="fa fa-exchange" aria-hidden="true"></i></a>
+                                            <a href="{{route('transaction.usernew',$member->id)}}" class="btn btn-danger btn-round"><i class="fa fa-exchange" aria-hidden="true"></i></a>
                                         @else
-                                        <a href="{{route('transaction.userview',$member->id)}}" class="btn btn-danger btn-round"><i class="fa fa-money" aria-hidden="true"></i></a>
+                                            <a href="{{route('transaction.usernew',$member->id)}}" class="btn btn-danger btn-round"><i class="fa fa-exchange" aria-hidden="true"></i></a>
+                                            <a href="   {{route('transaction.userview',$member->id)}}" class="btn btn-danger btn-round"><i class="fa fa-money" aria-hidden="true"></i></a>
                                         @endif
                                     </td>
                                 </tr>

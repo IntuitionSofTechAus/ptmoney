@@ -26,12 +26,12 @@
                         </div>
                     @endif
                         <div class="table-responsive">
+                            
                             <table class="table">
                                 <thead class=" text-primary">
                                     <th>#No</th>
                                     <th>Name</th>
                                     <th>Date</th>
-                                    
                                     <th>sender-full-name</th>
                                     <th>receiver-full-name</th>
                                     <!-- <th>status</th> -->

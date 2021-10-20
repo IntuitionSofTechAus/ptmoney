@@ -2,8 +2,8 @@
     'class' => '',
     'elementActive' => 'tables'
 ])
-
 @section('content')
+
     <div class="content">
         <div class="row">
             <div class="col-md-12">
@@ -11,13 +11,13 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-6">
-                                <h4 class="card-title">Wait for Payment List  </h4> 
+                                <h4 class="card-title">Payment List  </h4> 
                             </div>
                             <div class="col-md-6">
-                                <div class="col-md-6"></div> 
                                 <div class="col-md-6" style="float: right;">
                                     <div class="form-group">
-                                        <select class="form-control" name="status">
+                                        <select class="form-control" name="status" onchange="getPaymentList(this.value);">
+                                            <option value="">All Transaction</option>
                                             <option value="waiting">Wait For Payment</option>
                                             <option value="processing">Processing</option>
                                             <option value="transferring">Transferring</option>
@@ -36,19 +36,20 @@
                         </div>
                     @endif
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table" id="transaction_table">
                                 <thead class=" text-primary">
                                     <th>#No</th>
-                                    <th>Transaction Id</th>
+                                    <th>Trans No.</th>
                                     <th>Agent Ref.</th>
-                                    <th>Amount</th>
+                                    <th>Sender</th>
+                                    <th>Receiver</th>
+                                    <th>Account No.</th>
+                                    <th>Bank</th>
+                                    <th>Sent</th>
                                     <th>Rate</th>
-                                    <th>Fee</th>
-                                    <th>Total Payable</th>
-                                    <th>Receivable Amount</th>
-                                    <th>Sender Name</th>
-                                    <th>Receiver Name</th>
+                                    <th>Received</th>
                                     <th>Status</th>
+                                    <th>Created</th>
                                     <th>Action</th>                    
                                 </thead>
                                 <tbody>
@@ -58,15 +59,16 @@
                                                 <td>{{$k+1}}</td>
                                                 <td>{{$t->transaction_id}}</td>
                                                 <td>{{$t->aganet_ref}}</td>
-                                                <td>{{$t->amount}}</td>
+                                                <td>{{$t->sender->sender_full_name}}</td>
+                                                <td>{{$t->receiver->receiver_full_name}}</td>
+                                                <td>{{$t->receiver->accont_number}}</td>
+                                                <td>{{$t->receiver->bank_name}}</td>
+                                                <td class="text-success"><b><i class="fa fa-dollar"></i> {{$t->amount}}</b></td>
                                                 <td>{{$t->rate}}</td>
-                                                <td>{{$t->fee}}</td>
-                                                <td>{{$t->total_payable}}</td>
-                                                <td>{{$t->receivable_amount}}</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>{{$t->status}}</td>
-                                                <td></td>
+                                                <td class="text-danger"><b> ฿ {{$t->receivable_amount}}</b></td>
+                                                <td @if($t->status == 'waiting') class="text-info" @elseif($t->status == 'processing') class="text-danger" @elseif($t->status == 'transfering') class="text-primary" @elseif($t->status == 'completed') class="text-muted" @endif><b>{{$t->status}}</b></td>
+                                                <td>{{date('d M Y', strtotime($t->created_at))}}</td>
+                                                <td><a href="{{route('transaction.userview',$t->id)}}" class="btn btn-danger btn-round"><i class="fa fa-money" aria-hidden="true"></i></a> <a href="{{route('transaction.userview',$t->id)}}" class="btn btn-info btn-round"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
                                             </tr>
                                         @endforeach
                                     @endif
@@ -79,4 +81,23 @@
         
         </div>
     </div>
+
+@endsection
+@section('javascript')
+<script type="text/javascript">
+    $(document).ready( function () {
+        $('#transaction_table').DataTable();
+    });
+
+    function getPaymentList(value){
+        $.ajax({
+            url : "{{url('admin/list-transaction')}}/"+value,
+            type : 'get',
+            success: function(res){
+                $("#transaction_table").html('');
+                $("#transaction_table").html(res);
+            }
+        })
+    }
+</script>
 @endsection

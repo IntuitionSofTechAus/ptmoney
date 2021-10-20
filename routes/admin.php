@@ -30,6 +30,7 @@ Route::group(['prefix' =>'admin', 'middleware' => 'auth'], function(){
  Route::get('/list-customer',[AdminController::class,'listCustomer'])->name('customer.list');
 
  Route::get('/list-transaction',[AdminController::class,'listTransaction'])->name('transaction.list');
+ Route::get('/list-transaction/{status}',[AdminController::class,'listTransactionByStatus'])->name('transaction.status');
  
  Route::get('/new-customer',[AdminController::class,'newCustomer'])->name('customer.new');
 

@@ -373,7 +373,7 @@ canvas#signature {
                                     </div>
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                        <input type="date" name="date" max="{{date('Y-m-d')}}" value="{{ old('date') }}"  class="form-control">
+                                        <input type="date" name="date" max="{{date('Y-m-d')}}"  value="{{date('Y-m-d')}}"  class="form-control" readonly>
                                           @error('date')
                                            <span class="reds">{{ $message }}</span>   
                                           @enderror

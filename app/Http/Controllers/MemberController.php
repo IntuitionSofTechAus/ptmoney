@@ -136,7 +136,13 @@ class MemberController extends Controller
         $data['receiver_suburb']='';
         Receiver::create($data);
 
-        return redirect()->back()->with('success','Form Submitted Successfully ');
+
+        if(Auth::user()->role == 1){
+          return redirect('admin/receivers-list/'.$request->sender_id)->with('success','Beneficiary Added Successfully!!');
+          
+        }else{
+          return redirect('user/beneficiary')->with('success','Beneficiary Added Successfully!!');
+        }
     }
 
     //  Beneficiary List

@@ -42,6 +42,10 @@ The above copyright notice and this permission notice shall be included in all c
     <link href="{{ asset('paper') }}/demo/demo.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{asset('paper') }}/css/signature/jquery.signature.css">
      <link type="text/css" href="{{asset('paper') }}/css/signature/jquery-ui.css" rel="stylesheet"> 
+
+     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.8/css/fixedHeader.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
      <style type="text/css">
          .card label {
             color: black;
@@ -78,11 +82,14 @@ The above copyright notice and this permission notice shall be included in all c
     <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
     <script src="{{ asset('paper') }}/demo/demo.js"></script>
     <!-- Sharrre libray -->
-    <script src="../assets/demo/jquery.sharrre.js"></script>
+    <!-- <script src="../assets/demo/jquery.sharrre.js"></script> -->
+
+    <script src="https://code.jquery.com/jquery-1.12.2.min.js" integrity="sha256-lZFHibXzMHo3GGeehn1hudTAP3Sc0uKXBXAzHX1sjtk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="http://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
     
     @stack('scripts')
-
-    @include('layouts.navbars.fixed-plugin-js')
+    <!-- @include('layouts.navbars.fixed-plugin-js') -->
     @yield('javascript')
 </body>
 

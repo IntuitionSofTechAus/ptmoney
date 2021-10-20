@@ -46,6 +46,7 @@
                                         @if(\App\Models\Transaction::where('receiver_id',$member->id)->count() <= 0)
                                         <a href="{{route('transaction.usernew',$member->id)}}" class="btn btn-danger btn-round"><i class="fa fa-exchange" aria-hidden="true"></i></a>
                                         @else
+                                        <a href="{{route('transaction.usernew',$member->id)}}" class="btn btn-danger btn-round"><i class="fa fa-exchange" aria-hidden="true"></i></a>
                                         <a href="{{route('transaction.userview',$member->id)}}" class="btn btn-danger btn-round"><i class="fa fa-money" aria-hidden="true"></i></a>
                                         @endif
                                     </td>

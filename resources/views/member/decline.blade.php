@@ -207,9 +207,8 @@
                                                 @endforeach
                                             </select>
                                             @error('province')
-                                               <span class="reds">{{ $message }}</span>   
+                                               <span class="reds">{{ $message }}</span>
                                             @enderror
-
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
@@ -226,7 +225,7 @@
                                           <label>Postcode<sup class="required">*</sup></label>
                                           <input type="number" name="receiver_postcode" value="{{ $member->receiver_postcode }}"  class="form-control" >
                                             @error('receiver_postcode')
-                                                <span class="reds">{{ $message }}</span>   
+                                                <span class="reds">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
@@ -252,7 +251,6 @@
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Account Number*<sup class="required">*</sup></label>
-
                                 </div>
                             </div>
                              <div class="col-md-9">
@@ -344,7 +342,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                        <input type="date" name="date" max="{{date('Y-m-d')}}" value="{{ $member->date }}"  class="form-control">
+                                        <input type="date" name="date" max="{{date('Y-m-d')}}"  value="{{date('Y-m-d')}}"  class="form-control" readonly>
                                           @error('date')
                                            <span class="reds">{{ $message }}</span>   
                                           @enderror

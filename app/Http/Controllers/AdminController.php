@@ -194,21 +194,24 @@ class AdminController extends Controller
         Transaction::create($data);
 
         if(Auth::user()->role == 1){
-          return redirect('admin/list-customer')->with('success','Transaction Added Successfully!!');
+          return redirect('admin/receivers-list/'.$request->sender_id)->with('success','Transaction Added Successfully!!');
+          
         }else{
           return redirect('user/beneficiary')->with('success','Transaction Added Successfully!!');
         }
     }
 
     public function listTransaction(){
-        $transaction = Transaction::where('status','waiting')->orderBy('created_at','desc')->paginate('10');
+        // $transaction = Transaction::where('status','waiting')->orderBy('created_at','desc')->paginate('10');
+        $transaction = Transaction::with('sender','receiver')->orderBy('created_at','desc')->get();
+        // echo '<pre>';print_r($transaction);die;
         return view('admin.list-transaction',compact('transaction'));
     }
 
     public function viewTransaction($id){
-      $transaction = Transaction::with('sender','receiver')->where('receiver_id',$id)->first();
+      $transactions = Transaction::with('sender','receiver')->where('receiver_id',$id)->get();
       // echo '<pre>';print_r($transaction);die;
-      return view('admin.transaction_details',compact('transaction'));
+      return view('admin.transaction_details',compact('transactions'));
     }
 
     public function receiversList($id){
@@ -223,5 +226,14 @@ class AdminController extends Controller
         $states       = State::all();
         $provinces    = Province::all();
         return view('benificary.application_form',compact('states','beneficiary_count','provinces','sender'));
+    }
+
+    public function listTransactionByStatus($status){
+      if($status != ''){
+        $transaction = Transaction::with('sender','receiver')->where('status',$status)->orderBy('created_at','desc')->get();
+      }else{
+        $transaction = Transaction::with('sender','receiver')->orderBy('created_at','desc')->get();
+      }       
+      return view('partials.list-transactions',compact('transaction'));
     }
 }

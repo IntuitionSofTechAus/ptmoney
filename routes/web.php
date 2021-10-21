@@ -43,6 +43,9 @@ Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['sh
 Route::group(['prefix' =>'user', 'middleware' => 'auth'], function(){
 	Route::get('/new-transaction/{id}',[AdminController::class,'newTransaction'])->name('transaction.usernew');
  	Route::get('/view-transaction/{id}',[AdminController::class,'viewTransaction'])->name('transaction.userview');
+
+ 	Route::get('/detail-transaction/{id}',[AdminController::class,'detailTransaction'])->name('transaction.detail');
+
 	Route::get('profile', [ProfileController::class,'edit'])->name('profile.edit');
 	Route::post('uploadprofile', [ProfileController::class,'profile'])->name('uploadprofile');	
 	Route::put('profile', [ProfileController::class,'update'])->name('profile.update');
@@ -52,8 +55,8 @@ Route::group(['prefix' =>'user', 'middleware' => 'auth'], function(){
 	Route::post('member/againstore',[MemberController::class,'againstore'])->name('member.againstore');	
 	Route::get('/beneficiary',[MemberController::class,'beneficiaryList'])->name('beneficiary.list');
 	Route::get('beneficiary-form',[MemberController::class,'beneficiary'])->name('beneficiary.add');
-Route::post('beneficiary/store',[MemberController::class,'beneficiaryStore'])->name('beneficiary.store');
-Route::get('/showbeneficiary/{id?}',[MemberController::class,'showBeneficiary'])->name('showbeneficiary');
+	Route::post('beneficiary/store',[MemberController::class,'beneficiaryStore'])->name('beneficiary.store');
+	Route::get('/showbeneficiary/{id?}',[MemberController::class,'showBeneficiary'])->name('showbeneficiary');
 });
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);

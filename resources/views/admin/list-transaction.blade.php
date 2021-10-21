@@ -3,7 +3,16 @@
     'elementActive' => 'tables'
 ])
 @section('content')
-
+<style type="text/css">
+    th { white-space: nowrap; }
+    .bold{
+        font-weight: bold;
+    }
+    table.dataTable tfoot th, table.dataTable tfoot td {
+        padding: 10px 6px;
+    }
+   
+</style>
     <div class="content">
         <div class="row">
             <div class="col-md-12">
@@ -17,7 +26,7 @@
                                 <div class="col-md-6" style="float: right;">
                                     <div class="form-group">
                                         <select class="form-control" name="status" onchange="getPaymentList(this.value);">
-                                            <option value="">All Transaction</option>
+                                            <option value="all">All Transaction</option>
                                             <option value="waiting">Wait For Payment</option>
                                             <option value="processing">Processing</option>
                                             <option value="transferring">Transferring</option>
@@ -30,12 +39,12 @@
                         <!-- <h4 class="card-title"> Walk-in members </h4> -->
                     </div>
                     <div class="card-body">
-                    @if (\Session::has('success'))
-                        <div class="alert alert-success">
-                        {!! \Session::get('success') !!}
-                        </div>
-                    @endif
-                        <div class="table-responsive">
+                        @if (\Session::has('success'))
+                            <div class="alert alert-success">
+                            {!! \Session::get('success') !!}
+                            </div>
+                        @endif
+                        <div class="table-responsive" id="table_div">
                             <table class="table" id="transaction_table">
                                 <thead class=" text-primary">
                                     <th>#No</th>
@@ -63,16 +72,26 @@
                                                 <td>{{$t->receiver->receiver_full_name}}</td>
                                                 <td>{{$t->receiver->accont_number}}</td>
                                                 <td>{{$t->receiver->bank_name}}</td>
-                                                <td class="text-success"><b><i class="fa fa-dollar"></i> {{$t->amount}}</b></td>
+                                                <td class="text-success bold">${{$t->amount}}</td>
                                                 <td>{{$t->rate}}</td>
-                                                <td class="text-danger"><b> ฿ {{$t->receivable_amount}}</b></td>
+                                                <td class="text-danger bold">฿{{$t->receivable_amount}}</td>
                                                 <td @if($t->status == 'waiting') class="text-info" @elseif($t->status == 'processing') class="text-danger" @elseif($t->status == 'transfering') class="text-primary" @elseif($t->status == 'completed') class="text-muted" @endif><b>{{$t->status}}</b></td>
                                                 <td>{{date('d M Y', strtotime($t->created_at))}}</td>
-                                                <td><a href="{{route('transaction.userview',$t->id)}}" class="btn btn-danger btn-round"><i class="fa fa-money" aria-hidden="true"></i></a> <a href="{{route('transaction.userview',$t->id)}}" class="btn btn-info btn-round"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                                                <td><a href="{{route('transaction.detail',$t->id)}}" class="btn btn-success btn-round"><i class="fa fa-money" aria-hidden="true"></i></a> <a href="{{route('transaction.edit',$t->id)}}" class="btn btn-info btn-round"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
                                             </tr>
                                         @endforeach
                                     @endif
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="6"></th>
+                                        <th>Total:</th>
+                                        <th ></th>
+                                        <th></th>
+                                        <th ></th>
+                                        <th colspan="3"></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -86,16 +105,68 @@
 @section('javascript')
 <script type="text/javascript">
     $(document).ready( function () {
-        $('#transaction_table').DataTable();
-    });
+        $('#transaction_table').DataTable({
+            "footerCallback": function ( row, data, start, end, display ) {
+                var api = this.api(), data;
+                console
+                // Remove the formatting to get integer data for summation
+                var intVal = function ( i ) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$\฿,]/g, '')*1 :
+                        typeof i === 'number' ?
+                            i : 0;
+                };
+     
+                // Total over all pages
+                total = api
+                    .column( 7 )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+     
+                // Total over this page
+                pageTotal = api
+                    .column( 7, { page: 'current'} )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+     
+                // Update footer
+                $( api.column( 7 ).footer() ).html(
+                    '<span class="text-success">$'+pageTotal +'</span>'
+                );
 
+                total = api
+                    .column( 9 )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+     
+                // Total over this page
+                pageTotal = api
+                    .column( 9, { page: 'current'} )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+     
+                // Update footer
+                $( api.column( 9 ).footer() ).html(
+                    '<span class="text-danger">฿'+pageTotal +'</span>'
+                );
+            }
+        });
+    });
     function getPaymentList(value){
         $.ajax({
             url : "{{url('admin/list-transaction')}}/"+value,
             type : 'get',
             success: function(res){
-                $("#transaction_table").html('');
-                $("#transaction_table").html(res);
+                $("#table_div").html('');
+                $("#table_div").html(res);
             }
         })
     }

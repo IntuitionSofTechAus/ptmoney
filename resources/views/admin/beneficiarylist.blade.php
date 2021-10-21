@@ -25,7 +25,7 @@
                     </div>
                     @endif
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table" id="beneficiary">
                                 <thead class=" text-primary">
                                     <th>#No</th>
                                     <th>Name</th>
@@ -47,7 +47,7 @@
                                         <a href="{{route('transaction.usernew',$member->id)}}" class="btn btn-danger btn-round"><i class="fa fa-exchange" aria-hidden="true"></i></a>
                                         @else
                                         <a href="{{route('transaction.usernew',$member->id)}}" class="btn btn-danger btn-round"><i class="fa fa-exchange" aria-hidden="true"></i></a>
-                                        <a href="{{route('transaction.userview',$member->id)}}" class="btn btn-danger btn-round"><i class="fa fa-money" aria-hidden="true"></i></a>
+                                        <a href="{{route('transaction.userview',$member->id)}}" class="btn btn-success btn-round"><i class="fa fa-money" aria-hidden="true"></i></a>
                                         @endif
                                     </td>
                                 </tr>
@@ -61,4 +61,11 @@
         
         </div>
     </div>
+@endsection
+@section('javascript')
+<script type="text/javascript">
+    $(document).ready( function () {
+        $('#beneficiary').DataTable();
+    });
+</script>
 @endsection

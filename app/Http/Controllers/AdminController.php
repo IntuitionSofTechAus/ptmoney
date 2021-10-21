@@ -131,10 +131,10 @@ class AdminController extends Controller
         $data['signed']  = $image;
         $data['user_id'] = Auth::user()->id;
         $data['membership_number'] = substr($request->sender_full_name, 0, 3).rand(11111,99999);
+
         if($request->hasFile('docfile1')){
            $data['docfile1'] = $request->file('docfile1')->store('upload/docfile1');
         }
-        
         if($request->hasFile('docfile2')){
             $data['docfile2'] = $request->file('docfile2')->store('upload/docfile2');
         }
@@ -165,6 +165,7 @@ class AdminController extends Controller
     public function showCustomer($id){
         $member = Sender::select('senders.*','receivers.id as receiver_id','receivers.receiver_full_name','receivers.receiver_address','receivers.receiver_suburb','receivers.receiver_state','receivers.receiver_postcode','receivers.bank_name','receivers.accont_number','receivers.branch','receivers.sender_id','receivers.province','receivers.contact_number')->join('receivers','senders.id','=','receivers.sender_id')->where('senders.id',$id)->first();
         $is_customer = 1;
+        
         return view('admin.showmember',compact('member','is_customer'));
     } 
 
@@ -188,7 +189,8 @@ class AdminController extends Controller
         ]);
         $data = $request->all();
         $data['status'] = 'waiting';
-        $data['reference_id'] = '';$data['reference_table'] = '';
+        $data['reference_id'] = '';
+        $data['reference_table'] = '';
         $data['transaction_id'] = 'TRA'.rand(1111111111,9999999999);
         
         Transaction::create($data);
@@ -229,11 +231,32 @@ class AdminController extends Controller
     }
 
     public function listTransactionByStatus($status){
-      if($status != ''){
+      if($status != 'all'){
         $transaction = Transaction::with('sender','receiver')->where('status',$status)->orderBy('created_at','desc')->get();
       }else{
         $transaction = Transaction::with('sender','receiver')->orderBy('created_at','desc')->get();
       }       
       return view('partials.list-transactions',compact('transaction'));
+    }
+
+    public function detailTransaction($id){
+      $transactions = Transaction::with('sender','receiver')->orderBy('created_at','desc')->where('id',$id)->get();
+
+      return view('admin.transaction_details',compact('transactions'));
+    }
+
+    public function editTransaction($id){
+      $transactions = Transaction::with('sender','receiver')->orderBy('created_at','desc')->where('id',$id)->get();
+      return view('admin.transaction_edit',compact('transactions'));
+    }
+
+    public function transactionUpdate(Request $request){
+      $transaction = Transaction::find($request->id);
+      $transaction->status = $request->status;
+      $transaction->save();
+
+      if(Auth::user()->role == 1){
+          return redirect('admin/list-transaction')->with('success','Transaction Status Updated Successfully!!');
+        }
     }
 }

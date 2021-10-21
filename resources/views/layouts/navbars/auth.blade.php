@@ -60,13 +60,7 @@
                     <p>{{ __('Users List') }}</p>
                 </a>
             </li>
-            <li class="{{ request()->segment(2) == 'exchange-rate' ? 'active' : '' }}">
-                <a href="{{ route('exchange.rate') }}">
-                    <i class="fa fa-money"></i>
-                    <p>{{ __('Exchange Rate') }}</p>
-                </a>
-            </li>
-
+            
             <li class="{{ request()->segment(2) == 'list-customer' ? 'active' : '' }}">
                 <a href="{{ route('customer.list') }}">
                     <i class="fa fa-user"></i>
@@ -80,6 +74,14 @@
                     <p>{{ __('Transaction List') }}</p>
                 </a>
             </li> 
+
+
+            <li class="{{ request()->segment(2) == 'exchange-rate' ? 'active' : '' }}">
+                <a href="{{ route('exchange.rate') }}">
+                    <i class="fa fa-money"></i>
+                    <p>{{ __('Exchange Rate') }}</p>
+                </a>
+            </li>
             <!-- <li class="{{ $elementActive == 'payment' ? 'active' : '' }}">
                 <a href="#">
                     <i class="nc-icon nc-bank"></i>

@@ -26,14 +26,13 @@
                         </div>
                     @endif
                         <div class="table-responsive">
-                            
-                            <table class="table">
+                            <table class="table" id="listtable">
                                 <thead class=" text-primary">
                                     <th>#No</th>
                                     <th>Name</th>
                                     <th>Date</th>
                                     <th>sender-full-name</th>
-                                    <th>receiver-full-name</th>
+                                    <th>membership-number</th>
                                     <!-- <th>status</th> -->
                                     <th>Action</th>                    
                                 </thead>
@@ -52,7 +51,7 @@
                                                  <td>{{ date('d M Y',strtotime($member->date))  
                                                   }}</td>
                                                  <td>{{__($member->sender_full_name)}}</td>
-                                                 <td>{{__($member->receiver_full_name)}}</td>
+                                                <td>{{__($member->membership_number)}}</td>
                                                  <td><a href="{{route('showcustomer',$member->id)}}" class="btn btn-info"><i class="fa fa-info-circle" aria-hidden="true"></i></a> <a href="{{route('show.receivers',$member->id)}}" class="btn btn-danger"><i class="fa fa-users" aria-hidden="true"></i></a></td>
                                             </tr>
                                         @endforeach 
@@ -70,4 +69,11 @@
         
         </div>
     </div>
+@endsection
+@section('javascript')
+<script type="text/javascript">
+    $(document).ready( function () {
+        $('#listtable').DataTable();
+    });
+</script>
 @endsection

@@ -44,5 +44,9 @@ Route::group(['prefix' =>'admin', 'middleware' => 'auth'], function(){
  Route::post('add-customer',[AdminController::class,'store'])->name('customer.store');
 
  Route::post('add-transaction',[AdminController::class,'transactionStore'])->name('transaction.store');   
+
+ Route::post('update-transaction',[AdminController::class,'transactionUpdate'])->name('transaction.update');   
+
+ Route::get('/edit-transaction/{id}',[AdminController::class,'editTransaction'])->name('transaction.edit');
 });
  

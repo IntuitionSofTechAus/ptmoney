@@ -128,8 +128,7 @@
                                 <div class="col-7 col-md-8">
                                     <div class="numbers">
                                         <p class="card-category">Waiting Transaction</p>
-                                        <p class="card-title">{{ \App\Models\Transaction::where('status','waiting')->get()->count() ?? '' }}
-                                            <p>
+                                        <p class="card-title">{{ \App\Models\Transaction::where('status','waiting')->get()->count() ?? '' }}<p>
                                     </div>
                                 </div>
                             </div>
@@ -224,61 +223,169 @@
                     </div>
                     </div>
                 </div>
-            @endif
-           <!--  <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-body ">
-                        <div class="row">
-                            <div class="col-5 col-md-4">
-                                <div class="icon-big text-center icon-warning">
-                                    <i class="nc-icon nc-vector text-danger"></i>
+            @else
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-5 col-md-4">
+                                    <div class="icon-big text-center icon-warning">
+                                        <i class="fa fa-pause text-info"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 col-md-8">
+                                    <div class="numbers">
+                                        <p class="card-category">Waiting Transaction</p>
+                                        <p class="card-title">{{ \App\Models\Transaction::join('senders','senders.id','=','transactions.sender_id')->where('senders.user_id',Auth::user()->id)->where('status','waiting')->get()->count() ?? '' }}<p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-7 col-md-8">
-                                <div class="numbers">
-                                    <p class="card-category">Errors</p>
-                                    <p class="card-title">23
-                                        <p>
-                                </div>
-                            </div>
+                        </div>
+                        <div class="card-footer ">
+                        <!-- <hr> -->
+                        <div class="stats" style="text-align: right;">
+                            <!-- <a href="#">View</a> -->
+                            <p></p>
                         </div>
                     </div>
-                    <div class="card-footer ">
-                        <hr>
-                        <div class="stats">
-                            <i class="fa fa-clock-o"></i> In the last hour
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-5 col-md-4">
+                                    <div class="icon-big text-center icon-warning">
+                                        <i class="fa fa-spinner text-danger"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 col-md-8">
+                                    <div class="numbers">
+                                        <p class="card-category">Processing Transaction</p>
+                                        <p class="card-title">{{\App\Models\Transaction::join('senders','senders.id','=','transactions.sender_id')->where('senders.user_id',Auth::user()->id)->where('status','processing')->get()->count() ?? '' }}
+                                            <p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <div class="card-footer ">
+                        <!-- <hr> -->
+                        <div class="stats" style="text-align: right;">
+                            <!-- <a href="#">View</a> -->
+                            <p></p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-5 col-md-4">
+                                    <div class="icon-big text-center icon-warning">
+                                        <i class="fa fa-exchange text-primary"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 col-md-8">
+                                    <div class="numbers">
+                                        <p class="card-category">Transferring Transaction</p>
+                                        <p class="card-title">{{ \App\Models\Transaction::join('senders','senders.id','=','transactions.sender_id')->where('senders.user_id',Auth::user()->id)->where('status','transfering')->get()->count() ?? '' }}
+                                            <p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer ">
+                        <!-- <hr> -->
+                        <div class="stats" style="text-align: right;">
+                            <!-- <a href="#">View</a> -->
+                            <p></p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-5 col-md-4">
+                                    <div class="icon-big text-center icon-warning">
+                                        <i class="fa fa-money text-muted"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 col-md-8">
+                                    <div class="numbers">
+                                        <p class="card-category">Completed Transaction</p>
+                                        <p class="card-title">{{ \App\Models\Transaction::join('senders','senders.id','=','transactions.sender_id')->where('senders.user_id',Auth::user()->id)->where('status','completed')->get()->count() ?? '' }}
+                                        <p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer ">
+                        <!-- <hr> -->
+                        <div class="stats" style="text-align: right;">
+                            <!-- <a href="#">View</a> -->
+                            <p></p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            @endif
+        </div>
+        <div class="row">
+            <div class="card col-md-12">
+                <div class="card-header ">
+                    <h5 class="card-title">Recent Transactions</h5>
+                </div>
+                <div class="card-body ">
+                    <div class="table-responsive">
+                        <table class="table" id="transaction_table">
+                            <thead class=" text-primary">
+                                <th>#No</th>
+                                <th>Trans No.</th>
+                                <th>Agent Ref.</th>
+                                <th>Sender</th>
+                                <th>Receiver</th>
+                                <th>Account No.</th>
+                                <th>Bank</th>
+                                <th>Sent</th>
+                                <th>Rate</th>
+                                <th>Received</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Action</th>                    
+                            </thead>
+                            <tbody>
+                                @if(\Auth::user()->role == 1)
+                                    @php $transaction = \App\Models\Transaction::orderBy('created_at','desc')->get(); @endphp
+                                @else
+                                    @php $transaction = \App\Models\Transaction::join('senders','senders.id','=','transactions.sender_id')->where('senders.user_id',\Auth::user()->id)->orderBy('transactions.created_at','desc')->limit(5)->get(); @endphp
+                                @endif
+                                @if(count($transaction) > 0)
+                                    @foreach($transaction as $k=>$t)
+                                        <tr>
+                                            <td>{{$k+1}}</td>
+                                            <td>{{$t->transaction_id}}</td>
+                                            <td>{{$t->aganet_ref}}</td>
+                                            <td>{{$t->sender->sender_full_name}}</td>
+                                            <td>{{$t->receiver->receiver_full_name}}</td>
+                                            <td>{{$t->receiver->accont_number}}</td>
+                                            <td>{{$t->receiver->bank_name}}</td>
+                                            <td class="text-success bold"><b>${{$t->amount}}</b></td>
+                                            <td>{{$t->rate}}</td>
+                                            <td class="text-danger bold"><b>฿{{$t->receivable_amount}}</b></td>
+                                            <td @if($t->status == 'waiting') class="text-info" @elseif($t->status == 'processing') class="text-danger" @elseif($t->status == 'transfering') class="text-primary" @elseif($t->status == 'completed') class="text-muted" @endif><b>{{$t->status}}</b></td>
+                                            <td>{{date('d M Y', strtotime($t->created_at))}}</td>
+                                            <td><a href="{{route('transaction.detail',$t->id)}}" class="btn btn-success btn-round"><i class="fa fa-money" aria-hidden="true"></i></a></td>
+                                        </tr>
+                                    @endforeach
+                                <!-- @endif -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-body ">
-                        <div class="row">
-                            <div class="col-5 col-md-4">
-                                <div class="icon-big text-center icon-warning">
-                                    <i class="nc-icon nc-favourite-28 text-primary"></i>
-                                </div>
-                            </div>
-                            <div class="col-7 col-md-8">
-                                <div class="numbers">
-                                    <p class="card-category">Followers</p>
-                                    <p class="card-title">+45K
-                                        <p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer ">
-                        <hr>
-                        <div class="stats">
-                            <i class="fa fa-refresh"></i> Update now
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-        </div>
-        <div class="row">
              @if (\Auth::user()->role == 1)
                 <div class="col-md-6">
                     <div class="card ">
@@ -311,36 +418,6 @@
                     </div>
                 </div>
             @endif
-
-                <div class="col-md-6">
-                    <div class="card ">
-                        <div class="card-header ">
-                            <h5 class="card-title">Recent Transaction</h5>
-                        </div>
-                        <div class="card-body ">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead class=" text-primary">
-                                    <tr>                                
-                                        <th>Name</th>
-                                        <th>Amount</th>
-                                        <th>Date</th>    
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                     <tr>
-                                         <td></td>
-                                         <td></td>
-                                         <td></td>
-                                    </tr>                               
-                                   </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-footer ">
-                        </div>
-                    </div>
-                </div>
 
         </div>
     </div>

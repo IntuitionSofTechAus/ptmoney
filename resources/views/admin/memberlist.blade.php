@@ -18,14 +18,14 @@
                     </div>
                     @endif
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table" id="listtable">
                                 <thead class=" text-primary">
                                     <th>#No</th>
                                     <th>Name</th>
                                     <th>Date</th>
                                     <th>Username</th>
                                     <th>sender-full-name</th>
-                                    <th>receiver-full-name</th>
+                                    <th>Membership Number</th>
                                     <th>status</th>
                                     <th>Action</th>                    
                                 </thead>
@@ -45,7 +45,7 @@
                                       }}</td>
                                      <td>{{ $member->user->name}}</td>
                                      <td>{{__($member->sender_full_name)}}</td>
-                                     <td>{{__($member->receiver_full_name)}}</td>
+                                     <td>{{__($member->membership_number)}}</td>
                                      <td>
                                         <a class="btn btn-@if($member->approval==0){{'warning'}} @elseif($member->approval==1){{'success'}}@else{{'danger'}}@endif">@if($member->approval==0){{'Pending'}} @elseif($member->approval==1){{'Approved'}}@else{{'Rejected'}}@endif</a></td>
                                       <td><a href="{{route('showmember',$member->id)}}" class="btn btn-info"><i class="fa fa-info-circle" aria-hidden="true"></i></a> @if($member->approval==1)<a href="{{route('show.receivers',$member->id)}}" class="btn btn-danger"><i class="fa fa-users" aria-hidden="true"></i></a>@endif</td>
@@ -60,4 +60,11 @@
         
         </div>
     </div>
+@endsection
+@section('javascript')
+<script type="text/javascript">
+    $(document).ready( function () {
+        $('#listtable').DataTable();
+    });
+</script>
 @endsection

@@ -14,31 +14,37 @@ canvas#signature {
 </style>
 
   
-    <style>
-        .kbw-signature { width: 100%; height: 200px;}
-        #sig canvas{
-            width: 100% !important;
-            height: auto;
-        }
-    </style>
+<style>
+    .kbw-signature { width: 100%; height: 200px;}
+    #sig canvas{
+        width: 100% !important;
+        height: auto;
+    }
+    @media print
+    {
+        #non-printable { display: none; }
+    }
+</style>
 @section('content')
     <div class="content">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card" id="printable">
                     <div class="card-header">
-                       <h3> Transaction Details</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                               <h3> Transaction Details</h3>
+                            </div>
+                            <div class="col-md-6">
+                                <button onclick="printDiv('printable');" class="btn btn-success btn-round" style="float: right;" id="non-printable">Print</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
-                        @if (\Session::has('success'))
-                        <div class="alert alert-success">
-                        {!! \Session::get('success') !!}
-                        </div>
-                        @endif
                         @if(!empty($transactions))
                             @foreach($transactions as $transaction)
-                                <div class="container">
-                                    <div class="row alert-info">
+                                <div class="container" >
+                                    <div class="row alert-info" @if($transaction->status == 'waiting') class="alert-info row" @elseif($transaction->status == 'processing') class="alert-danger row" @elseif($transaction->status == 'transfering') class="alert-primary row" @elseif($transaction->status == 'completed row') class="alert-muted" @endif>
                                         <div class="col-md-4">
                                             <p></p>
                                             <p>Transaction Id</p>
@@ -136,8 +142,8 @@ canvas#signature {
                                         <div class="col-md-4">
                                             <p>Status</p>
                                         </div>
-                                        <div class="col-md-4">
-                                            <p>{{$transaction->status}}</p>
+                                        <div @if($transaction->status == 'waiting') class="text-info col-md-4" @elseif($transaction->status == 'processing') class="text-danger col-md-4" @elseif($transaction->status == 'transfering') class="text-primary col-md-4" @elseif($transaction->status == 'completed col-md-4') class="text-muted" @endif>
+                                            <p><b>{{$transaction->status}}</b></p>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -166,3 +172,17 @@ canvas#signature {
     </div>
 @endsection
     
+@section('javascript')
+<script type="text/javascript">
+    function printDiv(divName) {
+         var printContents = document.getElementById(divName).innerHTML;
+         var originalContents = document.body.innerHTML;
+
+         document.body.innerHTML = printContents;
+
+         window.print();
+
+         document.body.innerHTML = originalContents;
+    }
+</script>
+@endsection

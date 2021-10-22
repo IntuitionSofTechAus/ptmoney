@@ -196,9 +196,7 @@ class MemberController extends Controller
         $folderPath = public_path('upload/beneficiary/');        
         $image_parts = explode(";base64,", $request->signed);              
         $image_type_aux = explode("image/", $image_parts[0]);           
-        $image_type = $image_typ
-
-        e_aux[1];           
+        $image_type = $image_type_aux[1];           
         $image_base64 = base64_decode($image_parts[1]);
         $image= uniqid() . '.'.$image_type;           
         $file = $folderPath . $image;

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 Use Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\Sender;
+use App\Models\Receiver;
 
 class HomeController extends Controller
 {
@@ -41,5 +43,25 @@ class HomeController extends Controller
         }
 
         return view('pages.dashboard');
+    }
+
+    public function getReceiver($id){
+        $receiver = Receiver::where('sender_id',$id)->get();
+        $res = "<option>Select Receiver</option>";
+        foreach($receiver as $r){
+            $res .= "<option value='".$r->id."'>".$r->receiver_full_name."</option>";
+        }
+
+        return $res;
+    }
+
+    public function getReceiverDetail($id , $value){
+        $receiver = Receiver::where('id',$id)->pluck($value)->first();
+        return $receiver;
+    }
+
+    public function getSenderDetail($id , $value){
+        $sender = Sender::where('id',$id)->pluck($value)->first();
+        return $sender;
     }
 }

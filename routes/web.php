@@ -37,12 +37,17 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
 
+Route::get('get-receiver/{id}',[App\Http\Controllers\HomeController::class, 'getReceiver']);
+Route::get('get-receiver-detail/{id}/{value}',[App\Http\Controllers\HomeController::class, 'getReceiverDetail']);
+Route::get('get-sender-detail/{id}/{value}',[App\Http\Controllers\HomeController::class, 'getSenderDetail']);
+
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 Route::get('/user/verify/{token}/{id}', 'App\Http\Controllers\Auth\RegisterController@verifyUser')->name('user.verify');
 Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']])->middleware('auth');
 Route::group(['prefix' =>'user', 'middleware' => 'auth'], function(){
 	Route::get('/new-transaction/{id}',[AdminController::class,'newTransaction'])->name('transaction.usernew');
  	Route::get('/view-transaction/{id}',[AdminController::class,'viewTransaction'])->name('transaction.userview');
+ 	Route::get('/new-transaction',[AdminController::class,'addNewTransaction'])->name('new-transaction');
 
  	Route::get('/detail-transaction/{id}',[AdminController::class,'detailTransaction'])->name('transaction.detail');
 
@@ -52,6 +57,7 @@ Route::group(['prefix' =>'user', 'middleware' => 'auth'], function(){
 	Route::put('profile/password',[ProfileController::class,'password'])->name('profile.password');
 	Route::get('aplication-form',[MemberController::class,'index'])->name('aplication-form');
 	Route::post('member/store',[MemberController::class,'store'])->name('member.store');
+	Route::post('member/update',[MemberController::class,'update'])->name('member.update');
 	Route::post('member/againstore',[MemberController::class,'againstore'])->name('member.againstore');	
 	Route::get('/beneficiary',[MemberController::class,'beneficiaryList'])->name('beneficiary.list');
 	Route::get('beneficiary-form',[MemberController::class,'beneficiary'])->name('beneficiary.add');

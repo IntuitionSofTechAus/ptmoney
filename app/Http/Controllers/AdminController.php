@@ -259,4 +259,24 @@ class AdminController extends Controller
           return redirect('admin/list-transaction')->with('success','Transaction Status Updated Successfully!!');
         }
     }
+
+    public function addNewTransaction(){
+        if(Auth::user()->role == 1){
+          $sender = Sender::where('approval',1)->get();
+        }else{
+          $sender = Sender::where('user_id',Auth::user()->id)->get();
+        }
+        $rate = ExchangeRate::first();
+        return view('admin.new-transaction',compact('sender','rate'));
+    }
+
+    public function editMember($id){
+      $member = Sender::select('senders.*','receivers.id as receiver_id','receivers.receiver_full_name','receivers.receiver_address','receivers.receiver_suburb','receivers.receiver_state','receivers.receiver_postcode','receivers.bank_name','receivers.accont_number','receivers.branch','receivers.sender_id','receivers.province','receivers.contact_number')->join('receivers','senders.id','=','receivers.sender_id')->where('senders.id',$id)->first();
+        $is_customer = 0;
+        
+        $states       = State::all();
+        $provinces    = Province::all();
+
+        return view('admin.edit-member',compact('member','is_customer','states','provinces'));
+    }
 }

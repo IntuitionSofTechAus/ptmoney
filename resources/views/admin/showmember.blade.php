@@ -37,7 +37,7 @@ canvas#signature {
                      @if($member) 
                         <form action="{{route('approval')}}" method="post" >
                             @csrf
-                        <h5>Sender Detail:<span style="float: right;"><a href="#" class="btn btn-info"><i class="fa fa-pencil"></i></a></span></h5><br>
+                        <h5>Sender Detail:<span style="float: right;"><a href="{{route('edit.member',$member->id)}}" class="btn btn-info btn-round"><i class="fa fa-pencil"></i></a></span></h5><br>
                         <div class="row" >
                             <div class="col-md-3">
                                 <div class="form-group">

@@ -82,6 +82,13 @@
                     <p>{{ __('Exchange Rate') }}</p>
                 </a>
             </li>
+
+            <li class="{{ request()->segment(2) == 'new-transaction' ? 'active' : '' }}">
+                <a href="{{ route('new-transaction') }}">
+                    <i class="fa fa-exchange"></i>
+                    <p>{{ __('New Transaction') }}</p>
+                </a>
+            </li>
             <!-- <li class="{{ $elementActive == 'payment' ? 'active' : '' }}">
                 <a href="#">
                     <i class="nc-icon nc-bank"></i>
@@ -135,7 +142,13 @@
                     <i class="fa fa-wpforms"></i>
                     <p>{{ __('Application-form') }}</p>
                 </a>
-            </li>           
+            </li>  
+            <li class="{{ request()->segment(2) == 'new-transaction' ? 'active' : '' }}">
+                <a href="{{ route('new-transaction') }}">
+                    <i class="fa fa-exchange"></i>
+                    <p>{{ __('New Transaction') }}</p>
+                </a>
+            </li>         
             @endif
         </ul>
     </div>

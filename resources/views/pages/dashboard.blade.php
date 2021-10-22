@@ -387,8 +387,8 @@
                 </div>
             </div>
              @if (\Auth::user()->role == 1)
-                <div class="col-md-6">
-                    <div class="card ">
+                <div class="card col-md-12">
+                    
                         <div class="card-header ">
                             <h5 class="card-title">Recent Verified Users</h5>
                         </div>
@@ -396,17 +396,21 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class=" text-primary">
-                                    <tr>                                
+                                    <tr>          
+                                        <th>Id</th>                      
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Status</th>
                                         <th>Created Date</th>    
                                     </tr>
                                     </thead>
                                     <tbody>
                                      @foreach ((\App\Models\User::orderBy('created_at','desc'))->where('is_verified',1)->limit(5)->get() as $key => $user)
                                         <tr>
+                                            <td>{{$k+1}}</td>
                                          <td>{{$user->name}}</td>
                                          <td>{{$user->email}}</td>
+                                         <td>Verified</td>
                                          <td>{{date_format($user->created_at,"d M Y, H:i A")}}</td>
                                         </tr>
                                      @endforeach                               
@@ -414,8 +418,7 @@
                                 </table>
                             </div>
                         </div>
-                        
-                    </div>
+                    
                 </div>
             @endif
 

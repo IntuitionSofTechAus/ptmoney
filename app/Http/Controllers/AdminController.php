@@ -299,7 +299,11 @@ class AdminController extends Controller
       $transactions = Transaction::with('sender','receiver')->orderBy('created_at','desc')->where('id',$id)->first();
 
       $data['transactions'] = $transactions;
-      $to = 'test@mailinator.com';
+      if(!empty($email)){
+        $to = $email->email_address;
+      }else{
+        $to = 'test@mailinator.com';
+      }
       $subject = "PTMoney - Transaction Details"; 
       Mail::send('emails.transaction', ['transactions'=>$transactions], function($message) use ($to, $subject){
         $message->from('ptmoney@gmail.com', "PTMoney");

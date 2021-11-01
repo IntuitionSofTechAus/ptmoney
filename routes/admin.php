@@ -26,6 +26,7 @@ Route::group(['prefix' =>'admin', 'middleware' => 'auth'], function(){
  
  Route::get('/transaction',[AdminController::class,'addTransaction'])->name('transaction.add');
  Route::any('/exchange-rate',[AdminController::class,'exchangeRate'])->name('exchange.rate');
+ Route::any('/setting',[AdminController::class,'setting'])->name('admin.setting');
  Route::post('/approval',[AdminController::class,'approval'])->name('approval');   
  Route::get('/users-list',[AdminController::class,'usersList'])->name('users.list');
 
@@ -52,5 +53,7 @@ Route::group(['prefix' =>'admin', 'middleware' => 'auth'], function(){
  Route::post('update-transaction',[AdminController::class,'transactionUpdate'])->name('transaction.update');   
 
  Route::get('/edit-transaction/{id}',[AdminController::class,'editTransaction'])->name('transaction.edit');
+
+ Route::get('/mail-transaction/{id}',[AdminController::class,'sendTransactionMail'])->name('transaction.mail');
 });
  

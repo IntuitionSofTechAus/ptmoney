@@ -11,9 +11,11 @@ use App\Models\ExchangeRate;
 use App\Models\Beneficiary;
 use App\Models\User;
 use App\Models\State;
+use App\Models\Setting;
 use App\Models\Transaction;
 use App\Models\Province;
 use DB;
+use Mail;
 use Auth;
 
 class AdminController extends Controller
@@ -22,7 +24,7 @@ class AdminController extends Controller
     {
          return view('pages.dashboard');
     }
-//  Member list 
+    //  Member list 
     public function memberList(Request $request)
     {
         $members = Sender::select('senders.*','receivers.id as receiver_id','receivers.receiver_full_name','receivers.receiver_address','receivers.receiver_suburb','receivers.receiver_state','receivers.receiver_postcode','receivers.bank_name','receivers.accont_number','receivers.branch','receivers.sender_id','receivers.province','receivers.contact_number')->join('receivers','senders.id','=','receivers.sender_id')->where('user_id','!=',Auth::user()->id)->groupBy('receivers.sender_id')->paginate('15');
@@ -30,21 +32,21 @@ class AdminController extends Controller
         return view('admin.memberlist',compact('members'));
     }
 
-//  Users List
+    //  Users List
     public function usersList(Request $request)
     {
         $users = User::orderBy('created_at','desc')->where('role',2)->paginate('15');
         return view('admin.userlist',compact('users'));
     }
 
-// Show member detail
+    // Show member detail
     public function showMember(Request $request)
     {
         $member = Sender::select('senders.*','receivers.id as receiver_id','receivers.receiver_full_name','receivers.receiver_address','receivers.receiver_suburb','receivers.receiver_state','receivers.receiver_postcode','receivers.bank_name','receivers.accont_number','receivers.branch','receivers.sender_id','receivers.province','receivers.contact_number')-> join('receivers','senders.id','=','receivers.sender_id')->where('senders.id',$request->id)->first();
         $is_customer = 0;
         return view('admin.showmember',compact('member','is_customer'));
     }
-//public function approval
+    //public function approval
     public function approval(Request $request)
     {
        if($request->decline)
@@ -66,7 +68,7 @@ class AdminController extends Controller
             return rediret()->back()->with('status','Something wrong went');
         }
     }
-// Exchange rate functionality
+    // Exchange rate functionality
     public function exchangeRate(Request $request)
     {
        if($request->method() == "GET")
@@ -78,6 +80,19 @@ class AdminController extends Controller
         $rate->exchange_rate = $request->exchange_rate;
         $rate->save();
         return back()->with('status','ExchangeRate has been changes');
+    }
+
+    public function setting(Request $request)
+    {
+       if($request->method() == "GET")
+        {
+          $setting =  Setting::find(1);
+          return view('admin.setting',compact('setting'));
+        }
+        $rate =  Setting::findOrNew(1);
+        $rate->email_address = $request->email_address;
+        $rate->save();
+        return back()->with('status','Setting has been updated');
     }
 
     public function newCustomer(){
@@ -149,9 +164,7 @@ class AdminController extends Controller
         }else{
           $data['approval'] = 0;
         }
-
         Receiver::updateOrCreate(['id'=> $request->receiver_id],$data);
-
         return redirect('admin/list-customer')->with('success','New Customer Added Successfully !!');
     }
 
@@ -279,4 +292,21 @@ class AdminController extends Controller
 
         return view('admin.edit-member',compact('member','is_customer','states','provinces'));
     }
+
+    public function sendTransactionMail($id){
+      $email = Setting::find(1);
+      $data = [];
+      $transactions = Transaction::with('sender','receiver')->orderBy('created_at','desc')->where('id',$id)->first();
+
+      $data['transactions'] = $transactions;
+      $to = 'test@mailinator.com';
+      $subject = "PTMoney - Transaction Details"; 
+      Mail::send('emails.transaction', ['transactions'=>$transactions], function($message) use ($to, $subject){
+        $message->from('ptmoney@gmail.com', "PTMoney");
+        $message->subject($subject);
+        $message->to($to);                
+      });
+      return redirect()->back()->with('success','Transaction Mail Send Successfully!!');
+    }
+
 }

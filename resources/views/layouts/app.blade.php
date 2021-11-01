@@ -51,6 +51,9 @@ The above copyright notice and this permission notice shall be included in all c
             color: black;
             font-size: 14px;
         }
+        .card .card-body form{
+            padding:1% 2%;
+        }
      </style>
     @yield('styles')
 </head>

@@ -603,6 +603,7 @@ class ComposerStaticInit88b3489420aaec9937cf29079d946c5c
         'App\\Models\\Province' => __DIR__ . '/../..' . '/app/Models/Province.php',
         'App\\Models\\Receiver' => __DIR__ . '/../..' . '/app/Models/Receiver.php',
         'App\\Models\\Sender' => __DIR__ . '/../..' . '/app/Models/Sender.php',
+        'App\\Models\\Setting' => __DIR__ . '/../..' . '/app/Models/Setting.php',
         'App\\Models\\State' => __DIR__ . '/../..' . '/app/Models/State.php',
         'App\\Models\\Transaction' => __DIR__ . '/../..' . '/app/Models/Transaction.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',

@@ -16,6 +16,11 @@ canvas#signature {
     width: 100% !important;
     height: auto;
 }
+.btn.btn-light {
+    color: black;
+    background: lightgrey;
+    margin: 0;
+}
 </style>
 @section('content')
     <div class="content">
@@ -29,6 +34,37 @@ canvas#signature {
 	                    <form action="{{route('transaction.store')}}" method="post" enctype="multipart/form-data">
 	                        @csrf
 	                        <h5>Customer</h5>
+	                        <div class="row">
+	                        	<div class="col-md-6">
+	                        		<div class="row">
+	                        		<div class="col-md-6">
+	                        			<div class="form-group">
+		                                    <label>Member Id</label>
+		                                </div>
+	                        		</div>
+	                        		<div class="col-md-6">
+	                        			<div class="form-group">
+	                        				<input type="text" name="member_id" id="membership_number" disabled value="" class="form-control">
+	                        			</div>
+	                        		</div>
+	                        	</div>
+	                        	</div>
+	                        	<div class="col-md-6">
+	                        		<div class="row">
+	                        		<div class="col-md-3">
+	                        			<div class="form-group">
+		                                    <label>Expiry Date</label>
+		                                </div>
+	                        		</div>
+	                        		<div class="col-md-9">
+	                        			<div class="form-group">
+	                        				<input type="text" name="exp_date"  id="doc_expiry1" disabled value="" class="form-control">
+	                        			</div>
+	                        		</div>
+	                        	</div>
+	                        	</div>
+
+	                        </div>
 	                        <div class="row">
 	                            <div class="col-md-3">
 	                                <div class="form-group">
@@ -92,14 +128,21 @@ canvas#signature {
 	                                </div>
 	                            </div>
 	                             <div class="col-md-9">
-	                                <div class="form-group">
-	                                <select class="form-control" id="receiver_id" name="receiver_id" onchange="getreceiverDetail(this.value,'receiver_address');">
-	                                	<option>Select Receiver</option>
-	                                </select>
-	                                @error('receiver_id')
-	                                  <span class="reds">{{ $message }}</span>   
-	                                @enderror
-	                                </div>
+	                             	<div class="row">
+	                             		<div class="col-md-11">
+			                                <div class="form-group">
+			                                <select class="form-control" id="receiver_id" name="receiver_id" onchange="getreceiverDetail(this.value,'receiver_address');">
+			                                	<option>Select Receiver</option>
+			                                </select>
+			                                @error('receiver_id')
+			                                  <span class="reds">{{ $message }}</span>   
+			                                @enderror
+			                                </div>
+			                            </div>
+			                            <div class="col-md-1">
+			                            	<a href="#" id="receiver_btn" class="btn btn-light" target="_blank">+</a>
+			                            </div>
+			                        </div>
 	                             </div>
 	                        </div>
 	                        <div class="row" >
@@ -264,6 +307,9 @@ canvas#signature {
     	if(id != ''){
     		getsenderDetail(id,'sender_address');
     		getsenderDetail(id,'telephone');
+    		getsenderDetail(id,'membership_number');
+    		getsenderDetail(id,'doc_expiry1');
+    		$("#receiver_btn").attr('href', '{{url("admin/beneficiary-form")}}/'+id);
     		$.ajax({
     			url : '{{url("get-receiver")}}/'+id,
     			type : "GET",

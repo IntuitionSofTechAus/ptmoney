@@ -173,7 +173,7 @@ canvas#signature {
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <p>                                                                         (AUSTRAC Defines ‘Politically Exposed Persons’ As Individuals Who Are , Or Have Been Entrusted With Prominent Functions In A Foreign Country. For Example: Heads Of State Or Of Government, Senior Politicians, Senior Government, Judicial Or Military Officials, Senior Executives Of State Owned Corporations Or Important Political Party Officials.)
+                            <p>(AUSTRAC Defines ‘Politically Exposed Persons’ As Individuals Who Are , Or Have Been Entrusted With Prominent Functions In A Foreign Country. For Example: Heads Of State Or Of Government, Senior Politicians, Senior Government, Judicial Or Military Officials, Senior Executives Of State Owned Corporations Or Important Political Party Officials.)
                             </p>
                         </div>
                         <div class="row">
@@ -196,7 +196,7 @@ canvas#signature {
                             </div>
                         </div>
                         <hr>
-                         <h3>Receiver Detail:</h3>
+                        <h3>Receiver Detail:</h3>
                         <div class="row" >
                             <div class="col-lg-3">
                                 <div class="form-group">

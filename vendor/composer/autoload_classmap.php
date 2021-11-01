@@ -42,6 +42,7 @@ return array(
     'App\\Models\\Province' => $baseDir . '/app/Models/Province.php',
     'App\\Models\\Receiver' => $baseDir . '/app/Models/Receiver.php',
     'App\\Models\\Sender' => $baseDir . '/app/Models/Sender.php',
+    'App\\Models\\Setting' => $baseDir . '/app/Models/Setting.php',
     'App\\Models\\State' => $baseDir . '/app/Models/State.php',
     'App\\Models\\Transaction' => $baseDir . '/app/Models/Transaction.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',

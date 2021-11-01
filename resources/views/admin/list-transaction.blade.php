@@ -52,8 +52,6 @@
                                     <th>Agent Ref.</th>
                                     <th>Sender</th>
                                     <th>Receiver</th>
-                                    <th>Account No.</th>
-                                    <th>Bank</th>
                                     <th>Sent</th>
                                     <th>Rate</th>
                                     <th>Received</th>
@@ -70,21 +68,19 @@
                                                 <td>{{$t->aganet_ref}}</td>
                                                 <td>{{$t->sender->sender_full_name}}</td>
                                                 <td>{{$t->receiver->receiver_full_name}}</td>
-                                                <td>{{$t->receiver->accont_number}}</td>
-                                                <td>{{$t->receiver->bank_name}}</td>
                                                 <td class="text-success bold">${{$t->amount}}</td>
                                                 <td>{{$t->rate}}</td>
                                                 <td class="text-danger bold">฿{{$t->receivable_amount}}</td>
                                                 <td @if($t->status == 'waiting') class="text-info" @elseif($t->status == 'processing') class="text-danger" @elseif($t->status == 'transfering') class="text-primary" @elseif($t->status == 'completed') class="text-muted" @endif><b>{{$t->status}}</b></td>
                                                 <td>{{date('d M Y', strtotime($t->created_at))}}</td>
-                                                <td><a href="{{route('transaction.detail',$t->id)}}" class="btn btn-success btn-round"><i class="fa fa-money" aria-hidden="true"></i></a> <a href="{{route('transaction.edit',$t->id)}}" class="btn btn-info btn-round"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                                                <td><a href="{{route('transaction.mail',$t->id)}}" class="btn btn-info btn-round"><i class="fa fa-envelope" aria-hidden="true"></i></a> <a href="{{route('transaction.detail',$t->id)}}" class="btn btn-success btn-round"><i class="fa fa-money" aria-hidden="true"></i></a> <a href="{{route('transaction.edit',$t->id)}}" class="btn btn-danger btn-round"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
                                             </tr>
                                         @endforeach
                                     @endif
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th colspan="6"></th>
+                                        <th colspan="4"></th>
                                         <th>Total:</th>
                                         <th ></th>
                                         <th></th>
@@ -119,6 +115,26 @@
      
                 // Total over all pages
                 total = api
+                    .column( 5 )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+     
+                // Total over this page
+                pageTotal = api
+                    .column( 5, { page: 'current'} )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+     
+                // Update footer
+                $( api.column(5 ).footer() ).html(
+                    '<span class="text-success">$'+pageTotal +'</span>'
+                );
+
+                total = api
                     .column( 7 )
                     .data()
                     .reduce( function (a, b) {
@@ -127,7 +143,7 @@
      
                 // Total over this page
                 pageTotal = api
-                    .column( 7, { page: 'current'} )
+                    .column(7, { page: 'current'} )
                     .data()
                     .reduce( function (a, b) {
                         return intVal(a) + intVal(b);
@@ -135,26 +151,6 @@
      
                 // Update footer
                 $( api.column( 7 ).footer() ).html(
-                    '<span class="text-success">$'+pageTotal +'</span>'
-                );
-
-                total = api
-                    .column( 9 )
-                    .data()
-                    .reduce( function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0 );
-     
-                // Total over this page
-                pageTotal = api
-                    .column( 9, { page: 'current'} )
-                    .data()
-                    .reduce( function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0 );
-     
-                // Update footer
-                $( api.column( 9 ).footer() ).html(
                     '<span class="text-danger">฿'+pageTotal +'</span>'
                 );
             }

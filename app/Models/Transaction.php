@@ -11,7 +11,7 @@ class Transaction extends Model
 
     protected $table = "transactions";
 
-    protected $fillable = ['amount','rate','fee','total_payable','receivable_amount','aganet_ref','purpose','reference_id','reference_table','status','is_deleted','transaction_id','sender_id','receiver_id','is_sent'];
+    protected $fillable = ['amount','rate','fee','total_payable','receivable_amount','aganet_ref','purpose','reference_id','reference_table','status','is_deleted','transaction_id','sender_id','receiver_id','is_sent','note'];
 
     public function sender(){
 	    return $this->belongsTo(Sender::class);

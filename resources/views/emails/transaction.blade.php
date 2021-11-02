@@ -6,7 +6,7 @@
 <body>
   <p>Name : {{$transactions->receiver->receiver_full_name}}</p>
   <p>Contact Number : {{$transactions->receiver->contact_number}}</p>
-  <p style="color: #e43434;">Note : Please send before noon.</p>
+    <p style="color: #e43434;">Note : {{$transactions->note}}</p>
   <p>Bank Account : {{$transactions->receiver->accont_number}}</p>
   <p>Branch : {{$transactions->receiver->branch}}</p>
   <br>

@@ -150,6 +150,14 @@ canvas#signature {
                                         </div>
                                         <div class="row form-group">
                                             <div class="col-md-4">
+                                                <p>Note</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <textarea class="form-control" name="note">{{$transaction->note}}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-md-4">
                                                 <p>Created date</p>
                                             </div>
                                             <div class="col-md-4">

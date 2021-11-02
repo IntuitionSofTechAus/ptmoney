@@ -266,8 +266,8 @@ class AdminController extends Controller
     public function transactionUpdate(Request $request){
       $transaction = Transaction::find($request->id);
       $transaction->status = $request->status;
+      $transaction->note = $request->note;
       $transaction->save();
-
       if(Auth::user()->role == 1){
           return redirect('admin/list-transaction')->with('success','Transaction Status Updated Successfully!!');
         }
@@ -302,6 +302,7 @@ class AdminController extends Controller
         $transactions->is_sent = 1;
         $transactions->save();
       }
+      
 
       $data['transactions'] = $transactions;
       if(!empty($email)){

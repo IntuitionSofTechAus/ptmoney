@@ -298,6 +298,11 @@ class AdminController extends Controller
       $data = [];
       $transactions = Transaction::with('sender','receiver')->orderBy('created_at','desc')->where('id',$id)->first();
 
+      if($transactions->is_sent == 0){
+        $transactions->is_sent = 1;
+        $transactions->save();
+      }
+
       $data['transactions'] = $transactions;
       if(!empty($email)){
         $to = $email->email_address;
@@ -310,6 +315,8 @@ class AdminController extends Controller
         $message->subject($subject);
         $message->to($to);                
       });
+
+
       return redirect()->back()->with('success','Transaction Mail Send Successfully!!');
     }
 

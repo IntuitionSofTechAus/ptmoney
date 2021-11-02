@@ -386,7 +386,7 @@
                                             <td class="text-danger bold"><b>฿{{$t->receivable_amount}}</b></td>
                                             <td @if($t->status == 'waiting') class="text-info" @elseif($t->status == 'processing') class="text-danger" @elseif($t->status == 'transfering') class="text-primary" @elseif($t->status == 'completed') class="text-muted" @endif><b>{{$t->status}}</b></td>
                                             <td>{{date('d M Y', strtotime($t->created_at))}}</td>
-                                            <td>@if(Auth::user()->role == 1)<a href="{{route('transaction.mail',$t->id)}}" class="btn btn-info btn-round"><i class="fa fa-envelope" aria-hidden="true"></i></a>@endif <a href="{{route('transaction.detail',$t->id)}}" class="btn btn-success btn-round"><i class="fa fa-money" aria-hidden="true"></i></a></td>
+                                            <td>@if(Auth::user()->role == 1)<a href="{{route('transaction.mail',$t->id)}}" @if($t->is_sent == 1) class="btn btn-danger btn-round" @else class="btn btn-info btn-round" @endif ><i class="fa fa-envelope" aria-hidden="true"></i></a>@endif <a href="{{route('transaction.detail',$t->id)}}" class="btn btn-success btn-round"><i class="fa fa-money" aria-hidden="true"></i></a></td>
                                         </tr>
                                     @endforeach
                                 <!-- @endif -->

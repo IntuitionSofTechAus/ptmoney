@@ -192,7 +192,7 @@ canvas#signature {
 	                            </div>
 	                        </div>
 	                        <hr>
-	                         <h5>Receiver Detail:</h5>
+	                        <h5>Receiver Detail:</h5>
 	                        <div class="row" >
 	                            <div class="col-lg-3">
 	                                <div class="form-group">
@@ -268,7 +268,7 @@ canvas#signature {
 	                                    <label>Bank Name*<sup class="required">*</sup></label>
 	                                </div>
 	                            </div>
-	                             <div class="col-md-9">
+	                            <div class="col-md-9">
 	                                <div class="form-group">
 	                                <input type="text" name="bank_name" value="{{ old('bank_name') }}"  class="form-control">
 	                                  @error('bank_name')
@@ -281,26 +281,24 @@ canvas#signature {
 	                            <div class="col-lg-3">
 	                                <div class="form-group">
 	                                    <label>Account Number*<sup class="required">*</sup></label>
-
 	                                </div>
 	                            </div>
-	                             <div class="col-md-9">
+	                            <div class="col-md-9">
 	                                <div class="form-group">
 	                                <input type="number" name="accont_number" value="{{ old('accont_number') }}"  class="form-control" >
 	                                @error('accont_number')
 	                                   <span class="reds">{{ $message }}</span>   
 	                                @enderror
 	                                </div>
-	                             </div>
+	                            </div>
 	                        </div>
-	                        <div class="row" >
+	                        <div class="row">
 	                            <div class="col-lg-3">
 	                                <div class="form-group">
 	                                    <label>Branch<sup class="required">*</sup></label>
 	                                </div>
-	                               
 	                            </div>
-	                             <div class="col-md-9">
+	                            <div class="col-md-9">
 	                                <div class="form-group">
 	                                <input type="text" name="branch" value="{{ old('branch') }}"  class="form-control">
 	                                @error('branch')
@@ -315,10 +313,10 @@ canvas#signature {
 	                                    <label>Contact Number*<sup class="required">*</sup></label>
 	                                </div>
 	                            </div>
-	                             <div class="col-md-9">
+	                            <div class="col-md-9">
 	                                <div class="form-group">
 	                                <input type="number" name="contact_number" value="{{ old('contact_number') }}"  class="form-control">
-	                                 @error('contact_number')
+	                                @error('contact_number')
 	                                    <span class="reds">{{ $message }}</span>   
 	                                @enderror
 	                                </div>

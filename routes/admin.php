@@ -55,5 +55,8 @@ Route::group(['prefix' =>'admin', 'middleware' => 'auth'], function(){
  Route::get('/edit-transaction/{id}',[AdminController::class,'editTransaction'])->name('transaction.edit');
 
  Route::get('/mail-transaction/{id}',[AdminController::class,'sendTransactionMail'])->name('transaction.mail');
+
+ Route::post('/export', [AdminController::class, 'exportTransaction'])->name('transaction.export');
+
 });
  

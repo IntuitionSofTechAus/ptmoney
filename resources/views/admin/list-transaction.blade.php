@@ -19,21 +19,44 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <h4 class="card-title">Payment List  </h4> 
                             </div>
-                            <div class="col-md-6">
-                                <div class="col-md-6" style="float: right;">
-                                    <div class="form-group">
-                                        <select class="form-control" name="status" onchange="getPaymentList(this.value);">
-                                            <option value="all">All Transaction</option>
-                                            <option value="waiting">Wait For Payment</option>
-                                            <option value="processing">Processing</option>
-                                            <option value="transferring">Transferring</option>
-                                            <option value="completed">Completed</option>
-                                        </select>
-                                    </div>
-                                </div>
+                            <div class="col-md-7" style="float: right;">
+                                <form method="post" action="{{route('transaction.export')}}">
+                                    @csrf
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Select Status</label>
+                                                    <select class="form-control" name="status" onchange="getPaymentList(this.value);" required>
+                                                        <option value="all">All Transaction</option>
+                                                        <option value="waiting">Wait For Payment</option>
+                                                        <option value="processing">Processing</option>
+                                                        <option value="transferring">Transferring</option>
+                                                        <option value="completed">Completed</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Transaction from</label>
+                                                    <input type="date" name="from_date" class="form-control" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Transaction To</label>
+                                                    <input type="date" name="to_date" class="form-control" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-info">Export</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </form>
                             </div>  
                         </div>  
                         <!-- <h4 class="card-title"> Walk-in members </h4> -->

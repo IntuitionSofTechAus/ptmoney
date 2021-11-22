@@ -16,6 +16,7 @@ use App\Models\Transaction;
 use App\Models\Province;
 use DB;
 use Mail;
+use App\Exports\TransactionExport;
 use Auth;
 
 class AdminController extends Controller
@@ -178,7 +179,6 @@ class AdminController extends Controller
     public function showCustomer($id){
         $member = Sender::select('senders.*','receivers.id as receiver_id','receivers.receiver_full_name','receivers.receiver_address','receivers.receiver_suburb','receivers.receiver_state','receivers.receiver_postcode','receivers.bank_name','receivers.accont_number','receivers.branch','receivers.sender_id','receivers.province','receivers.contact_number')->join('receivers','senders.id','=','receivers.sender_id')->where('senders.id',$id)->first();
         $is_customer = 1;
-        
         return view('admin.showmember',compact('member','is_customer'));
     } 
 
@@ -210,8 +210,7 @@ class AdminController extends Controller
 
         if(Auth::user()->role == 1){
           return redirect('admin/receivers-list/'.$request->sender_id)->with('success','Transaction Added Successfully!!');
-          
-        }else{
+        } else{
           return redirect('user/beneficiary')->with('success','Transaction Added Successfully!!');
         }
     }
@@ -317,8 +316,35 @@ class AdminController extends Controller
         $message->to($to);                
       });
 
-
       return redirect()->back()->with('success','Transaction Mail Send Successfully!!');
     }
 
+    public function exportTransaction(Request $request){
+      if($request->status != 'all'){
+        $transaction = Transaction::with('sender','receiver')->where('status',$request->status)->where('created_at','>=',date("Y-m-d h:i:s",strtotime($request->from_date)))->where('created_at','<=',date("Y-m-d h:i:s",strtotime($request->to_date)))->orderBy('created_at','desc')->get();
+      }else{
+        $transaction = Transaction::with('sender','receiver')->where('created_at','>=',date("Y-m-d h:i:s",strtotime($request->from_date)))->where('created_at','<=',date("Y-m-d h:i:s",strtotime($request->to_date)))->orderBy('created_at','desc')->get();
+      }  
+
+      if(count($transaction) > 0){
+        foreach($transaction as $t){
+          $transactionList [] = [
+            "Transaction_Number" => $t->transaction_id,
+            "Agent_Ref" => $t->aganet_ref,
+            "Sender" => $t->sender->sender_full_name,
+            "Receiver" => $t->receiver->receiver_full_name,
+            "Sent" => $t->amount,
+            "Rate" => $t->rate,
+            "Received" => $t->receivable_amount,
+            "Status" => $t->status
+          ];
+        }      
+        return (new TransactionExport($transactionList))->download('transaction_list.xlsx',
+                    \Maatwebsite\Excel\Excel::XLSX);                                               
+      }else{
+        $transactionList = [];
+        return redirect()->back()->with('danger','Record Not Found between specified dates.');
+      }
+
+    }
 }

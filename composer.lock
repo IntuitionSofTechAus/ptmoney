@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "23d65d2473d7ab3eccd63798eed71d3b",
+    "content-hash": "9eae1bd95f5bdc3f4f9b21c788c07c7f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3564,6 +3564,7 @@
                 "issues": "https://github.com/swiftmailer/swiftmailer/issues",
                 "source": "https://github.com/swiftmailer/swiftmailer/tree/v6.2.7"
             },
+            "abandoned": "symfony/mailer",
             "time": "2021-03-09T12:30:35+00:00"
         },
         {
@@ -7832,7 +7833,6 @@
                 "issues": "https://github.com/sebastianbergmann/resource-operations/issues",
                 "source": "https://github.com/sebastianbergmann/resource-operations/tree/3.0.3"
             },
-            "abandoned": true,
             "time": "2020-09-28T06:45:17+00:00"
         },
         {

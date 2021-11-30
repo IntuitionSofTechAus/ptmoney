@@ -6058,7 +6058,8 @@
         "support": {
             "issues": "https://github.com/sebastianbergmann/resource-operations/issues",
             "source": "https://github.com/sebastianbergmann/resource-operations/tree/3.0.3"
-        }
+        },
+        "abandoned": true
     },
     {
         "name": "sebastian/type",
@@ -6233,6 +6234,12 @@
                 "type": "tidelift"
             }
         ],
+
+        "support": {
+            "issues": "https://github.com/swiftmailer/swiftmailer/issues",
+            "source": "https://github.com/swiftmailer/swiftmailer/tree/v6.2.7"
+        },
+
         "abandoned": "symfony/mailer"
     },
     {

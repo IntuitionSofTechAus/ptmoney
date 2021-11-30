@@ -22,4 +22,10 @@ class Member extends Model
   public function provinces(){
     return $this->belongsTo(Province::class,'province');
   }
+  public function district(){
+    return $this->belongsTo(District::class,'id','receiver_state');
+  }
+  public function postcode(){
+    return $this->belongsTo(Postcode::class,'receiver_postcode');
+  }
 }

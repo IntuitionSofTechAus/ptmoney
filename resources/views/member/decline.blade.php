@@ -201,7 +201,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Province*<sup class="required">*</sup></label>
-                                            <select name="province" class="form-control">
+                                            <select id="province" name="province" class="form-control" onchange="getdistrict(this.value)">
                                                 @foreach($provinces as $province) 
                                                 <option value="{{$province->id}}"@if($member->province==$province->id){{'selected'}} @endif>{{$province->name}}</option>
                                                 @endforeach
@@ -214,7 +214,9 @@
                                     <div class="col-lg-4">
                                         <div class="form-group"> 
                                               <label>State<sup class="required">*</sup></label>
-                                              <input type="text" name="receiver_state" class="form-control" value="{{$member->receiver_state}}">
+                                            <select id="receiver_state" name="receiver_state" class="form-control" onchange="getstate(this.value)">
+                                               <option value="{{$member->receiver_state}}">{{$member->receiver_state}}</option>
+                                           </select>
                                                 @error('receiver_state')
                                                    <span class="reds">{{ $message }}</span>   
                                                 @enderror
@@ -223,7 +225,9 @@
                                     <div class="col-lg-4">
                                         <div class="form-group"> 
                                           <label>Postcode<sup class="required">*</sup></label>
-                                          <input type="number" name="receiver_postcode" value="{{ $member->receiver_postcode }}"  class="form-control" >
+                                          <select id="receiver_postcode" name="receiver_postcode" class="form-control">
+                                               <option value="">Select District</option>
+                                            </select>   
                                             @error('receiver_postcode')
                                                 <span class="reds">{{ $message }}</span>
                                             @enderror
@@ -460,3 +464,4 @@
                              <input type="submit" name="submit" value="SUBMIT" class="btn btn-primary" style="float: right;">
                         </div>   
                         <form>
+                            

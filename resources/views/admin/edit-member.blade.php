@@ -235,7 +235,7 @@ canvas#signature {
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Province*<sup class="required">*</sup></label>
-                                            <select name="province" class="form-control">
+                                            <select name="province" id="province" onchange="getdistrict(this.value)" class="form-control">
                                                 @foreach($provinces as $province) 
                                                 <option value="{{$province->id}}"@if($member->province==$province->id){{'selected'}} @endif>{{$province->name}}</option>
                                                 @endforeach
@@ -248,7 +248,9 @@ canvas#signature {
                                     <div class="col-lg-4">
                                         <div class="form-group"> 
                                               <label>State<sup class="required">*</sup></label>
-                                              <input type="text" name="receiver_state" class="form-control" value="{{$member->receiver_state}}">
+
+                                               <select id="receiver_state" name="receiver_state" class="form-control" onchange="getstate(this.value)">
+                                               <option value="{{$member->receiver_state}}">{{$member->receiver_state}}</option></select>
                                                 @error('receiver_state')
                                                    <span class="reds">{{ $message }}</span>   
                                                 @enderror
@@ -257,7 +259,9 @@ canvas#signature {
                                     <div class="col-lg-4">
                                         <div class="form-group"> 
                                           <label>Postcode<sup class="required">*</sup></label>
-                                          <input type="number" name="receiver_postcode" value="{{ $member->receiver_postcode }}"  class="form-control" >
+                                            <select id="receiver_postcode" name="receiver_postcode" class="form-control">
+                                               <option value="">Select District</option>
+                                            </select>   
                                             @error('receiver_postcode')
                                                 <span class="reds">{{ $message }}</span>
                                             @enderror
@@ -273,10 +277,13 @@ canvas#signature {
                                 </div>
                             </div>
                              <div class="col-md-9">
-                                <div class="form-group">
-                                <input type="text" name="bank_name" value="{{ $member->bank_name }}"  class="form-control" readonly>
+                                <div class="form-group">           
+                                 <select readOnly disabled name="bank_name" class="form-control"> 
+                                     @foreach($banks as $bank)
+                                     <option value="{{$bank->id}} @if( $member->id== $bank->id){{'selected'}} @endif">{{$bank->name}}</option>
+                                     @endforeach</select>
                                   @error('bank_name')
-                                   <span class="reds">{{ $message }}</span>   
+                                   <span class="reds">{{ $message }}</span>
                                   @enderror
                                 </div>
                              </div>
@@ -509,5 +516,49 @@ canvas#signature {
         sig.signature('clear');
         $("#signature64").val('');
     });
+    $(document).ready(function(){
+     var pro = $('#province').val();
+     var getdistrict = $('#receiver_state').val();
+     $.ajax({
+        url:"{{route('geteditdistrict')}}",
+        method:"POST",
+        data:{_token:"{{csrf_token()}}",id:pro,state:getdistrict},
+        success:function(data){
+           $('#receiver_state').html(data);
+        }
+       })
+     getstate(getdistrict);
+    
+ })
+      function getdistrict(id)
+    {
+       $.ajax({
+        url:"{{route('getdistrict')}}",
+        method:"POST",
+        data:{_token:"{{csrf_token()}}",id:id},
+        success:function(data){
+           $('#receiver_state').html(data);
+        }
+       })
+         var ids = $('#receiver_state').val();
+         if(ids){
+         getstate(ids);
+     }
+
+    }
+
+    function getstate(id)
+    {
+       $.ajax({
+        url:"{{route('getstate')}}",
+        method:"POST",
+        data:{_token:"{{csrf_token()}}",id:id},
+        success:function(data){
+           $('#receiver_postcode').html(data);
+        }
+       })
+    }
+
 </script>
+
 @endsection

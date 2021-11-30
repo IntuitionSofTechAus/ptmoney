@@ -372,7 +372,7 @@
                                     @php $transaction = \App\Models\Transaction::join('senders','senders.id','=','transactions.sender_id')->where('senders.user_id',\Auth::user()->id)->orderBy('transactions.created_at','desc')->limit(5)->get(); @endphp
                                 @endif
                                 @if(count($transaction) > 0)
-                                    @foreach($transaction as $k=>$t)
+                                    @foreach($transaction as $k => $t)
                                         <tr>
                                             <td>{{$k+1}}</td>
                                             <td>{{$t->transaction_id}}</td>
@@ -416,7 +416,7 @@
                                     <tbody>
                                      @foreach ((\App\Models\User::orderBy('created_at','desc'))->where('is_verified',1)->limit(5)->get() as $key => $user)
                                         <tr>
-                                            <td>{{$k+1}}</td>
+                                            <td>{{$key+1}}</td>
                                          <td>{{$user->name}}</td>
                                          <td>{{$user->email}}</td>
                                          <td>Verified</td>

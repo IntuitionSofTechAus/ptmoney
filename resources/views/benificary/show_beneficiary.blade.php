@@ -66,7 +66,7 @@ canvas#signature {
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                               <P>{{$beneficiary->provinces->name ?? ''}}</P>
+                               <P>{{$beneficiary->province ?? ''}}</P>
                                 </div>
                             </div>
                             <div class="col-md-3">

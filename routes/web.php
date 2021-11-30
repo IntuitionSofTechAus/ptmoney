@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HelloWorld;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +17,12 @@ use App\Http\Controllers\AdminController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('excel',[HelloWorld::class,'index']);
+Route::post('import',[HelloWorld::class,'import'])->name('import');
+Route::POST('getdistrict',[HelloWorld::class,'getdistrict'])->name('getdistrict');
+Route::POST('geteditdistrict',[HelloWorld::class,'geteditdistrict'])->name('geteditdistrict');
 
+Route::POST('getstate',[HelloWorld::class,'getstate'])->name('getstate');
 Route::get('/',[PageController::class,'home']);
 Route::get('terms-and-condition', function () {
     return view('member.terms_and_condition');

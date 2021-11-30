@@ -11,18 +11,20 @@ use App\Models\Sender;
 use App\Models\Receiver;
 use App\Models\Beneficiary;
 use App\Models\Province;
+use App\Models\Bank;
 
 class MemberController extends Controller
 {
     
     //Add new member form after login
     public function index()
-    {   
+    {  
+        $banks = Bank::get();
         $member_count = Sender::where('user_id',Auth::user()->id)->count();
         $member       = Sender::select('senders.*','receivers.id as receiver_id','receivers.receiver_full_name','receivers.receiver_address','receivers.receiver_suburb','receivers.receiver_state','receivers.receiver_postcode','receivers.bank_name','receivers.accont_number','receivers.branch','receivers.sender_id','receivers.province','receivers.contact_number')->join('receivers','senders.id','=','receivers.sender_id')->where('user_id',Auth::user()->id)->first();
         $states       = State::all();
         $provinces    = Province::all();
-        return view('member.application_form',compact('member_count','member','states','provinces')); 
+        return view('member.application_form',compact('member_count','member','states','provinces','banks')); 
     }
 
     //Store member detail
@@ -43,7 +45,6 @@ class MemberController extends Controller
            'receiver_address'    => 'required|min:3',
            'receiver_state'      => 'required',
            'receiver_postcode'   => 'required',
-           'bank_name'           => 'required',
            'accont_number'       => 'required|numeric',
            'branch'              => 'required',
            'signed'              => 'required',
@@ -169,11 +170,13 @@ class MemberController extends Controller
     //Add new Benificary form 
     public function beneficiary()
     {   
+
         $beneficiary_count = Beneficiary::where('user_id',Auth::user()->id)->count();
+        $banks = Bank::get();
         $sender = Sender::where('user_id',Auth::user()->id)->first();
         $states       = State::all();
         $provinces    = Province::all();
-        return view('benificary.application_form',compact('states','beneficiary_count','provinces','sender')); 
+        return view('benificary.application_form',compact('states','beneficiary_count','provinces','sender','banks')); 
     }
     
     public function beneficiaryStore(Request $request)
@@ -245,7 +248,13 @@ class MemberController extends Controller
 
     public function showBeneficiary(Request $request)
     {
-        $beneficiary = Sender::select('senders.id as sender_id','receivers.*')->join('receivers','senders.id','=','receivers.sender_id')->where('receivers.id',$request->id)->first();
-        return view('benificary.show_beneficiary',compact('beneficiary'));
+
+        $banks = Bank::get();
+        $beneficiary = Sender::select('senders.id as sender_id','receivers.*','districts.name as receiver_state','postcodes.name as receiver_postcode','banks.name as bank_name','provinces.name as province')->join('receivers','senders.id','=','receivers.sender_id')
+        ->join('banks','banks.id','receivers.bank_name')
+        ->join('districts','districts.id','receivers.receiver_state')
+        ->join('postcodes','postcodes.id','receivers.receiver_postcode')
+        ->join('provinces','provinces.id','receivers.province')->where('senders.id',$request->id)->where('receivers.id',$request->id)->first();
+        return view('benificary.show_beneficiary',compact('beneficiary','banks'));
     }
 }

@@ -18,6 +18,7 @@ use DB;
 use Mail;
 use App\Exports\TransactionExport;
 use Auth;
+use App\Models\Bank;
 
 class AdminController extends Controller
 {
@@ -43,7 +44,11 @@ class AdminController extends Controller
     // Show member detail
     public function showMember(Request $request)
     {
-        $member = Sender::select('senders.*','receivers.id as receiver_id','receivers.receiver_full_name','receivers.receiver_address','receivers.receiver_suburb','receivers.receiver_state','receivers.receiver_postcode','receivers.bank_name','receivers.accont_number','receivers.branch','receivers.sender_id','receivers.province','receivers.contact_number')-> join('receivers','senders.id','=','receivers.sender_id')->where('senders.id',$request->id)->first();
+        $member = Sender::select('senders.*','receivers.id as receiver_id','receivers.receiver_full_name','receivers.receiver_address','receivers.receiver_suburb','districts.name as receiver_state','postcodes.name as receiver_postcode','receivers.accont_number','receivers.branch','receivers.sender_id','provinces.name as province','receivers.contact_number','banks.name as bank_name')->join('receivers','senders.id','=','receivers.sender_id')
+        ->join('banks','banks.id','receivers.bank_name')
+        ->join('districts','districts.id','receivers.receiver_state')
+        ->join('postcodes','postcodes.id','receivers.receiver_postcode')
+        ->join('provinces','provinces.id','receivers.province')->where('senders.id',$request->id)->first();
         $is_customer = 0;
         return view('admin.showmember',compact('member','is_customer'));
     }
@@ -97,9 +102,10 @@ class AdminController extends Controller
     }
 
     public function newCustomer(){
+        $banks        = Bank::get();
         $states       = State::all();
         $provinces    = Province::all();
-        return view('admin.add-customer',compact('states','provinces')); 
+        return view('admin.add-customer',compact('states','provinces','banks')); 
     }
 
     public function store(Request $request)
@@ -177,7 +183,12 @@ class AdminController extends Controller
     }
 
     public function showCustomer($id){
-        $member = Sender::select('senders.*','receivers.id as receiver_id','receivers.receiver_full_name','receivers.receiver_address','receivers.receiver_suburb','receivers.receiver_state','receivers.receiver_postcode','receivers.bank_name','receivers.accont_number','receivers.branch','receivers.sender_id','receivers.province','receivers.contact_number')->join('receivers','senders.id','=','receivers.sender_id')->where('senders.id',$id)->first();
+        $member =
+        Sender::select('senders.*','receivers.id as receiver_id','receivers.receiver_full_name','receivers.receiver_address','receivers.receiver_suburb','districts.name as receiver_state','postcodes.name as receiver_postcode','receivers.accont_number','receivers.branch','receivers.sender_id','provinces.name as province','receivers.contact_number','banks.name as bank_name')->join('receivers','senders.id','=','receivers.sender_id')
+        ->join('banks','banks.id','receivers.bank_name')
+        ->join('districts','districts.id','receivers.receiver_state')
+        ->join('postcodes','postcodes.id','receivers.receiver_postcode')
+        ->join('provinces','provinces.id','receivers.province')->where('senders.id',$id)->first();
         $is_customer = 1;
         return view('admin.showmember',compact('member','is_customer'));
     } 
@@ -235,11 +246,12 @@ class AdminController extends Controller
     }
 
     public function addbeneficiary($id){
+      $banks = Bank::get();
         $beneficiary_count = Beneficiary::where('user_id',Auth::user()->id)->count();
         $sender = Sender::where('id',$id)->first();
         $states       = State::all();
         $provinces    = Province::all();
-        return view('benificary.application_form',compact('states','beneficiary_count','provinces','sender'));
+        return view('benificary.application_form',compact('states','beneficiary_count','provinces','sender','banks'));
     }
 
     public function listTransactionByStatus($status){
@@ -285,11 +297,12 @@ class AdminController extends Controller
     public function editMember($id){
       $member = Sender::select('senders.*','receivers.id as receiver_id','receivers.receiver_full_name','receivers.receiver_address','receivers.receiver_suburb','receivers.receiver_state','receivers.receiver_postcode','receivers.bank_name','receivers.accont_number','receivers.branch','receivers.sender_id','receivers.province','receivers.contact_number')->join('receivers','senders.id','=','receivers.sender_id')->where('senders.id',$id)->first();
         $is_customer = 0;
-        
+        $banks        = Bank::get();
+      
         $states       = State::all();
         $provinces    = Province::all();
 
-        return view('admin.edit-member',compact('member','is_customer','states','provinces'));
+        return view('admin.edit-member',compact('member','is_customer','states','provinces','banks'));
     }
 
     public function sendTransactionMail($id){

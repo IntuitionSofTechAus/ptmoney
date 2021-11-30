@@ -33,6 +33,7 @@ canvas#signature {
 	                    <h3>New Customer</h3>
 	                    <form action="{{route('customer.store')}}" method="post" enctype="multipart/form-data">
 	                        @csrf
+	                        
 	                        <h5>Sender Detail:</h5>
 	                        <div class="row">
 	                            <div class="col-md-3">

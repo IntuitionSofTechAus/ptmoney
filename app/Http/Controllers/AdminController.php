@@ -326,17 +326,34 @@ class AdminController extends Controller
         $transaction = Transaction::with('sender','receiver')->where('created_at','>=',date("Y-m-d h:i:s",strtotime($request->from_date)))->where('created_at','<=',date("Y-m-d h:i:s",strtotime($request->to_date)))->orderBy('created_at','desc')->get();
       }  
 
+      // echo "<pre>";print_r($transaction);die;
       if(count($transaction) > 0){
         foreach($transaction as $t){
           $transactionList [] = [
             "Transaction_Number" => $t->transaction_id,
             "Agent_Ref" => $t->aganet_ref,
-            "Sender" => $t->sender->sender_full_name,
-            "Receiver" => $t->receiver->receiver_full_name,
             "Sent" => $t->amount,
             "Rate" => $t->rate,
             "Received" => $t->receivable_amount,
-            "Status" => $t->status
+            "Status" => $t->status,
+            "Sender" => $t->sender->sender_full_name,
+            'MembershipNumber'=> $t->sender->membership_number,
+            'Dob'=> $t->sender->dob,
+            'PhoneNumber'=> $t->sender->telephone,
+            'ResidentialAddress'=> $t->sender->sender_address,
+            'Subrub'=> $t->sender->sender_suburb,
+            'State'=> $t->sender->sender_state,
+            'Postcode'=> $t->sender->sender_postcode,
+            'Occupation'=> $t->sender->occupation,
+            "Receiver" => $t->receiver->receiver_full_name,
+            'ReceiverResidentialAdd'=> $t->receiver->receiver_address,
+            'ReceiverProvience'=> $t->receiver->province,
+            'ReceiverDistrict'=> $t->receiver->receiver_state,
+            'ReceiverPostcode'=> $t->receiver->receiver_postcode,
+            'BankName'=> $t->receiver->bank_name,
+            'AccountNumber'=> $t->receiver->accont_number,
+            'Branch'=> $t->receiver->branch,
+            'ContactNumber'=> $t->receiver->contact_number
           ];
         }      
         return (new TransactionExport($transactionList))->download('transaction_list.xlsx',

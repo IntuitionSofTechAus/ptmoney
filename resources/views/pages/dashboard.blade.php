@@ -356,8 +356,7 @@
                                 <th>Agent Ref.</th>
                                 <th>Sender</th>
                                 <th>Receiver</th>
-                                <!-- <th>Account No.</th>
-                                <th>Bank</th> -->
+                               
                                 <th>Sent</th>
                                 <th>Rate</th>
                                 <th>Received</th>
@@ -377,10 +376,8 @@
                                             <td>{{$k+1}}</td>
                                             <td>{{$t->transaction_id}}</td>
                                             <td>{{$t->aganet_ref}}</td>
-                                            <td>{{$t->sender->sender_full_name}}</td>
-                                            <td>{{$t->receiver->receiver_full_name}}</td>
-                                            <!-- <td>{{$t->receiver->accont_number}}</td>
-                                            <td>{{$t->receiver->bank_name}}</td> -->
+                                            <td>{{$t->sender->sender_full_name }}</td>
+                                            <td>{{$t->receiver->receiver_full_name}}</td>                        
                                             <td class="text-success bold"><b>${{$t->amount}}</b></td>
                                             <td>{{$t->rate}}</td>
                                             <td class="text-danger bold"><b>฿{{$t->receivable_amount}}</b></td>

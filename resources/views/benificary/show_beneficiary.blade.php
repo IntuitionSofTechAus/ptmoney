@@ -139,13 +139,15 @@ canvas#signature {
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-3">           
                                 <label class="mt-4" for="">Sign:</label>
                             </div>  
                             <div class="col-md-3">
                                 <div id="siga" >
                                       @if(File::exists(public_path('upload/beneficiary/'.$beneficiary->signed)))
                                     <img src="{{asset('upload/beneficiary/'.$beneficiary->signed)}}" width="300">
+                                    @elseif(File::exists(public_path('upload/'.$beneficiary->signed)))
+                                    <img src="{{asset('upload/'.$beneficiary->signed)}}" width="300">
                                     @endif
                                 </div>
                                 <br/>

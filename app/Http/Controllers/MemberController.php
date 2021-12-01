@@ -21,7 +21,11 @@ class MemberController extends Controller
     {  
         $banks = Bank::get();
         $member_count = Sender::where('user_id',Auth::user()->id)->count();
-        $member       = Sender::select('senders.*','receivers.id as receiver_id','receivers.receiver_full_name','receivers.receiver_address','receivers.receiver_suburb','receivers.receiver_state','receivers.receiver_postcode','receivers.bank_name','receivers.accont_number','receivers.branch','receivers.sender_id','receivers.province','receivers.contact_number')->join('receivers','senders.id','=','receivers.sender_id')->where('user_id',Auth::user()->id)->first();
+         $member = Sender::select('senders.*','receivers.id as receiver_id','receivers.receiver_full_name','receivers.receiver_address','receivers.receiver_suburb','districts.name as receiver_state','postcodes.name as receiver_postcode','receivers.accont_number','receivers.branch','receivers.sender_id','provinces.name as province','receivers.contact_number','banks.name as bank_name')->join('receivers','senders.id','=','receivers.sender_id')
+        ->join('banks','banks.id','receivers.bank_name')
+        ->join('districts','districts.id','receivers.receiver_state')
+        ->join('postcodes','postcodes.id','receivers.receiver_postcode')
+        ->join('provinces','provinces.id','receivers.province')->where('user_id',Auth::user()->id)->first();
         $states       = State::all();
         $provinces    = Province::all();
         return view('member.application_form',compact('member_count','member','states','provinces','banks')); 
@@ -112,11 +116,9 @@ class MemberController extends Controller
            'receiver_full_name'  => 'required|min:3',
            'receiver_address'    => 'required|min:3',
            'receiver_state'      => 'required',
-           'receiver_postcode'   => 'required',
-           'bank_name'           => 'required',
+           'receiver_postcode'   => 'required',           
            'accont_number'       => 'required|numeric',
-           'branch'              => 'required',
-           'signed'              => 'required',
+           'branch'              => 'required',          
            'name'                => 'required',
            'date'                => 'required',
            'acceptance'          => 'required',
@@ -129,17 +131,25 @@ class MemberController extends Controller
            'contact_number'      => 'required|numeric|min:10',
            'province'            => 'required',
        ]);
-
+        $data = $request->all();
+        if($request->signed){
         $folderPath = public_path('upload/');        
-        $image_parts = explode(";base64,", $request->signed);              
+        $image_parts = explode(";base64,", $request->signed);         
         $image_type_aux = explode("image/", $image_parts[0]);           
         $image_type = $image_type_aux[1];           
         $image_base64 = base64_decode($image_parts[1]);
         $image= uniqid() . '.'.$image_type;           
         $file = $folderPath . $image;
         file_put_contents($file, $image_base64);
-        $data = $request->all();
         $data['signed']  = $image;
+    }
+    else
+    {  
+        if($request->id){
+                $sender = Sender::find($request->id);
+                 $data['signed']  = $sender->signed;
+            }
+    }
         // $data['user_id'] = Auth::user()->id;
         // $data['membership_number'] = substr($request->sender_full_name, 0, 3).rand(11111,99999);
         if($request->hasFile('docfile1')){
@@ -249,12 +259,13 @@ class MemberController extends Controller
     public function showBeneficiary(Request $request)
     {
 
-        $banks = Bank::get();
-        $beneficiary = Sender::select('senders.id as sender_id','receivers.*','districts.name as receiver_state','postcodes.name as receiver_postcode','banks.name as bank_name','provinces.name as province')->join('receivers','senders.id','=','receivers.sender_id')
+        $banks = Bank::get();       
+        $beneficiary = Sender::select('senders.id as sender_id','receivers.*','districts.name as receiver_state','postcodes.name as receiver_postcode','banks.name as bank_name','provinces.name as province')
+        ->join('receivers','senders.id','=','receivers.sender_id')
         ->join('banks','banks.id','receivers.bank_name')
         ->join('districts','districts.id','receivers.receiver_state')
         ->join('postcodes','postcodes.id','receivers.receiver_postcode')
-        ->join('provinces','provinces.id','receivers.province')->where('senders.id',$request->id)->where('receivers.id',$request->id)->first();
+        ->join('provinces','provinces.id','receivers.province')->where('receivers.id',$request->id)->first();
         return view('benificary.show_beneficiary',compact('beneficiary','banks'));
     }
 }

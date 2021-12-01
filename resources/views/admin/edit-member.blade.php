@@ -35,6 +35,7 @@ canvas#signature {
                         <input type="hidden" name="id" value="{{$member->id}}">
                         <input type="hidden" name="receiver_id" value="{{$member->receiver_id}}">
                         <input type="hidden" name="approval" value="0">
+                        
                         <h3>Sender Detail:</h3><br>
                         <div class="row">
                             <div class="col-md-3">

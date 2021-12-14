@@ -35,8 +35,23 @@ canvas#signature {
                         <input type="hidden" name="id" value="{{$member->id}}">
                         <input type="hidden" name="receiver_id" value="{{$member->receiver_id}}">
                         <input type="hidden" name="approval" value="0">
-                        
+                       
                         <h3>Sender Detail:</h3><br>
+                         <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Membership Number<sup class="required">*</sup></label>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                <input type="text"  name="membership_number" value="{{$member->membership_number }}"  class="form-control">
+                                @error('membership_number')  
+                                    <span class="reds">{{ $message }}</span>
+                                @enderror
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
